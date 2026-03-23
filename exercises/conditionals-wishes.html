@@ -1,0 +1,1389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Conditionals & Wishes - Advanced English</title>
+    <style>
+      /* Global styles */
+:root {
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --secondary-color: #64748b;
+  --secondary-hover: #475569;
+  --success-color: #10b981;
+  --danger-color: #ef4444;
+  --light-color: #f8fafc;
+  --dark-color: #1e293b;
+  --border-radius: 12px;
+  --box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+/* Exercise page layout */
+.exercise-page {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.exercise-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+}
+
+/* Header styles */
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.exercise-title {
+  color: var(--primary-color);
+  font-size: 2.2rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.exercise-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  background-color: #f1f5f9;
+}
+
+.back-link:hover {
+  color: var(--primary-color);
+  background-color: #e2e8f0;
+  transform: translateX(-5px);
+}
+
+.back-link svg {
+  margin-right: 0.5rem;
+}
+
+/* Progress bar */
+.progress-container {
+  height: 10px;
+  background-color: #e2e8f0;
+  border-radius: 10px;
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 10px;
+  width: 4%; /* 1 out of 25 questions */
+}
+
+/* Question container */
+.question-container {
+  background-color: #fff;
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2.5rem;
+  border: 1px solid #e2e8f0;
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.question-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.question {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: var(--dark-color);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.question::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+  opacity: 0.5;
+}
+
+/* Options */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.option {
+  background-color: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: var(--border-radius);
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.option::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background-color: transparent;
+  transition: var(--transition);
+}
+
+.option:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+  transform: translateX(5px);
+}
+
+.option.selected {
+  background-color: rgba(99, 102, 241, 0.05);
+  border-color: var(--primary-color);
+}
+
+.option.selected::before {
+  background-color: var(--primary-color);
+}
+
+.option input[type="radio"] {
+  margin-right: 1rem;
+  cursor: pointer;
+  width: 20px;
+  height: 20px;
+  accent-color: var(--primary-color);
+}
+
+.option label {
+  cursor: pointer;
+  flex: 1;
+  font-weight: 500;
+  color: var(--dark-color);
+}
+
+/* Buttons */
+.exercise-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.primary-button, .secondary-button {
+  padding: 0.9rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.primary-button {
+  background: linear-gradient(to right, #6366f1, #4f46e5);
+  color: white;
+}
+
+.primary-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #4f46e5, #3730a3);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.primary-button:hover::after {
+  opacity: 1;
+}
+
+.primary-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+}
+
+.primary-button:disabled {
+  background: #cbd5e1;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.primary-button:disabled::after {
+  display: none;
+}
+
+.secondary-button {
+  background-color: #f1f5f9;
+  color: var(--secondary-color);
+  border: 1px solid #cbd5e1;
+}
+
+.secondary-button:hover {
+  background-color: #e2e8f0;
+  color: var(--dark-color);
+  transform: translateY(-3px);
+}
+
+/* Additional styles from the original CSS */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  .exercise-page {
+    padding: 1.5rem;
+  }
+  
+  .question-container {
+    padding: 1.5rem;
+  }
+  
+  .exercise-title {
+    font-size: 1.8rem;
+  }
+  
+  .question {
+    font-size: 1.2rem;
+  }
+
+  .primary-button, .secondary-button {
+    padding: 0.8rem 1.5rem;
+    min-width: 100px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.question-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+  }
+}
+
+.primary-button:focus {
+  animation: pulse 1.5s infinite;
+}
+
+/* Button links styling */
+a.secondary-button {
+  text-decoration: none;
+  display: inline-block;
+  text-align: center;
+}
+
+/* Floating animated background elements */
+.bg-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg-element {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 15s infinite linear;
+}
+
+.bg-element:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  width: 120px;
+  height: 120px;
+  animation-duration: 35s;
+}
+
+.bg-element:nth-child(2) {
+  top: 70%;
+  left: 20%;
+  width: 80px;
+  height: 80px;
+  animation-duration: 45s;
+  animation-delay: 2s;
+}
+
+.bg-element:nth-child(3) {
+  top: 40%;
+  right: 10%;
+  width: 150px;
+  height: 150px;
+  animation-duration: 40s;
+  animation-delay: 5s;
+}
+
+.bg-element:nth-child(4) {
+  bottom: 10%;
+  right: 20%;
+  width: 100px;
+  height: 100px;
+  animation-duration: 50s;
+  animation-delay: 7s;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.3;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(100px, 100px) rotate(180deg);
+    opacity: 0.3;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+.exercise-info {
+  display: flex;
+  margin-bottom: 2rem;
+  gap: 2rem;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  color: var(--secondary-color);
+  font-size: 0.95rem;
+}
+
+.info-item svg {
+  margin-right: 0.5rem;
+}
+
+.difficulty-badge {
+  display: inline-block;
+  padding: 0.35rem 1rem;
+  background-color: #fee2e2;
+  color: #ef4444;
+  border-radius: 20px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-left: auto;
+}
+
+/* Hide all question pages initially */
+.question-page {
+  display: none;
+}
+
+/* Show only the active question */
+.question-page.active {
+  display: block;
+}
+
+/* Results section styling */
+#results {
+  display: none;
+  padding: 2rem;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-top: 2rem;
+  animation: fadeIn 0.5s ease-out;
+}
+
+#results h3 {
+  color: var(--primary-color);
+  font-size: 1.6rem;
+  margin-bottom: 1.5rem;
+  padding-bottom: 1rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+#feedback {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+#feedback li {
+  padding: 1rem;
+  margin-bottom: 0.8rem;
+  border-radius: var(--border-radius);
+  background-color: #f8fafc;
+  border-left: 4px solid #cbd5e1;
+}
+
+#feedback li.correct {
+  border-left-color: var(--success-color);
+  background-color: rgba(16, 185, 129, 0.05);
+}
+
+#feedback li.incorrect {
+  border-left-color: var(--danger-color);
+  background-color: rgba(239, 68, 68, 0.05);
+}
+
+.restart-btn {
+  margin-top: 2rem;
+  width: 100%;
+}
+
+/* Score display */
+.score-display {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary-color);
+  text-align: center;
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background: linear-gradient(to right, rgba(99, 102, 241, 0.1), rgba(59, 130, 246, 0.1));
+  border-radius: var(--border-radius);
+}
+
+.score-percentage {
+  font-size: 1.2rem;
+  color: var(--secondary-color);
+  margin-top: 0.5rem;
+}
+    </style>
+</head>
+<body>
+    <div class="bg-elements">
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+    </div>
+
+    <div class="exercise-page">
+        <div class="exercise-header">
+            <h1 class="exercise-title">Conditionals & Wishes</h1>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progress-bar"></div>
+        </div>
+
+        <div class="question-container">
+            <div id="question-1" class="question-page active">
+                <h2 class="question">1. If I _____ earlier, I wouldn't have missed the train.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1a" value="a">
+                        <label for="q1a">would leave</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1b" value="b">
+                        <label for="q1b">have left</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1c" value="c">
+                        <label for="q1c">would have left</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1d" value="d">
+                        <label for="q1d">had left</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-2" class="question-page">
+                <h2 class="question">2. If it rains tomorrow, we _____ cancel the picnic.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2a" value="a">
+                        <label for="q2a">will</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2b" value="b">
+                        <label for="q2b">would</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2c" value="c">
+                        <label for="q2c">would have</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2d" value="d">
+                        <label for="q2d">can</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-3" class="question-page">
+                <h2 class="question">3. I wish I _____ taller.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3a" value="a">
+                        <label for="q3a">am</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3b" value="b">
+                        <label for="q3b">were</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3c" value="c">
+                        <label for="q3c">will be</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3d" value="d">
+                        <label for="q3d">was being</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-4" class="question-page">
+                <h2 class="question">4. If she had studied harder, she _____ passed the exam.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4a" value="a">
+                        <label for="q4a">would</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4b" value="b">
+                        <label for="q4b">will have</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4c" value="c">
+                        <label for="q4c">would have</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4d" value="d">
+                        <label for="q4d">has</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-5" class="question-page">
+                <h2 class="question">5. If I were you, I _____ talk to the manager.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5a" value="a">
+                        <label for="q5a">would</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5b" value="b">
+                        <label for="q5b">will</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5c" value="c">
+                        <label for="q5c">can</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5d" value="d">
+                        <label for="q5d">did</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-6" class="question-page">
+                <h2 class="question">6. If we heat water to 100°C, it _____.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6a" value="a">
+                        <label for="q6a">boiled</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6b" value="b">
+                        <label for="q6b">boils</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6c" value="c">
+                        <label for="q6c">will boil</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6d" value="d">
+                        <label for="q6d">would boil</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-7" class="question-page">
+                <h2 class="question">7. He wouldn't be so tired if he _____ to bed earlier.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7a" value="a">
+                        <label for="q7a">would go</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7b" value="b">
+                        <label for="q7b">went</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7c" value="c">
+                        <label for="q7c">goes</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7d" value="d">
+                        <label for="q7d">had gone</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-8" class="question-page">
+                <h2 class="question">8. I wish I _____ how to drive.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8a" value="a">
+                        <label for="q8a">know</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8b" value="b">
+                        <label for="q8b">will know</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8c" value="c">
+                        <label for="q8c">am knowing</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8d" value="d">
+                        <label for="q8d">knew</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-9" class="question-page">
+                <h2 class="question">9. If she calls, I _____ tell her the news.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9a" value="a">
+                        <label for="q9a">will</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9b" value="b">
+                        <label for="q9b">would</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9c" value="c">
+                        <label for="q9c">would have</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9d" value="d">
+                        <label for="q9d">shall</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-10" class="question-page">
+                <h2 class="question">10. If I had known, I _____ told you.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10a" value="a">
+                        <label for="q10a">will have</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10b" value="b">
+                        <label for="q10b">would have</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10c" value="c">
+                        <label for="q10c">would</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10d" value="d">
+                        <label for="q10d">had</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-11" class="question-page">
+                <h2 class="question">11. If they _____ more money, they would travel abroad.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11a" value="a">
+                        <label for="q11a">will have</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11b" value="b">
+                        <label for="q11b">had had</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11c" value="c">
+                        <label for="q11c">had</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11d" value="d">
+                        <label for="q11d">have had</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-12" class="question-page">
+                <h2 class="question">12. I wish it _____ snow more in winter.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12a" value="a">
+                        <label for="q12a">will</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12b" value="b">
+                        <label for="q12b">would</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12c" value="c">
+                        <label for="q12c">can</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12d" value="d">
+                        <label for="q12d">does</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-13" class="question-page">
+                <h2 class="question">13. If I see him, I _____ give him the message.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13a" value="a">
+                        <label for="q13a">will</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13b" value="b">
+                        <label for="q13b">would</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13c" value="c">
+                        <label for="q13c">would have</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13d" value="d">
+                        <label for="q13d">had</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-14" class="question-page">
+                <h2 class="question">14. What _____ if you won the lottery?</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14a" value="a">
+                        <label for="q14a">will you do</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14b" value="b">
+                        <label for="q14b">would you do</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14c" value="c">
+                        <label for="q14c">would you have done</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14d" value="d">
+                        <label for="q14d">will you be doing</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-15" class="question-page">
+                <h2 class="question">15. She wishes she _____ the party last night.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15a" value="a">
+                        <label for="q15a">attended</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15b" value="b">
+                        <label for="q15b">would attend</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15c" value="c">
+                        <label for="q15c">had attended</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15d" value="d">
+                        <label for="q15d">attends</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-16" class="question-page">
+                <h2 class="question">16. Unless it _____, we will go to the beach.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q16" id="q16a" value="a">
+                        <label for="q16a">rains</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q16" id="q16b" value="b">
+                        <label for="q16b">will rain</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q16" id="q16c" value="c">
+                        <label for="q16c">would rain</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q16" id="q16d" value="d">
+                        <label for="q16d">is raining</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-17" class="question-page">
+                <h2 class="question">17. If I _____ rich, I would buy a mansion.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q17" id="q17a" value="a">
+                        <label for="q17a">am</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q17" id="q17b" value="b">
+                        <label for="q17b">were</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q17" id="q17c" value="c">
+                        <label for="q17c">would be</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q17" id="q17d" value="d">
+                        <label for="q17d">will be</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-18" class="question-page">
+                <h2 class="question">18. If you _____ the instructions, you wouldn't have made so many mistakes.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q18" id="q18a" value="a">
+                        <label for="q18a">followed</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q18" id="q18b" value="b">
+                        <label for="q18b">would follow</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q18" id="q18c" value="c">
+                        <label for="q18c">had followed</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q18" id="q18d" value="d">
+                        <label for="q18d">would have followed</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-19" class="question-page">
+                <h2 class="question">19. I wish my brother _____ me so much.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q19" id="q19a" value="a">
+                        <label for="q19a">doesn't annoy</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q19" id="q19b" value="b">
+                        <label for="q19b">didn't annoy</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q19" id="q19c" value="c">
+                        <label for="q19c">wouldn't annoy</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q19" id="q19d" value="d">
+                        <label for="q19d">hadn't annoyed</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-20" class="question-page">
+                <h2 class="question">20. If you _____ to the party, you would have met my cousin.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q20" id="q20a" value="a">
+                        <label for="q20a">had come</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q20" id="q20b" value="b">
+                        <label for="q20b">came</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q20" id="q20c" value="c">
+                        <label for="q20c">would come</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q20" id="q20d" value="d">
+                        <label for="q20d">would have come</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-21" class="question-page">
+                <h2 class="question">21. If I were the president, I _____ taxes.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q21" id="q21a" value="a">
+                        <label for="q21a">will lower</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q21" id="q21b" value="b">
+                        <label for="q21b">would lower</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q21" id="q21c" value="c">
+                        <label for="q21c">would have lowered</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q21" id="q21d" value="d">
+                        <label for="q21d">had lowered</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-22" class="question-page">
+                <h2 class="question">22. If I _____ about your birthday, I would have bought you a present.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q22" id="q22a" value="a">
+                        <label for="q22a">knew</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q22" id="q22b" value="b">
+                        <label for="q22b">had known</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q22" id="q22c" value="c">
+                        <label for="q22c">would know</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q22" id="q22d" value="d">
+                        <label for="q22d">know</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-23" class="question-page">
+                <h2 class="question">23. I wish it _____ so hot today.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q23" id="q23a" value="a">
+                        <label for="q23a">isn't</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q23" id="q23b" value="b">
+                        <label for="q23b">wasn't</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q23" id="q23c" value="c">
+                        <label for="q23c">wouldn't be</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q23" id="q23d" value="d">
+                        <label for="q23d">hadn't been</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-24" class="question-page">
+                <h2 class="question">24. If you speak louder, everyone _____ hear you better.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q24" id="q24a" value="a">
+                        <label for="q24a">will</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q24" id="q24b" value="b">
+                        <label for="q24b">would</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q24" id="q24c" value="c">
+                        <label for="q24c">would have</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q24" id="q24d" value="d">
+                        <label for="q24d">can</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="question-25" class="question-page">
+                <h2 class="question">25. She talks to me as if she _____ me for years.</h2>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q25" id="q25a" value="a">
+                        <label for="q25a">knows</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q25" id="q25b" value="b">
+                        <label for="q25b">knew</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q25" id="q25c" value="c">
+                        <label for="q25c">had known</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q25" id="q25d" value="d">
+                        <label for="q25d">has known</label>
+                    </div>
+                </div>
+            </div>
+
+            <div id="results" class="question-page">
+                <h3>Your Results</h3>
+                <div class="score-display">
+                    <div id="score">0 / 25</div>
+                    <div class="score-percentage">0%</div>
+                </div>
+                <ul id="feedback"></ul>
+                <button class="primary-button restart-btn" onclick="restartQuiz()">Try Again</button>
+            </div>
+        </div>
+
+        <div class="exercise-controls">
+            <button class="secondary-button" id="prev-btn" onclick="prevQuestion()" disabled>
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path>
+                </svg>
+                Previous
+            </button>
+            <button class="primary-button" id="next-btn" onclick="nextQuestion()" disabled>
+                Next
+                <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
+                </svg>
+            </button>
+        </div>
+    </div>
+
+    <div id="result-container" class="result-container" style="display: none;">
+        <h2 class="result-title">Your Result</h2>
+        <div class="result-score" id="score">0/20</div>
+        <p class="result-feedback" id="feedback">Complete the exercise to see your feedback.</p>
+        <div id="incorrect-answers" class="incorrect-answers" style="display: none;">
+            <h3>Incorrect Answers:</h3>
+            <div id="incorrect-answers-list"></div>
+        </div>
+        <div class="result-buttons" style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+            <button id="saveResultBtn" class="primary-button" style="display: inline-flex; align-items: center; gap: 0.5rem; min-width: 150px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="7 3 7 8 15 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Save Result
+            </button>
+            <button id="restartBtn" class="primary-button" style="display: inline-flex; align-items: center; gap: 0.5rem; min-width: 150px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3M3 12H7M12 3V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Try Again
+            </button>
+        </div>
+    </div>
+
+    <script src="../js/language-test.js"></script>
+    <script>
+        const totalQuestions = 25;
+        let currentQuestion = 1;
+        const answers = {
+            q1: "d", q2: "a", q3: "b", q4: "c", q5: "a", 
+            q6: "b", q7: "b", q8: "d", q9: "a", q10: "b",
+            q11: "c", q12: "b", q13: "a", q14: "b", q15: "c",
+            q16: "a", q17: "b", q18: "c", q19: "b", q20: "a",
+            q21: "b", q22: "b", q23: "b", q24: "a", q25: "c"
+        };
+        const userAnswers = {};
+
+        // Add event listeners to radio buttons
+        document.querySelectorAll('input[type="radio"]').forEach(radio => {
+            radio.addEventListener('change', function() {
+                const questionName = this.name;
+                userAnswers[questionName] = this.value;
+                
+                // Enable next button
+                document.getElementById('next-btn').disabled = false;
+                
+                // Add selected class to the parent option
+                const options = document.querySelectorAll(`input[name="${questionName}"]`);
+                options.forEach(option => {
+                    option.closest('.option').classList.remove('selected');
+                });
+                this.closest('.option').classList.add('selected');
+            });
+        });
+
+        function nextQuestion() {
+            if (currentQuestion < totalQuestions) {
+                // Hide current question
+                document.getElementById(`question-${currentQuestion}`).classList.remove('active');
+                
+                // Show next question
+                currentQuestion++;
+                document.getElementById(`question-${currentQuestion}`).classList.add('active');
+                
+                // Enable previous button
+                document.getElementById('prev-btn').disabled = false;
+                
+                // Update progress bar
+                updateProgressBar();
+                
+                // Disable next button until an option is selected
+                const questionName = `q${currentQuestion}`;
+                document.getElementById('next-btn').disabled = !userAnswers[questionName];
+                
+                // Update button text if it's the last question
+                if (currentQuestion === totalQuestions) {
+                    document.getElementById('next-btn').textContent = 'Submit';
+                }
+            } else {
+                // Show results
+                showResults();
+            }
+        }
+
+        function prevQuestion() {
+            if (currentQuestion > 1) {
+                // Hide current question
+                document.getElementById(`question-${currentQuestion}`).classList.remove('active');
+                
+                // Show previous question
+                currentQuestion--;
+                document.getElementById(`question-${currentQuestion}`).classList.add('active');
+                
+                // Disable previous button if it's the first question
+                document.getElementById('prev-btn').disabled = currentQuestion === 1;
+                
+                // Update progress bar
+                updateProgressBar();
+                
+                // Update next button text and enable it
+                document.getElementById('next-btn').textContent = 'Next';
+                document.getElementById('next-btn').innerHTML = 'Next <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>';
+                document.getElementById('next-btn').disabled = false;
+            }
+        }
+
+        function updateProgressBar() {
+            const progressPercentage = (currentQuestion / totalQuestions) * 100;
+            document.getElementById('progress-bar').style.width = `${progressPercentage}%`;
+        }
+
+        function showResults() {
+            // Hide current question
+            document.getElementById(`question-${currentQuestion}`).classList.remove('active');
+            
+            // Show results
+            document.getElementById('results').style.display = 'block';
+            document.getElementById('results').classList.add('active');
+            
+            // Calculate score
+            let score = 0;
+            const feedback = document.getElementById('feedback');
+            feedback.innerHTML = '';
+            
+            for (let i = 1; i <= totalQuestions; i++) {
+                const questionName = `q${i}`;
+                const correctAnswer = answers[questionName];
+                const userAnswer = userAnswers[questionName] || '';
+                
+                const listItem = document.createElement('li');
+                
+                if (userAnswer === correctAnswer) {
+                    score++;
+                    listItem.classList.add('correct');
+                    listItem.textContent = `Question ${i}: Correct!`;
+                } else {
+                    listItem.classList.add('incorrect');
+                    listItem.textContent = `Question ${i}: Incorrect. The correct answer was option ${correctAnswer}.`;
+                }
+                
+                feedback.appendChild(listItem);
+            }
+            
+            // Update score display
+            document.getElementById('score').textContent = `${score} / ${totalQuestions}`;
+            const percentage = Math.round((score / totalQuestions) * 100);
+            document.querySelector('.score-percentage').textContent = `${percentage}%`;
+            
+            // Hide navigation buttons
+            document.querySelector('.exercise-controls').style.display = 'none';
+        }
+
+        function restartQuiz() {
+            // Reset user answers
+            for (const key in userAnswers) {
+                delete userAnswers[key];
+            }
+            
+            // Reset radio buttons
+            document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                radio.checked = false;
+                radio.closest('.option').classList.remove('selected');
+            });
+            
+            // Reset to first question
+            document.getElementById('results').classList.remove('active');
+            currentQuestion = 1;
+            document.getElementById(`question-${currentQuestion}`).classList.add('active');
+            
+            // Reset progress bar
+            updateProgressBar();
+            
+            // Reset buttons
+            document.querySelector('.exercise-controls').style.display = 'flex';
+            document.getElementById('prev-btn').disabled = true;
+            document.getElementById('next-btn').disabled = true;
+            document.getElementById('next-btn').textContent = 'Next';
+            document.getElementById('next-btn').innerHTML = 'Next <svg width="20" height="20" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>';
+        }
+
+        // Initialize progress bar
+        updateProgressBar();
+
+        document.addEventListener('DOMContentLoaded', function() {
+            const startTime = Date.now();
+            // ... existing code ...
+
+            // Make sure save button is visible and add click handler
+            const saveResultBtn = document.getElementById('saveResultBtn');
+            saveResultBtn.style.display = 'inline-flex';
+            saveResultBtn.onclick = async function() {
+                try {
+                    const testData = {
+                        topicId: 80, // ID темы "Conditionals and Wishes" в базе данных
+                        score: correctCount,
+                        maxScore: questions.length,
+                        timeSpent: Math.floor((Date.now() - startTime) / 1000),
+                        errors: incorrectAnswers.map(item => ({
+                            questionId: questions.findIndex(q => q.question === item.question) + 1,
+                            userAnswer: item.userAnswer,
+                            correctAnswer: item.correctAnswer,
+                            questionText: item.question
+                        }))
+                    };
+
+                    await saveTestResult(testData);
+                    alert('Results saved successfully!');
+                    window.location.href = '../test_history.html';
+                } catch (error) {
+                    console.error('Error saving results:', error);
+                    if (error.message.includes('log in')) {
+                        alert('Please log in to save your results.');
+                        window.location.href = '../login.html';
+                    } else {
+                        alert('Failed to save results. Please try again.');
+                    }
+                }
+            };
+            // ... existing code ...
+        });
+    </script>
+</body>
+</html>

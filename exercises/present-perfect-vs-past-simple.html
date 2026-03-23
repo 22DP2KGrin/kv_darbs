@@ -1,0 +1,1298 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Present Perfect vs Past Simple - English Learning Activities</title>
+    <style>
+      /* Global styles */
+:root {
+  --primary-color: #6366f1;
+  --primary-hover: #4f46e5;
+  --secondary-color: #64748b;
+  --secondary-hover: #475569;
+  --success-color: #10b981;
+  --danger-color: #ef4444;
+  --light-color: #f8fafc;
+  --dark-color: #1e293b;
+  --border-radius: 12px;
+  --box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --transition: all 0.3s ease;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+  background-size: 400% 400%;
+  animation: gradient 15s ease infinite;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+}
+
+@keyframes gradient {
+  0% {
+      background-position: 0% 50%;
+  }
+  50% {
+      background-position: 100% 50%;
+  }
+  100% {
+      background-position: 0% 50%;
+  }
+}
+
+/* Exercise page layout */
+.exercise-page {
+  max-width: 800px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 2.5rem;
+  background-color: rgba(255, 255, 255, 0.95);
+  border-radius: var(--border-radius);
+  box-shadow: var(--box-shadow);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+.exercise-page::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 8px;
+  background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+}
+
+/* Header styles */
+.exercise-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.exercise-title {
+  color: var(--primary-color);
+  font-size: 2.2rem;
+  font-weight: 700;
+  position: relative;
+}
+
+.exercise-title::after {
+  content: '';
+  position: absolute;
+  bottom: -8px;
+  left: 0;
+  width: 40px;
+  height: 3px;
+  background-color: var(--primary-color);
+  border-radius: 2px;
+}
+
+.back-link {
+  display: flex;
+  align-items: center;
+  color: var(--secondary-color);
+  text-decoration: none;
+  font-weight: 600;
+  transition: var(--transition);
+  padding: 0.5rem 1rem;
+  border-radius: var(--border-radius);
+  background-color: #f1f5f9;
+}
+
+.back-link:hover {
+  color: var(--primary-color);
+  background-color: #e2e8f0;
+  transform: translateX(-5px);
+}
+
+.back-link svg {
+  margin-right: 0.5rem;
+}
+
+/* Progress bar */
+.progress-container {
+  height: 10px;
+  background-color: #e2e8f0;
+  border-radius: 10px;
+  margin-bottom: 2.5rem;
+  overflow: hidden;
+  box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+  transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  border-radius: 10px;
+}
+
+/* Question container */
+.question-container {
+  background-color: #fff;
+  padding: 2.5rem;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  margin-bottom: 2.5rem;
+  border: 1px solid #e2e8f0;
+  transform: translateY(0);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: none;
+}
+
+.question-container.active {
+  display: block;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.question-container:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+}
+
+.question {
+  font-size: 1.4rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  color: var(--dark-color);
+  position: relative;
+  padding-bottom: 0.75rem;
+}
+
+.question::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+  opacity: 0.5;
+}
+
+/* Options */
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.option {
+  background-color: #f8fafc;
+  border: 2px solid #e2e8f0;
+  border-radius: var(--border-radius);
+  padding: 1.25rem 1.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.option::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 4px;
+  background-color: transparent;
+  transition: var(--transition);
+}
+
+.option:hover {
+  background-color: #f1f5f9;
+  border-color: #cbd5e1;
+  transform: translateX(5px);
+}
+
+.option.selected {
+  background-color: rgba(99, 102, 241, 0.05);
+  border-color: var(--primary-color);
+}
+
+.option.selected::before {
+  background-color: var(--primary-color);
+}
+
+.option.correct {
+  background-color: rgba(16, 185, 129, 0.1);
+  border-color: var(--success-color);
+}
+
+.option.correct::before {
+  background-color: var(--success-color);
+}
+
+.option.incorrect {
+  background-color: rgba(239, 68, 68, 0.1);
+  border-color: var(--danger-color);
+}
+
+.option.incorrect::before {
+  background-color: var(--danger-color);
+}
+
+.feedback-icon {
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 14px;
+}
+
+.option.correct .feedback-icon {
+  display: flex;
+  background-color: var(--success-color);
+  color: white;
+}
+
+.option.incorrect .feedback-icon {
+  display: flex;
+  background-color: var(--danger-color);
+  color: white;
+}
+
+/* Buttons */
+.exercise-controls {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  margin-top: 2.5rem;
+}
+
+.primary-button, .secondary-button {
+  padding: 0.9rem 1.8rem;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: var(--border-radius);
+  cursor: pointer;
+  transition: var(--transition);
+  min-width: 120px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  position: relative;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.primary-button {
+  background: linear-gradient(to right, #6366f1, #4f46e5);
+  color: white;
+}
+
+.primary-button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to right, #4f46e5, #3730a3);
+  z-index: -1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.primary-button:hover::after {
+  opacity: 1;
+}
+
+.primary-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+}
+
+.secondary-button {
+  background-color: #f1f5f9;
+  color: var(--secondary-color);
+  border: 1px solid #cbd5e1;
+}
+
+.secondary-button:hover {
+  background-color: #e2e8f0;
+  color: var(--dark-color);
+  transform: translateY(-3px);
+}
+
+.primary-button:disabled, .secondary-button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Result container */
+.result-container {
+  display: none;
+  text-align: center;
+  padding: 3rem 2rem;
+  background-color: #fff;
+  border-radius: var(--border-radius);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.5s ease-out;
+}
+
+.result-container.active {
+  display: block;
+}
+
+.result-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 6px;
+  background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+}
+
+.result-title {
+  color: var(--dark-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.8rem;
+  font-weight: 700;
+}
+
+.result-score {
+  font-size: 3.5rem;
+  font-weight: 800;
+  color: var(--primary-color);
+  margin-bottom: 1.5rem;
+  position: relative;
+  display: inline-block;
+}
+
+.result-score::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 60px;
+  height: 3px;
+  background: linear-gradient(to right, #6366f1, #3b82f6);
+  border-radius: 3px;
+}
+
+.result-feedback {
+  font-size: 1.2rem;
+  color: var(--dark-color);
+  margin-bottom: 2.5rem;
+  line-height: 1.7;
+  max-width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Incorrect answers */
+.incorrect-answers {
+  margin-top: 2.5rem;
+  padding: 1.5rem;
+  background-color: #fef2f2;
+  border-radius: var(--border-radius);
+  border: 1px solid #fee2e2;
+  text-align: left;
+}
+
+.incorrect-answers h3 {
+  color: var(--danger-color);
+  margin-bottom: 1.5rem;
+  font-size: 1.3rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.incorrect-answers h3::before {
+  content: '!';
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  background-color: var(--danger-color);
+  color: white;
+  border-radius: 50%;
+  font-size: 0.9rem;
+  font-weight: bold;
+}
+
+.incorrect-answer-item {
+  margin-bottom: 1.5rem;
+  padding: 1.25rem;
+  background-color: white;
+  border-radius: var(--border-radius);
+  border-left: 4px solid var(--danger-color);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.incorrect-answer-question {
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: var(--dark-color);
+}
+
+.incorrect-answer-details {
+  color: #64748b;
+  line-height: 1.6;
+}
+
+.incorrect-answer-details span {
+  display: block;
+  margin-top: 0.5rem;
+  padding: 0.5rem 0;
+}
+
+.your-answer {
+  color: var(--danger-color);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.your-answer::before {
+  content: '✕';
+  font-size: 0.8rem;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #fecaca;
+  border-radius: 50%;
+  color: var(--danger-color);
+}
+
+.correct-answer {
+  color: var(--success-color);
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.correct-answer::before {
+  content: '✓';
+  font-size: 0.8rem;
+  width: 20px;
+  height: 20px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #d1fae5;
+  border-radius: 50%;
+  color: var(--success-color);
+}
+
+/* Grammar explanation */
+.grammar-explanation {
+  background-color: #f0f9ff;
+  padding: 1.5rem;
+  border-radius: var(--border-radius);
+  margin: 2rem 0;
+  border-left: 4px solid #38bdf8;
+}
+
+.grammar-explanation h3 {
+  color: #0284c7;
+  margin-bottom: 1rem;
+}
+
+.grammar-point {
+  margin-bottom: 1.5rem;
+}
+
+.grammar-point:last-child {
+  margin-bottom: 0;
+}
+
+.grammar-rule {
+  font-weight: 600;
+  color: #0369a1;
+  margin-bottom: 0.5rem;
+}
+
+.grammar-point ul {
+  margin-left: 1.5rem;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.grammar-point li {
+  margin-bottom: 0.3rem;
+}
+
+.example {
+  font-style: italic;
+  color: #475569;
+  margin-top: 0.5rem;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+  body {
+    padding: 1rem;
+  }
+
+  .exercise-page {
+    padding: 1.5rem;
+  }
+  
+  .question-container {
+    padding: 1.5rem;
+  }
+  
+  .exercise-title {
+    font-size: 1.8rem;
+  }
+  
+  .question {
+    font-size: 1.2rem;
+  }
+
+  .result-score {
+    font-size: 3rem;
+  }
+
+  .result-feedback {
+    max-width: 100%;
+  }
+
+  .primary-button, .secondary-button {
+    padding: 0.8rem 1.5rem;
+    min-width: 100px;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.question-container {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+  }
+  70% {
+    box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+  }
+}
+
+.primary-button:focus {
+  animation: pulse 1.5s infinite;
+}
+
+/* Floating animated background elements */
+.bg-elements {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  z-index: -1;
+  pointer-events: none;
+}
+
+.bg-element {
+  position: absolute;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  animation: float 15s infinite linear;
+}
+
+.bg-element:nth-child(1) {
+  top: 10%;
+  left: 10%;
+  width: 120px;
+  height: 120px;
+  animation-duration: 35s;
+}
+
+.bg-element:nth-child(2) {
+  top: 70%;
+  left: 20%;
+  width: 80px;
+  height: 80px;
+  animation-duration: 45s;
+  animation-delay: 2s;
+}
+
+.bg-element:nth-child(3) {
+  top: 40%;
+  right: 10%;
+  width: 150px;
+  height: 150px;
+  animation-duration: 40s;
+  animation-delay: 5s;
+}
+
+.bg-element:nth-child(4) {
+  bottom: 10%;
+  right: 20%;
+  width: 100px;
+  height: 100px;
+  animation-duration: 50s;
+  animation-delay: 7s;
+}
+
+@keyframes float {
+  0% {
+    transform: translate(0, 0) rotate(0deg);
+    opacity: 0.3;
+  }
+  25% {
+    opacity: 0.5;
+  }
+  50% {
+    transform: translate(100px, 100px) rotate(180deg);
+    opacity: 0.3;
+  }
+  75% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translate(0, 0) rotate(360deg);
+    opacity: 0.3;
+  }
+}
+
+/* Add confetti effect on completion */
+.confetti {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  background-color: #f00;
+  position: absolute;
+  top: -10px;
+  animation: confetti 5s ease-in-out infinite;
+}
+
+@keyframes confetti {
+  0% {
+    transform: translateY(0) rotateZ(0deg);
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(500px) rotateZ(720deg);
+    opacity: 0;
+  }
+}
+    </style>
+</head>
+<body>
+    <!-- Background elements -->
+    <div class="bg-elements">
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+        <div class="bg-element"></div>
+    </div>
+
+    <div class="exercise-page">
+        <div class="exercise-header">
+            <h1 class="exercise-title">Present Perfect vs Past Simple</h1>
+        </div>
+        
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar" style="width: 0%"></div>
+        </div>
+        
+        <!-- Introduction -->
+        <div class="question-container active" id="intro-container">
+            <h2 class="question">Introduction</h2>
+            <p>In this lesson, you will learn about the difference between Present Perfect and Past Simple tenses. These tenses are often confused by English learners because they both refer to actions in the past, but they are used in different contexts.</p>
+            
+            <div class="grammar-explanation">
+                <h3>Present Perfect vs Past Simple: Key Differences</h3>
+                
+                <div class="grammar-point">
+                    <p class="grammar-rule">Present Perfect (have/has + past participle)</p>
+                    <p>Used for:</p>
+                    <ul>
+                        <li>Actions that started in the past and continue to the present</li>
+                        <li>Recent actions (when the time is not mentioned)</li>
+                        <li>Life experiences (without specific time)</li>
+                        <li>Actions with results in the present</li>
+                    </ul>
+                    <p class="example">Examples:</p>
+                    <ul>
+                        <li>I have lived in London for 5 years. (I still live there)</li>
+                        <li>She has just finished her homework.</li>
+                        <li>Have you ever visited Paris?</li>
+                        <li>I have lost my keys. (Result: I don't have them now)</li>
+                    </ul>
+                </div>
+                
+                <div class="grammar-point">
+                    <p class="grammar-rule">Past Simple (regular: verb + ed, or irregular forms)</p>
+                    <p>Used for:</p>
+                    <ul>
+                        <li>Completed actions in the past</li>
+                        <li>Actions at a specific time in the past</li>
+                        <li>Series of completed actions in the past</li>
+                        <li>Habits or states in the past</li>
+                    </ul>
+                    <p class="example">Examples:</p>
+                    <ul>
+                        <li>I lived in London for 5 years. (I don't live there now)</li>
+                        <li>She finished her homework at 6 PM.</li>
+                        <li>Did you visit Paris last summer?</li>
+                        <li>I lost my keys yesterday.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="exercise-controls">
+                <button class="secondary-button" disabled>Previous</button>
+                <button class="primary-button" id="start-quiz-btn">Start Quiz</button>
+            </div>
+        </div>
+        
+        <!-- Question 1 -->
+        <div class="question-container" id="q1-container">
+            <h2 class="question">1. I _____ in Paris for three years before moving to London.</h2>
+            <div class="options">
+                <div class="option" data-value="have lived" data-correct="false">
+                    <span>have lived</span>
+                    <span class="feedback-icon"></span>
+                </div>
+                <div class="option" data-value="lived" data-correct="true">
+                    <span>lived</span>
+                    <span class="feedback-icon"></span>
+                </div>
+            </div>
+            <div class="exercise-controls">
+                <button class="secondary-button prev-btn">Previous</button>
+                <button class="primary-button next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Question 2 -->
+        <div class="question-container" id="q2-container">
+            <h2 class="question">2. She _____ to Japan three times.</h2>
+            <div class="options">
+                <div class="option" data-value="has been" data-correct="true">
+                    <span>has been</span>
+                    <span class="feedback-icon"></span>
+                </div>
+                <div class="option" data-value="went" data-correct="false">
+                    <span>went</span>
+                    <span class="feedback-icon"></span>
+                </div>
+            </div>
+            <div class="exercise-controls">
+                <button class="secondary-button prev-btn">Previous</button>
+                <button class="primary-button next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Question 3 -->
+        <div class="question-container" id="q3-container">
+            <h2 class="question">3. I _____ my keys. I can't find them anywhere!</h2>
+            <div class="options">
+                <div class="option" data-value="have lost" data-correct="true">
+                    <span>have lost</span>
+                    <span class="feedback-icon"></span>
+                </div>
+                <div class="option" data-value="lost" data-correct="false">
+                    <span>lost</span>
+                    <span class="feedback-icon"></span>
+                </div>
+            </div>
+            <div class="exercise-controls">
+                <button class="secondary-button prev-btn">Previous</button>
+                <button class="primary-button next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Question 4 -->
+        <div class="question-container" id="q4-container">
+            <h2 class="question">4. He _____ in Madrid last summer.</h2>
+            <div class="options">
+                <div class="option" data-value="has studied" data-correct="false">
+                    <span>has studied</span>
+                    <span class="feedback-icon"></span>
+                </div>
+                <div class="option" data-value="studied" data-correct="true">
+                    <span>studied</span>
+                    <span class="feedback-icon"></span>
+                </div>
+            </div>
+            <div class="exercise-controls">
+                <button class="secondary-button prev-btn">Previous</button>
+                <button class="primary-button next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Question 5 -->
+        <div class="question-container" id="q5-container">
+            <h2 class="question">5. We _____ to that restaurant before. The food is excellent.</h2>
+            <div class="options">
+                <div class="option" data-value="have been" data-correct="true">
+                    <span>have been</span>
+                    <span class="feedback-icon"></span>
+                </div>
+                <div class="option" data-value="went" data-correct="false">
+                    <span>went</span>
+                    <span class="feedback-icon"></span>
+                </div>
+            </div>
+            <div class="exercise-controls">
+                <button class="secondary-button prev-btn">Previous</button>
+                <button class="primary-button next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Question 6 -->
+        <div class="question-container" id="q6-container">
+            <h2 class="question">6. I _____ (see) that movie last week.</h2>
+            <div class="options">
+                <div class="option" data-value="have seen" data-correct="false">
+                    <span>have seen</span>
+                    <span class="feedback-icon"></span>
+                </div>
+                <div class="option" data-value="saw" data-correct="true">
+                    <span>saw</span>
+                    <span class="feedback-icon"></span>
+                </div>
+            </div>
+            <div class="exercise-controls">
+                <button class="secondary-button prev-btn">Previous</button>
+                <button class="primary-button next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Question 7 -->
+        <div class="question-container" id="q7-container">
+            <h2 class="question">7. She _____ (never/be) to Australia.</h2>
+            <div class="options">
+                <div class="option" data-value="has never been" data-correct="true">
+                    <span>has never been</span>
+                    <span class="feedback-icon"></span>
+                </div>
+                <div class="option" data-value="never was" data-correct="false">
+                    <span>never was</span>
+                    <span class="feedback-icon"></span>
+                </div>
+            </div>
+            <div class="exercise-controls">
+                <button class="secondary-button prev-btn">Previous</button>
+                <button class="primary-button next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Question 8 -->
+        <div class="question-container" id="q8-container">
+            <h2 class="question">8. We _____ (buy) a new car last month.</h2>
+            <div class="options">
+                <div class="option" data-value="have bought" data-correct="false">
+                    <span>have bought</span>
+                    <span class="feedback-icon"></span>
+                </div>
+                <div class="option" data-value="bought" data-correct="true">
+                    <span>bought</span>
+                    <span class="feedback-icon"></span>
+                </div>
+            </div>
+            <div class="exercise-controls">
+                <button class="secondary-button prev-btn">Previous</button>
+                <button class="primary-button next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Question 9 -->
+        <div class="question-container" id="q9-container">
+            <h2 class="question">9. _____ (you/ever/try) sushi?</h2>
+            <div class="options">
+                <div class="option" data-value="Have you ever tried" data-correct="true">
+                    <span>Have you ever tried</span>
+                    <span class="feedback-icon"></span>
+                </div>
+                <div class="option" data-value="Did you ever try" data-correct="false">
+                    <span>Did you ever try</span>
+                    <span class="feedback-icon"></span>
+                </div>
+            </div>
+            <div class="exercise-controls">
+                <button class="secondary-button prev-btn">Previous</button>
+                <button class="primary-button next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Question 10 -->
+        <div class="question-container" id="q10-container">
+            <h2 class="question">10. The train _____ (already/leave) when we arrived at the station.</h2>
+            <div class="options">
+                <div class="option" data-value="has already left" data-correct="false">
+                    <span>has already left</span>
+                    <span class="feedback-icon"></span>
+                </div>
+                <div class="option" data-value="had already left" data-correct="true">
+                    <span>had already left</span>
+                    <span class="feedback-icon"></span>
+                </div>
+            </div>
+            <div class="exercise-controls">
+                <button class="secondary-button prev-btn">Previous</button>
+                <button class="primary-button next-btn">Next</button>
+            </div>
+        </div>
+        
+        <!-- Result container -->
+        <div id="result-container" class="result-container" style="display: none;">
+            <h2 class="result-title">Your Result</h2>
+            <div class="result-score" id="score">0/20</div>
+            <p class="result-feedback" id="feedback">Complete the exercise to see your feedback.</p>
+            <div id="incorrect-answers" class="incorrect-answers" style="display: none;">
+                <h3>Incorrect Answers:</h3>
+                <div id="incorrect-answers-list"></div>
+            </div>
+            <div class="result-buttons" style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+                <button id="saveResultBtn" class="primary-button" style="display: inline-flex; align-items: center; gap: 0.5rem; min-width: 150px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        <polyline points="7 3 7 8 15 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Save Result
+                </button>
+                <button id="restartBtn" class="primary-button" style="display: inline-flex; align-items: center; gap: 0.5rem; min-width: 150px;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3M3 12H7M12 3V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    Try Again
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/language-test.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const startTime = Date.now();
+            // Variables
+            const totalQuestions = 10;
+            let currentQuestion = 0;
+            let score = 0;
+            let userAnswers = [];
+            
+            // DOM Elements
+            const introContainer = document.getElementById('intro-container');
+            const resultContainer = document.getElementById('result-container');
+            const progressBar = document.getElementById('progressBar');
+            const startQuizBtn = document.getElementById('start-quiz-btn');
+            const restartBtn = document.getElementById('restartBtn');
+            const resultScore = document.querySelector('.result-score');
+            const incorrectAnswersContainer = document.getElementById('incorrect-answers-list');
+            
+            // Question containers
+            const questionContainers = [];
+            for (let i = 1; i <= totalQuestions; i++) {
+                questionContainers.push(document.getElementById(`q${i}-container`));
+            }
+            
+            // Event Listeners
+            startQuizBtn.addEventListener('click', startQuiz);
+            restartBtn.addEventListener('click', restartQuiz);
+            
+            // Add event listeners to all next buttons
+            document.querySelectorAll('.next-btn').forEach(button => {
+                button.addEventListener('click', nextQuestion);
+            });
+            
+            // Add event listeners to all prev buttons
+            document.querySelectorAll('.prev-btn').forEach(button => {
+                button.addEventListener('click', prevQuestion);
+            });
+            
+            // Add event listeners to all options
+            document.querySelectorAll('.option').forEach(option => {
+                option.addEventListener('click', selectOption);
+            });
+            
+            // Functions
+            function startQuiz() {
+                introContainer.classList.remove('active');
+                currentQuestion = 1;
+                updateProgress();
+                showQuestion(currentQuestion);
+            }
+            
+            function showQuestion(questionNumber) {
+                // Hide all question containers
+                questionContainers.forEach(container => {
+                    container.classList.remove('active');
+                });
+                resultContainer.classList.remove('active');
+                
+                // Show current question container
+                const currentContainer = document.getElementById(`q${questionNumber}-container`);
+                if (currentContainer) {
+                    currentContainer.classList.add('active');
+                }
+            }
+            
+            function selectOption(event) {
+                const selectedOption = event.currentTarget;
+                const questionContainer = selectedOption.closest('.question-container');
+                const options = questionContainer.querySelectorAll('.option');
+                
+                // Remove selected class from all options
+                options.forEach(option => {
+                    option.classList.remove('selected');
+                });
+                
+                // Add selected class to clicked option
+                selectedOption.classList.add('selected');
+                
+                // Enable next button
+                const nextBtn = questionContainer.querySelector('.next-btn');
+                if (nextBtn) {
+                    nextBtn.disabled = false;
+                }
+                
+                // Save user answer
+                const questionId = questionContainer.id.replace('q', '').replace('-container', '');
+                userAnswers[questionId] = {
+                    selected: selectedOption.getAttribute('data-value'),
+                    correct: selectedOption.getAttribute('data-correct') === 'true'
+                };
+            }
+            
+            function nextQuestion() {
+                // Check if an option is selected
+                const currentContainer = document.getElementById(`q${currentQuestion}-container`);
+                const selectedOption = currentContainer.querySelector('.option.selected');
+                
+                if (!selectedOption) {
+                    alert('Please select an option before proceeding.');
+                    return;
+                }
+                
+                // If the option is correct, increment score
+                if (selectedOption.getAttribute('data-correct') === 'true') {
+                    score++;
+                }
+                
+                // Mark the selected option as correct or incorrect
+                selectedOption.classList.add(selectedOption.getAttribute('data-correct') === 'true' ? 'correct' : 'incorrect');
+                
+                // Move to next question or show results
+                if (currentQuestion < totalQuestions) {
+                    currentQuestion++;
+                    updateProgress();
+                    showQuestion(currentQuestion);
+                } else {
+                    showResults();
+                }
+            }
+            
+            function prevQuestion() {
+                if (currentQuestion > 1) {
+                    currentQuestion--;
+                    updateProgress();
+                    showQuestion(currentQuestion);
+                } else {
+                    introContainer.classList.add('active');
+                    questionContainers.forEach(container => {
+                        container.classList.remove('active');
+                    });
+                }
+            }
+            
+            function updateProgress() {
+                const progress = (currentQuestion / totalQuestions) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+            
+            function showResults() {
+                // Hide all question containers
+                questionContainers.forEach(container => {
+                    container.classList.remove('active');
+                });
+                
+                // Update score
+                resultScore.textContent = `${score}/${totalQuestions}`;
+                
+                // Show result container
+                resultContainer.classList.add('active');
+                
+                // Update feedback
+                const resultFeedback = document.querySelector('.result-feedback');
+                if (score === totalQuestions) {
+                    resultFeedback.textContent = 'Perfect! You have mastered the difference between Present Perfect and Past Simple tenses.';
+                    createConfetti();
+                } else if (score >= totalQuestions * 0.8) {
+                    resultFeedback.textContent = 'Great job! You have a good understanding of the difference between Present Perfect and Past Simple tenses.';
+                } else if (score >= totalQuestions * 0.6) {
+                    resultFeedback.textContent = 'Good effort! You are getting there, but make sure to review the areas you struggled with.';
+                } else {
+                    resultFeedback.textContent = 'Keep practicing! Review the grammar rules and try again.';
+                }
+                
+                // Clear incorrect answers container
+                incorrectAnswersContainer.innerHTML = '<h3>Areas to Review</h3>';
+                
+                // Add incorrect answers to the container
+                let hasIncorrectAnswers = false;
+                for (let i = 1; i <= totalQuestions; i++) {
+                    if (userAnswers[i] && !userAnswers[i].correct) {
+                        hasIncorrectAnswers = true;
+                        
+                        const questionContainer = document.getElementById(`q${i}-container`);
+                        const questionText = questionContainer.querySelector('.question').textContent.replace(/^\d+\.\s+/, '');
+                        
+                        const correctOption = questionContainer.querySelector('.option[data-correct="true"]');
+                        const correctAnswer = correctOption.getAttribute('data-value');
+                        
+                        const incorrectAnswerItem = document.createElement('div');
+                        incorrectAnswerItem.className = 'incorrect-answer-item';
+                        incorrectAnswerItem.innerHTML = `
+                            <p class="incorrect-answer-question">${questionText}</p>
+                            <div class="incorrect-answer-details">
+                                <span class="your-answer">Your answer: ${userAnswers[i].selected}</span>
+                                <span class="correct-answer">Correct answer: ${correctAnswer}</span>
+                            </div>
+                        `;
+                        
+                        incorrectAnswersContainer.appendChild(incorrectAnswerItem);
+                    }
+                }
+                
+                // Hide incorrect answers section if all answers are correct
+                if (!hasIncorrectAnswers) {
+                    incorrectAnswersContainer.style.display = 'none';
+                } else {
+                    incorrectAnswersContainer.style.display = 'block';
+                }
+                
+                // Update progress bar to 100%
+                progressBar.style.width = '100%';
+            }
+            
+            function restartQuiz() {
+                // Reset variables
+                currentQuestion = 1;
+                score = 0;
+                userAnswers = [];
+                
+                // Reset UI
+                progressBar.style.width = '0%';
+                
+                // Reset options
+                document.querySelectorAll('.option').forEach(option => {
+                    option.classList.remove('selected', 'correct', 'incorrect');
+                });
+                
+                // Start the quiz again
+                showQuestion(currentQuestion);
+                updateProgress();
+            }
+            
+            function createConfetti() {
+                const confettiCount = 100;
+                const colors = ['#f94144', '#f3722c', '#f8961e', '#f9c74f', '#90be6d', '#43aa8b', '#577590'];
+                
+                for (let i = 0; i < confettiCount; i++) {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.width = Math.random() * 10 + 5 + 'px';
+                    confetti.style.height = Math.random() * 10 + 5 + 'px';
+                    confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                    confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                    confetti.style.animationDelay = Math.random() * 2 + 's';
+                    
+                    document.body.appendChild(confetti);
+                    
+                    // Remove confetti after animation
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 5000);
+                }
+            }
+
+            // Make sure save button is visible and add click handler
+            const saveResultBtn = document.getElementById('saveResultBtn');
+            saveResultBtn.style.display = 'inline-flex';
+            saveResultBtn.onclick = async function() {
+                try {
+                    const testData = {
+                        topicId: 83, // ID темы "Present Perfect vs Past Simple" в базе данных
+                        score: score,
+                        maxScore: totalQuestions,
+                        timeSpent: Math.floor((Date.now() - startTime) / 1000),
+                        errors: userAnswers.map(item => ({
+                            questionId: currentQuestion,
+                            userAnswer: item.selected,
+                            correctAnswer: item.correct ? 'true' : 'false',
+                            questionText: document.querySelector('.question').textContent
+                        }))
+                    };
+
+                    await saveTestResult(testData);
+                    alert('Results saved successfully!');
+                    window.location.href = '../test_history.html';
+                } catch (error) {
+                    console.error('Error saving results:', error);
+                    if (error.message.includes('log in')) {
+                        alert('Please log in to save your results.');
+                        window.location.href = '../login.html';
+                    } else {
+                        alert('Failed to save results. Please try again.');
+                    }
+                }
+            };
+        });
+    </script>
+</body>
+</html>

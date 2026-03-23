@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Opinion Essay</title>
+  <style>
+    /* Global styles */
+    :root {
+      --primary-color: #6366f1;
+      --primary-hover: #4f46e5;
+      --secondary-color: #64748b;
+      --secondary-hover: #475569;
+      --success-color: #10b981;
+      --danger-color: #ef4444;
+      --light-color: #f8fafc;
+      --dark-color: #1e293b;
+      --border-radius: 12px;
+      --box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+      --transition: all 0.3s ease;
+    }
+    
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      line-height: 1.6;
+      color: #333;
+      background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+      background-size: 400% 400%;
+      animation: gradient 15s ease infinite;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 2rem;
+    }
+    
+    @keyframes gradient {
+      0% {
+          background-position: 0% 50%;
+      }
+      50% {
+          background-position: 100% 50%;
+      }
+      100% {
+          background-position: 0% 50%;
+      }
+    }
+    
+    /* Exercise page layout */
+    .exercise-page {
+      max-width: 800px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 2.5rem;
+      background-color: rgba(255, 255, 255, 0.95);
+      border-radius: var(--border-radius);
+      box-shadow: var(--box-shadow);
+      backdrop-filter: blur(10px);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .exercise-page::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 8px;
+      background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+    }
+    
+    /* Header styles */
+    .exercise-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 2.5rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid #e2e8f0;
+    }
+    
+    .exercise-title {
+      color: var(--primary-color);
+      font-size: 2.2rem;
+      font-weight: 700;
+      position: relative;
+    }
+    
+    .exercise-title::after {
+      content: '';
+      position: absolute;
+      bottom: -8px;
+      left: 0;
+      width: 40px;
+      height: 3px;
+      background-color: var(--primary-color);
+      border-radius: 2px;
+    }
+    
+    .back-link {
+      display: flex;
+      align-items: center;
+      color: var(--secondary-color);
+      text-decoration: none;
+      font-weight: 600;
+      transition: var(--transition);
+      padding: 0.5rem 1rem;
+      border-radius: var(--border-radius);
+      background-color: #f1f5f9;
+    }
+    
+    .back-link:hover {
+      color: var(--primary-color);
+      background-color: #e2e8f0;
+      transform: translateX(-5px);
+    }
+    
+    .back-link svg {
+      margin-right: 0.5rem;
+    }
+    
+    /* Progress bar */
+    .progress-container {
+      height: 10px;
+      background-color: #e2e8f0;
+      border-radius: 10px;
+      margin-bottom: 2.5rem;
+      overflow: hidden;
+      box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+    }
+    
+    .progress-bar {
+      height: 100%;
+      background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+      width: 100%;
+      transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      border-radius: 10px;
+    }
+    
+    /* Question container */
+    .question-container {
+      background-color: #fff;
+      padding: 2.5rem;
+      border-radius: var(--border-radius);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+      margin-bottom: 2.5rem;
+      border: 1px solid #e2e8f0;
+      transform: translateY(0);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      animation: fadeIn 0.5s ease-out;
+    }
+    
+    .question-container:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+    }
+    
+    .question {
+      font-size: 1.4rem;
+      font-weight: 600;
+      margin-bottom: 2rem;
+      color: var(--dark-color);
+      position: relative;
+      padding-bottom: 0.75rem;
+    }
+    
+    .question::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 1px;
+      background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+      opacity: 0.5;
+    }
+    
+    /* Essay area */
+    .essay-area {
+      width: 100%;
+      min-height: 300px;
+      padding: 1rem;
+      border: 2px solid #e2e8f0;
+      border-radius: var(--border-radius);
+      resize: vertical;
+      font-family: inherit;
+      font-size: 1rem;
+      line-height: 1.6;
+      transition: var(--transition);
+    }
+    
+    .essay-area:focus {
+      outline: none;
+      border-color: var(--primary-color);
+      box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+    }
+    
+    .word-count {
+      font-size: 0.9rem;
+      color: var(--secondary-color);
+      text-align: right;
+      margin-top: 0.5rem;
+    }
+    
+    /* Timer */
+    .timer {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-size: 1.1rem;
+      color: var(--secondary-color);
+      margin-bottom: 1.5rem;
+    }
+    
+    .timer svg {
+      width: 20px;
+      height: 20px;
+    }
+    
+    /* Buttons */
+    .exercise-controls {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-top: 2.5rem;
+    }
+    
+    .primary-button, .secondary-button {
+      padding: 0.9rem 1.8rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border: none;
+      border-radius: var(--border-radius);
+      cursor: pointer;
+      transition: var(--transition);
+      min-width: 120px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      position: relative;
+      overflow: hidden;
+      z-index: 1;
+      text-decoration: none;
+    }
+    
+    .primary-button {
+      background: linear-gradient(to right, #6366f1, #4f46e5);
+      color: white;
+    }
+    
+    .primary-button::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(to right, #4f46e5, #3730a3);
+      z-index: -1;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .primary-button:hover::after {
+      opacity: 1;
+    }
+    
+    .primary-button:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+    }
+    
+    .secondary-button {
+      background-color: #f1f5f9;
+      color: var(--secondary-color);
+      border: 1px solid #cbd5e1;
+    }
+    
+    .secondary-button:hover {
+      background-color: #e2e8f0;
+      color: var(--dark-color);
+      transform: translateY(-3px);
+    }
+    
+    .primary-button:focus {
+      animation: pulse 1.5s infinite;
+    }
+    
+    @keyframes pulse {
+      0% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+      }
+      70% {
+        box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+      }
+      100% {
+        box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+      }
+    }
+    
+    /* Topic chips */
+    .topic-options {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+    
+    .topic-chip {
+      background-color: #f1f5f9;
+      border: 2px solid #e2e8f0;
+      border-radius: 20px;
+      padding: 0.6rem 1.2rem;
+      font-size: 0.9rem;
+      font-weight: 600;
+      color: var(--secondary-color);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+    
+    .topic-chip:hover {
+      background-color: #e2e8f0;
+      transform: translateY(-2px);
+    }
+    
+    .topic-chip.selected {
+      background-color: rgba(99, 102, 241, 0.1);
+      border-color: var(--primary-color);
+      color: var(--primary-color);
+    }
+    
+    /* Floating animated background elements */
+    .bg-elements {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+      z-index: -1;
+      pointer-events: none;
+    }
+    
+    .bg-element {
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+      animation: float 15s infinite linear;
+    }
+    
+    .bg-element:nth-child(1) {
+      top: 10%;
+      left: 10%;
+      width: 120px;
+      height: 120px;
+      animation-duration: 35s;
+    }
+    
+    .bg-element:nth-child(2) {
+      top: 70%;
+      left: 20%;
+      width: 80px;
+      height: 80px;
+      animation-duration: 45s;
+      animation-delay: 2s;
+    }
+    
+    .bg-element:nth-child(3) {
+      top: 40%;
+      right: 10%;
+      width: 150px;
+      height: 150px;
+      animation-duration: 40s;
+      animation-delay: 5s;
+    }
+    
+    .bg-element:nth-child(4) {
+      bottom: 10%;
+      right: 20%;
+      width: 100px;
+      height: 100px;
+      animation-duration: 50s;
+      animation-delay: 7s;
+    }
+    
+    @keyframes float {
+      0% {
+        transform: translate(0, 0) rotate(0deg);
+        opacity: 0.3;
+      }
+      25% {
+        opacity: 0.5;
+      }
+      50% {
+        transform: translate(100px, 100px) rotate(180deg);
+        opacity: 0.3;
+      }
+      75% {
+        opacity: 0.5;
+      }
+      100% {
+        transform: translate(0, 0) rotate(360deg);
+        opacity: 0.3;
+      }
+    }
+    
+    /* Animations */
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    
+    /* Responsive styles */
+    @media (max-width: 768px) {
+      body {
+        padding: 1rem;
+      }
+    
+      .exercise-page {
+        padding: 1.5rem;
+      }
+      
+      .question-container {
+        padding: 1.5rem;
+      }
+      
+      .exercise-title {
+        font-size: 1.8rem;
+      }
+      
+      .question {
+        font-size: 1.2rem;
+      }
+      
+      .topic-options {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      
+      .topic-chip {
+        text-align: center;
+      }
+      
+      .primary-button, .secondary-button {
+        padding: 0.8rem 1.5rem;
+        min-width: 100px;
+      }
+      
+      .exercise-controls {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="bg-elements">
+    <div class="bg-element"></div>
+    <div class="bg-element"></div>
+    <div class="bg-element"></div>
+    <div class="bg-element"></div>
+  </div>
+
+  <div class="exercise-page">
+    <div class="exercise-header">
+      <h1 class="exercise-title">Opinion Essay</h1>
+      <a href="index.html" class="back-link">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+        </svg>
+        Back to Exercises
+      </a>
+    </div>
+
+    <div class="progress-container">
+      <div class="progress-bar" style="width: 100%;"></div>
+    </div>
+
+    <div class="timer">
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+        <path d="M8 3.5a.5.5 0 0 0-1 0V9a.5.5 0 0 0 .252.434l3.5 2a.5.5 0 0 0 .496-.868L8 8.71V3.5z"/>
+        <path d="M8 16A8 8 0 1 0 8 0a8 8 0 0 0 0 16zm7-8A7 7 0 1 1 1 8a7 7 0 0 1 14 0z"/>
+      </svg>
+      Time Remaining: <span id="time-display">25:00</span>
+    </div>
+
+    <div class="question-container">
+      <h2 class="question">Choose a topic for your opinion essay:</h2>
+      
+      <div class="topic-options">
+        <div class="topic-chip" onclick="selectTopic(this, 'Should social media platforms be regulated by governments?')">
+          Social Media Regulation
+        </div>
+        <div class="topic-chip" onclick="selectTopic(this, 'Is remote work better than traditional office work?')">
+          Remote vs Office Work
+        </div>
+        <div class="topic-chip" onclick="selectTopic(this, 'Should higher education be free for all students?')">
+          Free Higher Education
+        </div>
+        <div class="topic-chip" onclick="selectTopic(this, 'Is technology making us more or less connected as a society?')">
+          Technology & Social Connection
+        </div>
+      </div>
+      
+      <div id="selected-topic-container" style="display: none;">
+        <h3 id="selected-topic" class="question" style="margin-top: 1.5rem;"></h3>
+        
+        <textarea id="essay-area" class="essay-area" placeholder="Write your essay here..."></textarea>
+        
+        <div class="word-count">
+          Word count: <span id="word-counter">0</span> words
+        </div>
+      </div>
+    </div>
+
+    <div class="exercise-controls">
+      <button class="secondary-button" onclick="window.location.href='index.html'">
+        Cancel
+      </button>
+      <button id="submit-btn" class="primary-button" disabled>
+        Submit Essay
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" viewBox="0 0 16 16">
+          <path fill-rule="evenodd" d="M1 8a.5.5 0 0 1 .5-.5h11.793l-3.147-3.146a.5.5 0 0 1 .708-.708l4 4a.5.5 0 0 1 0 .708l-4 4a.5.5 0 0 1-.708-.708L13.293 8.5H1.5A.5.5 0 0 1 1 8z"/>
+        </svg>
+      </button>
+    </div>
+
+    <div id="result-container" class="result-container" style="display: none;">
+        <h2 class="result-title">Your Result</h2>
+        <div class="result-score" id="score">0/20</div>
+        <p class="result-feedback" id="feedback">Complete the exercise to see your feedback.</p>
+        <div id="incorrect-answers" class="incorrect-answers" style="display: none;">
+            <h3>Incorrect Answers:</h3>
+            <div id="incorrect-answers-list"></div>
+        </div>
+        <div class="result-buttons" style="display: flex; justify-content: center; gap: 1rem; margin-top: 2rem;">
+            <button id="saveResultBtn" class="primary-button" style="display: inline-flex; align-items: center; gap: 0.5rem; min-width: 150px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="17 21 17 13 7 13 7 21" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    <polyline points="7 3 7 8 15 8" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Save Result
+            </button>
+            <button id="restartBtn" class="primary-button" style="display: inline-flex; align-items: center; gap: 0.5rem; min-width: 150px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M3 12C3 16.9706 7.02944 21 12 21C16.9706 21 21 16.9706 21 12C21 7.02944 16.9706 3 12 3M3 12H7M12 3V7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+                Try Again
+            </button>
+        </div>
+    </div>
+  </div>
+
+  <script src="../js/exercise-utils.js"></script>
+  <script src="../js/language-test.js"></script>
+  <script>
+    // Topic selection functionality
+    function selectTopic(element, topicText) {
+      // Remove selected class from all topics
+      document.querySelectorAll('.topic-chip').forEach(chip => {
+        chip.classList.remove('selected');
+      });
+      
+      // Add selected class to clicked topic
+      element.classList.add('selected');
+      
+      // Set topic text and show essay area
+      document.getElementById('selected-topic').textContent = topicText;
+      document.getElementById('selected-topic-container').style.display = 'block';
+      
+      // Enable submit button
+      document.getElementById('submit-btn').disabled = false;
+      
+      // Start timer
+      startTimer();
+      
+      // Focus on the textarea
+      document.getElementById('essay-area').focus();
+    }
+    
+    // Word counter
+    const essayArea = document.getElementById('essay-area');
+    const wordCounter = document.getElementById('word-counter');
+    
+    essayArea.addEventListener('input', function() {
+      // Count words
+      const text = this.value.trim();
+      const wordCount = text === '' ? 0 : text.split(/\s+/).length;
+      wordCounter.textContent = wordCount;
+    });
+    
+    // Timer functionality
+    let timerInterval;
+    let timeLeft = 25 * 60; // 25 minutes in seconds
+    
+    function startTimer() {
+      if (timerInterval) clearInterval(timerInterval);
+      
+      timerInterval = setInterval(function() {
+        timeLeft--;
+        
+        const minutes = Math.floor(timeLeft / 60);
+        const seconds = timeLeft % 60;
+        
+        document.getElementById('time-display').textContent = 
+          `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+        
+        if (timeLeft <= 0) {
+          clearInterval(timerInterval);
+          alert('Time is up! Please submit your essay.');
+        }
+      }, 1000);
+    }
+    
+    // Submit button functionality
+    document.getElementById('submit-btn').addEventListener('click', async function() {
+      const essayText = essayArea.value.trim();
+      const selectedTopic = document.getElementById('selected-topic').textContent;
+      
+      if (essayText.length < 100) {
+        showErrorNotification('Your essay is too short. Please write a more detailed response.');
+        return;
+      }
+      
+      // Save results
+      const saved = await saveEssayResults(essayText, selectedTopic, Date.now());
+      if (saved) {
+        showSuccessNotification('Your essay has been saved successfully!');
+        // Return to home page after a short delay
+        setTimeout(() => {
+          window.location.href = '../index.html';
+        }, 2000);
+      } else {
+        showErrorNotification('There was an error saving your essay. Please try again.');
+      }
+    });
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const startTime = Date.now();
+        // ... existing code ...
+
+        // Make sure save button is visible and add click handler
+        const saveResultBtn = document.getElementById('saveResultBtn');
+        saveResultBtn.style.display = 'inline-flex';
+        saveResultBtn.onclick = async function() {
+            try {
+                const testData = {
+                    topicId: 78, // ID темы "Opinion Essay" в базе данных
+                    score: correctCount,
+                    maxScore: questions.length,
+                    timeSpent: Math.floor((Date.now() - startTime) / 1000),
+                    errors: incorrectAnswers.map(item => ({
+                        questionId: questions.findIndex(q => q.question === item.question) + 1,
+                        userAnswer: item.userAnswer,
+                        correctAnswer: item.correctAnswer,
+                        questionText: item.question
+                    }))
+                };
+
+                await saveTestResult(testData);
+                alert('Results saved successfully!');
+                window.location.href = '../test_history.html';
+            } catch (error) {
+                console.error('Error saving results:', error);
+                if (error.message.includes('log in')) {
+                    alert('Please log in to save your results.');
+                    window.location.href = '../login.html';
+                } else {
+                    alert('Failed to save results. Please try again.');
+                }
+            }
+        };
+        // ... existing code ...
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,10 @@
+# Enable PHP processing
+AddType application/x-httpd-php .php
+
+# Set default character set
+AddDefaultCharset UTF-8
+
+# Allow cross-origin requests
+Header set Access-Control-Allow-Origin "*"
+Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
+Header set Access-Control-Allow-Headers "Content-Type, X-Session-Token" 
