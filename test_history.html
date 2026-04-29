@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Test History - Language Learning Platform</title>
+    <title>Testu vēsture - Valodu mācību platforma</title>
     <style>
         :root {
             --primary-color: #4a90e2;
@@ -295,15 +295,6 @@
 </head>
 <body>
     <div class="container">
-        <header class="header">
-            <div class="header-content">
-                <h1>Test History</h1>
-                <div class="header-actions">
-                    <a href="profile.html" class="btn btn-primary">Back to Profile</a>
-                    <button id="logoutBtn" class="btn btn-danger">Sign Out</button>
-                </div>
-            </div>
-        </header>
 
         <div id="errorMessage" class="error-message"></div>
 
@@ -322,6 +313,9 @@
         </div>
     </div>
 
+    <!-- Load shared layout (header, footer, theme, auth) -->
+    <script src="js/shared-layout.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Проверяем все возможные ключи для токена сессии

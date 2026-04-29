@@ -38,8 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
             birthDateInput.max = maxDate.toISOString().split('T')[0];
         }
 
-        // API endpoint
-        const API_ENDPOINT = '/api/register_process.php';
+        // Use a path relative to the current project copy so the request
+        // does not accidentally go to another /api directory.
+        const API_ENDPOINT = 'api/register_process.php';
         
         signupForm.addEventListener('submit', async function(event) {
             event.preventDefault();
@@ -150,6 +151,8 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Check if response is JSON
                 const contentType = response.headers.get('content-type');
                 if (!contentType || !contentType.includes('application/json')) {
+                    const responseText = await response.text();
+                    console.error('Non-JSON registration response:', responseText);
                     throw new Error('Server returned non-JSON response');
                 }
                 

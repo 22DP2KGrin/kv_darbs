@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - Language Learning Platform</title>
+    <title>Mans profils - Valodu mācību platforma</title>
     <style>
         /* Base Variables */
         :root {
@@ -603,39 +603,7 @@
         }
     </style>
 </head>
-<body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container header-container">
-            <h1 class="logo"><a href="index.html">Language Learning Platform</a></h1>
-            <nav class="main-nav">
-                <div class="nav-links">
-                   
-                    <a href="about.html" class="nav-link">About Us</a>
-                    <a href="contact.html" class="nav-link">Contact</a>
-                    <div class="user-profile-nav" id="userProfileNav" style="display: none;">
-                        <a href="profile.html" class="nav-link profile-link">
-                            <div class="profile-avatar-small" id="headerProfileAvatar"></div>
-                            <span id="headerUsername"></span>
-                        </a>
-                    </div>
-                    <div class="auth-buttons" id="authButtons">
-                        <a href="login.html" class="nav-link">Login</a>
-                        <a href="register.html" class="nav-link">Register</a>
-                    </div>
-                </div>
-                <!-- Theme Toggle -->
-                <div class="theme-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                    <label class="switch">
-                        <input type="checkbox" id="themeToggle">
-                        <span class="slider round"></span>
-                    </label>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                </div>
-            </nav>
-        </div>
-    </header>
+
 
     <!-- Main Content -->
     <main class="main-content">
@@ -767,88 +735,61 @@
         </div>
     </main>
 
+    <!-- Load shared layout (header, footer, theme, auth) -->
+    <script src="js/shared-layout.js"></script>
+    
+    <!-- Page-specific scripts -->
     <script>
-        // Theme Toggle
-        const themeToggle = document.getElementById('themeToggle');
-        const body = document.body;
+        document.addEventListener('DOMContentLoaded', function() {
+            // Navigation
+            const menuLinks = document.querySelectorAll('.menu-link');
+            const sections = document.querySelectorAll('.section');
 
-        // Check for saved theme preference or default to light mode
-        const currentTheme = localStorage.getItem('theme') || 'light';
-        if (currentTheme === 'dark') {
-            body.classList.add('dark');
-            themeToggle.checked = true;
-        }
-
-        themeToggle.addEventListener('change', function() {
-            if (this.checked) {
-                body.classList.add('dark');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                body.classList.remove('dark');
-                localStorage.setItem('theme', 'light');
-            }
-        });
-
-        // Navigation
-        const menuLinks = document.querySelectorAll('.menu-link');
-        const sections = document.querySelectorAll('.section');
-
-        menuLinks.forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                
-                // Remove active class from all links and sections
-                menuLinks.forEach(l => l.classList.remove('active'));
-                sections.forEach(s => s.classList.remove('active'));
-                
-                // Add active class to clicked link
-                link.classList.add('active');
-                
-                // Show corresponding section
-                const sectionId = link.getAttribute('data-section');
-                document.getElementById(sectionId).classList.add('active');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    
+                    // Remove active class from all links and sections
+                    menuLinks.forEach(l => l.classList.remove('active'));
+                    sections.forEach(s => s.classList.remove('active'));
+                    
+                    // Add active class to clicked link
+                    link.classList.add('active');
+                    
+                    // Show corresponding section
+                    const sectionId = link.getAttribute('data-section');
+                    document.getElementById(sectionId).classList.add('active');
+                });
             });
-        });
 
-        // Profile Management
-        const user = JSON.parse(localStorage.getItem('user'));
-        const userProfileNav = document.getElementById('userProfileNav');
-        const authButtons = document.getElementById('authButtons');
-        const headerProfileAvatar = document.getElementById('headerProfileAvatar');
-        const headerUsername = document.getElementById('headerUsername');
+            // Profile Management
+            const user = JSON.parse(localStorage.getItem('user'));
 
-        if (!user) {
-            window.location.href = 'login.html';
-        } else {
-            // Show profile navigation and hide auth buttons
-            userProfileNav.style.display = 'flex';
-            authButtons.style.display = 'none';
-
-            // Update header profile information
-            headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
-            headerUsername.textContent = user.username;
-
-            // Update profile information
-            document.getElementById('userName').textContent = user.username;
-            document.getElementById('profileUsername').textContent = user.username;
-            document.getElementById('profileEmail').textContent = user.email;
-            document.getElementById('profileAvatar').textContent = user.username.charAt(0).toUpperCase();
-        }
-
-        // Settings Save
-        const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-        saveSettingsBtn.addEventListener('click', () => {
-            alert('Settings saved successfully!');
-        });
-
-        // Logout
-        const logoutBtn = document.getElementById('logoutBtn');
-        logoutBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to logout?')) {
-                localStorage.removeItem('user');
-                localStorage.removeItem('userSessionToken');
+            if (!user) {
                 window.location.href = 'login.html';
+            } else {
+                // Update profile information
+                document.getElementById('userName').textContent = user.username;
+                document.getElementById('profileUsername').textContent = user.username;
+                document.getElementById('profileEmail').textContent = user.email;
+                document.getElementById('profileAvatar').textContent = user.username.charAt(0).toUpperCase();
             }
+
+            // Settings Save
+            const saveSettingsBtn = document.getElementById('saveSettingsBtn');
+            saveSettingsBtn.addEventListener('click', () => {
+                alert('Settings saved successfully!');
+            });
+
+            // Logout
+            const logoutBtn = document.getElementById('logoutBtn');
+            logoutBtn.addEventListener('click', () => {
+                if (confirm('Are you sure you want to logout?')) {
+                    localStorage.removeItem('user');
+                    localStorage.removeItem('userSessionToken');
+                    window.location.href = 'login.html';
+                }
+            });
         });
 
         // Logout functionality

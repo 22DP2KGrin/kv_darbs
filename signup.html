@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta http-equiv="Content-Language" content="en">
-    <title>Sign Up | Language Learning Platform</title>
+    <meta http-equiv="Content-Language" content="lv">
+    <title>Reģistrēšanās | Valodu mācību platforma</title>
     <link rel="stylesheet" href="styles/footer.css">
     <!-- Add Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -433,88 +433,74 @@
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header class="header">
-        <div class="container header-container">
-            <h1 class="logo"><a href="index.html">Language Learning Platform</a></h1>
-            <nav class="main-nav">
-                <a href="about.html" class="nav-link">About Us</a>
-                <a href="contact.html" class="nav-link">Contacts</a>
-                
-                <a href="login.html" class="nav-link login-btn">Login</a>
-                <a href="signup.html" class="nav-link register-btn">Sign Up</a>
-                
-            </nav>
-        </div>
-    </header>
     
     <main class="main-content">
         <div class="signup-container">
             <div class="signup-header">
-                <h1 class="signup-title">Create Account</h1>
-                <p class="signup-subtitle">Join our language learning community</p>
+                <h1 class="signup-title">Izveidot kontu</h1>
+                <p class="signup-subtitle">Pievienojieties mūsu valodu mācību kopienai</p>
             </div>
 
             <div id="generalError" class="form-error"></div>
             
             <form id="signupForm" class="signup-form">
                 <div class="form-group">
-                    <label for="username" class="form-label">Username</label>
+                    <label for="username" class="form-label">Lietotājvārds</label>
                     <input type="text" id="username" name="username" class="form-input" required autocomplete="username">
                     <div id="usernameError" class="form-error"></div>
                 </div>
 
                 <div class="form-group">
-                    <label for="email" class="form-label">Email</label>
+                    <label for="email" class="form-label">E-pasts</label>
                     <input type="email" id="email" name="email" class="form-input" required autocomplete="email">
                     <div id="emailError" class="form-error"></div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="firstName" class="form-label">First Name</label>
+                        <label for="firstName" class="form-label">Vārds</label>
                         <input type="text" id="firstName" name="firstName" class="form-input" required>
                         <div id="firstNameError" class="form-error"></div>
                     </div>
 
                     <div class="form-group">
-                        <label for="lastName" class="form-label">Last Name</label>
+                        <label for="lastName" class="form-label">Uzvārds</label>
                         <input type="text" id="lastName" name="lastName" class="form-input" required>
                         <div id="lastNameError" class="form-error"></div>
                     </div>
                 </div>
 
                 <div class="form-group">
-                    <label for="country" class="form-label">Country</label>
+                    <label for="country" class="form-label">Valsts</label>
                     <input type="text" id="country" name="country" class="form-input">
                     <div id="countryError" class="form-error"></div>
                 </div>
 
                 <div class="form-group">
-                    <label for="phone" class="form-label">Phone Number</label>
+                    <label for="phone" class="form-label">Tālruņa numurs</label>
                     <input type="tel" id="phone" name="phone" class="form-input" >
                     <div id="phoneError" class="form-error"></div>
                 </div>
 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="birthDate" class="form-label">Date of Birth</label>
+                        <label for="birthDate" class="form-label">Dzimšanas datums</label>
                         <input type="text" 
                                id="birthDate" 
                                name="birthDate" 
                                class="form-input" 
                                required 
-                               placeholder="Select your date of birth"
+                               placeholder="Izvēlieties dzimšanas datumu"
                                readonly>
                         <div id="birthDateError" class="form-error"></div>
                     </div>
 
                     <div class="form-group">
-                        <label for="gender" class="form-label">Gender</label>
+                        <label for="gender" class="form-label">Dzimums</label>
                         <select id="gender" name="gender" class="form-input" required>
-                            <option value="">Select gender</option>
-                            <option value="male">Male</option>
-                            <option value="female">Female</option>
+                            <option value="">Izvēlieties dzimumu</option>
+                            <option value="male">Vīrietis</option>
+                            <option value="female">Sieviete</option>
                             
                         </select>
                         <div id="genderError" class="form-error"></div>
@@ -522,22 +508,22 @@
                 </div>
 
                 <div class="form-group">
-                    <label for="password" class="form-label">Password</label>
+                    <label for="password" class="form-label">Parole</label>
                     <input type="password" id="password" name="password" class="form-input" required autocomplete="new-password">
                     <div id="passwordError" class="form-error"></div>
                 </div>
 
                 <div class="form-group">
-                    <label for="confirmPassword" class="form-label">Confirm Password</label>
+                    <label for="confirmPassword" class="form-label">Apstipriniet paroli</label>
                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required autocomplete="new-password">
                     <div id="confirmPasswordError" class="form-error"></div>
                 </div>
 
-                <button type="submit" class="btn-primary">Create Account</button>
+                <button type="submit" class="btn-primary">Izveidot kontu</button>
             </form>
             
             <p style="text-align: center; margin-top: 15px;">
-                Already have an account? <a href="login.html">Sign In</a>
+                Jau ir konts? <a href="login.html">Pieteikties</a>
             </p>
         </div>
     </main>
@@ -545,105 +531,10 @@
     <!-- Debug panel -->
     <div id="debug-panel"></div>
 
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-main">
-                <div class="footer-section">
-                    <h3>Language Learning</h3>
-                    <ul>
-                        <li><a href="#"><span class="flag-icon">🇺🇸</span>English</a></li>
-                        <li><a href="#"><span class="flag-icon">🇪🇸</span>Spanish</a></li>
-                        <li><a href="#"><span class="flag-icon">🇫🇷</span>French</a></li>
-                        <li><a href="#"><span class="flag-icon">🇱🇻</span>Latvian</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Resources</h3>
-                    <ul>
-                        <li><a href="#">Grammar</a></li>
-                        <li><a href="#">Vocabulary</a></li>
-                        <li><a href="#">Pronunciation</a></li>
-                        <li><a href="#">Exercises</a></li>
-                        <li><a href="#">Tests</a></li>
-                        <li><a href="#">Certificates</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Support</h3>
-                    <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Feedback</a></li>
-                        <li><a href="#">Technical Support</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Company</h3>
-                    <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Team</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
-                        <li><a href="#">Partners</a></li>
-                        <li><a href="#">Blog</a></li>
-                    </ul>
-                </div>
-            </div>
 
-            <div class="footer-apps">
-                <div class="apps-grid">
-                    <div>
-                        <h3>Download Our Apps</h3>
-                        <div class="app-buttons">
-                            <a href="#" class="app-button">
-                                <div class="app-button-title">Download on the</div>
-                                <div class="app-button-name">App Store</div>
-                            </a>
-                            <a href="#" class="app-button">
-                                <div class="app-button-title">Get it on</div>
-                                <div class="app-button-name">Google Play</div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="newsletter">
-                        <h3>Stay Updated</h3>
-                        <p>Get the latest news and updates about new courses</p>
-                        <div class="newsletter-form">
-                            <input type="email" class="newsletter-input" placeholder="Enter your email address">
-                            <button class="newsletter-btn">Subscribe</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
-            <div class="footer-bottom">
-                <div class="footer-bottom-left">
-                    <div>© 2024 Language Learning Platform. All rights reserved.</div>
-                    <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                        Platform Version: 2.1.0 | Last Updated: May 2024
-                    </div>
-                    <div style="font-size: 0.8rem; opacity: 0.7;">
-                        Contact Information<br>
-                        info@languagelearning.com<br>
-                        +1 (800) 123-4567<br>
-                        123 Education Street, Learning City, LC 12345
-                    </div>
-                </div>
-                <div class="footer-bottom-right">
-                    <div class="legal-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Cookie Policy</a>
-                        <a href="#">Security</a>
-                        <a href="#">Accessibility</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-
+    <!-- Load shared layout (header, footer, theme, auth) -->
+    <script src="js/shared-layout.js"></script>
     <!-- Include JavaScript -->
     <script>
         // Set base URL for API calls
@@ -654,14 +545,14 @@
     <script>
         // Error messages
         const errorMessages = {
-            passwordMismatch: 'Passwords do not match',
-            generalError: 'An error occurred. Please try again.',
-            invalidPhone: 'Please enter a valid phone number with country code',
-            invalidCountry: 'Please enter a valid country name',
-            requiredField: 'This field is required',
-            invalidEmail: 'Please enter a valid email address',
-            invalidUsername: 'Username must be between 3 and 50 characters',
-            invalidPassword: 'Password must be at least 8 characters long'
+            passwordMismatch: 'Paroles nesakrīt',
+            generalError: 'Radās kļūda. Lūdzu, mēģiniet vēlreiz.',
+            invalidPhone: 'Lūdzu, ievadiet derīgu tālruņa numuru ar starptautisko kodu',
+            invalidCountry: 'Lūdzu, ievadiet derīgu valsts nosaukumu',
+            requiredField: 'Šis lauks ir jāaizpilda',
+            invalidEmail: 'Lūdzu, ievadiet derīgu e-pasta adresi',
+            invalidUsername: 'Lietotājvārdam jābūt no 3 līdz 50 rakstzīmju garam',
+            invalidPassword: 'Parolei jābūt vismaz 8 rakstzīmes garai'
         };
         
         // Store the error messages in global scope
