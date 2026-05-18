@@ -26,7 +26,7 @@ try {
             'password_hash' => $user['password_hash'],
             'created_at' => $user['created_at'] ? date('Y-m-d H:i:s', strtotime($user['created_at'])) : 'Never',
             'last_login' => $user['last_login'] ? date('Y-m-d H:i:s', strtotime($user['last_login'])) : 'Never',
-            'is_active' => $user['is_active'] ? 'Yes' : 'No'
+            'is_active' => (bool) $user['is_active']
         ];
     }, $users);
 

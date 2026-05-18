@@ -1,0 +1,1345 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Franču valodas līmeņa tests</title>
+    <style>
+        /* Global styles */
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-color: #64748b;
+            --secondary-hover: #475569;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+            padding: 0;
+        }
+        
+        @keyframes gradient {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+        
+        /* Header */
+        .header {
+            background-color: var(--header-bg, white);
+            padding: 1.5rem 0;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            width: 100%;
+            transition: background-color 0.3s ease;
+        }
+        
+        .header-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+        
+        .logo {
+            font-size: 1.5rem;
+            margin: 0;
+            font-weight: bold;
+            color: var(--body-color, #333);
+        }
+        
+        .main-nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .nav-link {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+            text-decoration: none;
+            color: var(--body-color, #333);
+        }
+        
+        .nav-link:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .dark .nav-link:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+        
+        .login-btn {
+            border: 1px solid var(--primary-color);
+            color: var(--primary-color);
+        }
+        
+        .login-btn:hover {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .register-btn {
+            background-color: var(--primary-color);
+            color: white;
+        }
+        
+        .register-btn:hover {
+            background-color: var(--primary-hover);
+        }
+
+        .user-profile-nav {
+            display: flex;
+            align-items: center;
+            margin-left: 1rem;
+        }
+
+        .profile-link {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius);
+            transition: var(--transition);
+        }
+
+        .profile-link:hover {
+            background-color: rgba(99, 102, 241, 0.1);
+        }
+
+        .profile-avatar-small {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(90deg, var(--indigo-600, #4f46e5), var(--indigo-800, #3730a3));
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+        }
+
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle .icon {
+            color: var(--indigo-600, #4f46e5);
+        }
+
+        .switch {
+            position: relative;
+            display: inline-block;
+            width: 40px;
+            height: 24px;
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .slider {
+            position: absolute;
+            cursor: pointer;
+            inset: 0;
+            background-color: #ccc;
+            transition: .4s;
+            border-radius: 34px;
+        }
+
+        .slider:before {
+            position: absolute;
+            content: '';
+            height: 16px;
+            width: 16px;
+            left: 4px;
+            bottom: 4px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked + .slider {
+            background-color: var(--indigo-600, #4f46e5);
+        }
+
+        input:checked + .slider:before {
+            transform: translateX(16px);
+        }
+        
+        /* Exercise page layout */
+        .container {
+            max-width: 800px;
+            width: 100%;
+            margin: 0 auto;
+            padding: 2.5rem;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            margin-top: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        .container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+        }
+        
+        /* Page title */
+        .page-title {
+            color: var(--primary-color);
+            font-size: 2.2rem;
+            font-weight: 700;
+            position: relative;
+            margin-bottom: 2.5rem;
+            text-align: center;
+        }
+        
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background-color: var(--primary-color);
+            border-radius: 3px;
+        }
+        
+        /* Progress bar */
+        .progress {
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 10px;
+            margin-bottom: 2.5rem;
+            overflow: hidden;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .progress-bar {
+            height: 100%;
+            background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+            transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+            border-radius: 10px;
+            width: 0;
+        }
+        
+        /* Jautājums counter */
+        .question-counter {
+            text-align: center;
+            margin-bottom: 2rem;
+            font-weight: 600;
+            color: var(--secondary-color);
+        }
+        
+        /* Jautājums styles */
+        .question {
+            background-color: #fff;
+            padding: 2.5rem;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2.5rem;
+            border: 1px solid #e2e8f0;
+            transform: translateY(0);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: none; /* Hide all questions initially */
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        .question.active {
+            display: block; /* Show only active question */
+        }
+        
+        .question:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
+        }
+        
+        .question p:first-child {
+            font-size: 1.4rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: var(--dark-color);
+            position: relative;
+            padding-bottom: 0.75rem;
+        }
+        
+        .question p:first-child::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+            opacity: 0.5;
+        }
+        
+        /* Options */
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .option {
+            background-color: #f8fafc;
+            border: 2px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            padding: 1.25rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0;
+        }
+        
+        .option::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            height: 100%;
+            width: 4px;
+            background-color: transparent;
+            transition: var(--transition);
+        }
+        
+        .option:hover {
+            background-color: #f1f5f9;
+            border-color: #cbd5e1;
+            transform: translateX(5px);
+        }
+        
+        .option input[type="radio"] {
+            margin-right: 1rem;
+            cursor: pointer;
+            width: 20px;
+            height: 20px;
+            accent-color: var(--primary-color);
+        }
+        
+        .option label {
+            cursor: pointer;
+            flex: 1;
+            font-weight: 500;
+            color: var(--dark-color);
+            padding-left: 0;
+        }
+        
+        .option input[type="radio"]:checked + label {
+            color: var(--primary-color);
+        }
+        
+        .option:has(input[type="radio"]:checked) {
+            background-color: rgba(99, 102, 241, 0.05);
+            border-color: var(--primary-color);
+        }
+        
+        .option:has(input[type="radio"]:checked)::before {
+            background-color: var(--primary-color);
+        }
+        
+        /* Navigation buttons */
+        .navigation-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 2.5rem;
+        }
+        
+        .prev-btn, .next-btn, .submit-btn {
+            padding: 0.9rem 1.8rem;
+            font-size: 1rem;
+            font-weight: 600;
+            border: none;
+            border-radius: var(--border-radius);
+            cursor: pointer;
+            transition: var(--transition);
+            min-width: 120px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            position: relative;
+            overflow: hidden;
+            z-index: 1;
+        }
+        
+        .prev-btn {
+            background-color: #f1f5f9;
+            color: var(--secondary-color);
+            border: 1px solid #cbd5e1;
+        }
+        
+        .prev-btn:hover:not(:disabled) {
+            background-color: #e2e8f0;
+            color: var(--dark-color);
+            transform: translateY(-3px);
+        }
+        
+        .prev-btn:disabled {
+            background-color: #e2e8f0;
+            color: #94a3b8;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+        
+        .next-btn, .submit-btn {
+            background: linear-gradient(to right, #6366f1, #4f46e5);
+            color: white;
+        }
+        
+        .next-btn::after, .submit-btn::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, #4f46e5, #3730a3);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .next-btn:hover::after, .submit-btn:hover::after {
+            opacity: 1;
+        }
+        
+        .next-btn:hover, .submit-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(79, 70, 229, 0.4);
+        }
+        
+        /* Result container */
+        #result {
+            text-align: center;
+            padding: 3rem 2rem;
+            background-color: #fff;
+            border-radius: var(--border-radius);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+            position: relative;
+            overflow: hidden;
+            display: none;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        #result::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+        }
+        
+        #result h2 {
+            color: var(--dark-color);
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        #level {
+            font-size: 3.5rem;
+            font-weight: 800;
+            color: var(--primary-color);
+            margin-bottom: 1.5rem;
+            position: relative;
+            display: inline-block;
+        }
+        
+        #level::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60px;
+            height: 3px;
+            background: linear-gradient(to right, #6366f1, #3b82f6);
+            border-radius: 3px;
+        }
+        
+        #score {
+            font-size: 1.2rem;
+            color: var(--secondary-color);
+            margin-bottom: 1.5rem;
+        }
+        
+        #explanation {
+            font-size: 1.2rem;
+            color: var(--dark-color);
+            line-height: 1.7;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        
+        /* Floating animated background elements */
+        .bg-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .bg-element {
+            position: absolute;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            animation: float 15s infinite linear;
+        }
+        
+        .bg-element:nth-child(1) {
+            top: 10%;
+            left: 10%;
+            width: 120px;
+            height: 120px;
+            animation-duration: 35s;
+        }
+        
+        .bg-element:nth-child(2) {
+            top: 70%;
+            left: 20%;
+            width: 80px;
+            height: 80px;
+            animation-duration: 45s;
+            animation-delay: 2s;
+        }
+        
+        .bg-element:nth-child(3) {
+            top: 40%;
+            right: 10%;
+            width: 150px;
+            height: 150px;
+            animation-duration: 40s;
+            animation-delay: 5s;
+        }
+        
+        .bg-element:nth-child(4) {
+            bottom: 10%;
+            right: 20%;
+            width: 100px;
+            height: 100px;
+            animation-duration: 50s;
+            animation-delay: 7s;
+        }
+        
+        @keyframes float {
+            0% {
+                transform: translate(0, 0) rotate(0deg);
+                opacity: 0.3;
+            }
+            25% {
+                opacity: 0.5;
+            }
+            50% {
+                transform: translate(100px, 100px) rotate(180deg);
+                opacity: 0.3;
+            }
+            75% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translate(0, 0) rotate(360deg);
+                opacity: 0.3;
+            }
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
+            0% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+            }
+            70% {
+                box-shadow: 0 0 0 10px rgba(99, 102, 241, 0);
+            }
+            100% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0);
+            }
+        }
+        
+        .next-btn:focus, .submit-btn:focus {
+            animation: pulse 1.5s infinite;
+        }
+        
+        /* Responsive styles */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+            
+            .question {
+                padding: 1.5rem;
+            }
+            
+            .page-title {
+                font-size: 1.8rem;
+            }
+            
+            .question p:first-child {
+                font-size: 1.2rem;
+            }
+            
+            #level {
+                font-size: 3rem;
+            }
+            
+            #explanation {
+                max-width: 100%;
+            }
+            
+            .prev-btn, .next-btn, .submit-btn {
+                padding: 0.8rem 1.5rem;
+                min-width: 100px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header-container">
+            <h1 class="logo"><a href="../index.html" style="text-decoration: none; color: inherit;">Valodu apguves platforma</a></h1>
+            <nav class="main-nav">
+                <div class="nav-links">
+                    <a href="../about.html" class="nav-link">Par mums</a>
+                    <a href="../contact.html" class="nav-link">Kontakti</a>
+                    <div class="user-profile-nav" id="userProfileNav" style="display: none;">
+                        <a href="../profile.html" class="nav-link profile-link">
+                            <div class="profile-avatar-small" id="headerProfileAvatar"></div>
+                            <span id="headerLietotājvārds"></span>
+                        </a>
+                    </div>
+                    <div class="auth-buttons" id="authButtons">
+                        <a href="../login.html" class="nav-link login-btn">Pieteikties</a>
+                        <a href="../signup.html" class="nav-link register-btn">Reģistrēties</a>
+                    </div>
+                </div>
+                <div class="theme-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider"></span>
+                    </label>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                </div>
+            </nav>
+        </div>
+    </header>
+   
+    
+    <div class="container">
+        <h1 class="page-title">Franču valodas līmeņa tests</h1>
+        <div class="progress">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+        <div class="question-counter" id="questionCounter">Jautājums 1 no 15</div>
+        
+        <form id="englishTest">
+            <!-- Jautājums 1 -->
+            <div class="question active" id="q1">
+                <p>1. Choisissez la forme correcte du verbe :</p>
+                <p>"Elle _____ l’anglais depuis cinq ans."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1a" value="a">
+                        <label for="q1a">étudie</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1b" value="b">
+                        <label for="q1b">a étudié</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1c" value="c">
+                        <label for="q1c">étudie</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q1" id="q1d" value="d">
+                        <label for="q1d">avait étudié</label>
+                    </div>
+                </div>
+            </div>
+            
+
+            <!-- Jautājums 2 -->
+            <div class="question" id="q2">
+                <p>2. Complétez la phrase conditionnelle :</p>
+                <p>"S’il ne _____ pas demain, nous irons à la plage."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2a" value="a">
+                        <label for="q2a">pleut</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2b" value="b">
+                        <label for="q2b">pleuvra</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2c" value="c">
+                        <label for="q2c">pleuvait</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q2" id="q2d" value="d">
+                        <label for="q2d">a plu</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 3 -->
+            <div class="question" id="q3">
+                <p>3. Choisissez la bonne réponse :</p>
+                <p>"Je suis désolé(e), je suis en retard."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3a" value="a">
+                        <label for="q3a">Ce n’est pas grave.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3b" value="b">
+                        <label for="q3b">C’est bien d’être en retard.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3c" value="c">
+                        <label for="q3c">Ne vous inquiétez pas.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q3" id="q3d" value="d">
+                        <label for="q3d">Ce n’est rien du tout.</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 4 -->
+            <div class="question" id="q4">
+                <p>4. Choisissez le mot qui complète correctement la phrase :</p>
+                <p>"Il _____ dur tous les jours."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4a" value="a">
+                        <label for="q4a">travaille</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4b" value="b">
+                        <label for="q4b">travail</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4c" value="c">
+                        <label for="q4c">travaillé</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q4" id="q4d" value="d">
+                        <label for="q4d">travailler</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 5 -->
+            <div class="question" id="q5">
+                <p>5. Choisissez la préposition correcte :</p>
+                <p>"Elle travaille _____ cette entreprise depuis 2010."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5a" value="a">
+                        <label for="q5a">de</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5b" value="b">
+                        <label for="q5b">sur</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5c" value="c">
+                        <label for="q5c">dans</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q5" id="q5d" value="d">
+                        <label for="q5d">pour</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 6 -->
+            <div class="question" id="q6">
+                <p>6. Choisissez l’expression correcte :</p>
+                <p>"Je dois _____ ma grand-mère demain."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6a" value="a">
+                        <label for="q6a">chercher</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6b" value="b">
+                        <label for="q6b">m’occuper de</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6c" value="c">
+                        <label for="q6c">réfléchir à</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q6" id="q6d" value="d">
+                        <label for="q6d">faire attention</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 7 -->
+            <div class="question" id="q7">
+                <p>7. Choisissez le mot correct :</p>
+                <p>"Ce médicament a eu des effets _____ désagréables."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7a" value="a">
+                        <label for="q7a">secondaires</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7b" value="b">
+                        <label for="q7b">partiels</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7c" value="c">
+                        <label for="q7c">supplémentaires</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q7" id="q7d" value="d">
+                        <label for="q7d">additionnels</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 8 -->
+            <div class="question" id="q8">
+                <p>8. Choisissez le verbe modal correct :</p>
+                <p>"Vous _____ fumer dans les lieux publics. C’est interdit par la loi."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8a" value="a">
+                        <label for="q8a">ne devez pas</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8b" value="b">
+                        <label for="q8b">n’avez pas besoin de</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8c" value="c">
+                        <label for="q8c">ne devriez pas</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q8" id="q8d" value="d">
+                        <label for="q8d">ne pourriez pas</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 9 -->
+            <div class="question" id="q9">
+                <p>9. Choisissez le mot correct :</p>
+                <p>"Elle est très _____. Elle obtient toujours ce qu’elle veut."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9a" value="a">
+                        <label for="q9a">déterminée</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9b" value="b">
+                        <label for="q9b">décisive</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9c" value="c">
+                        <label for="q9c">dévouée</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q9" id="q9d" value="d">
+                        <label for="q9d">préméditée</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 10 -->
+            <div class="question" id="q10">
+                <p>10. Choisissez la réponse la plus appropriée :</p>
+                <p>"Je viens de réussir mon examen de conduite !"</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10a" value="a">
+                        <label for="q10a">Vraiment ?</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10b" value="b">
+                        <label for="q10b">Félicitations !</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10c" value="c">
+                        <label for="q10c">Ça m’est égal.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q10" id="q10d" value="d">
+                        <label for="q10d">Ce n’est pas grave.</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 11 -->
+            <div class="question" id="q11">
+                <p>11. Choisissez la forme passive correcte :</p>
+                <p>"Le nouveau pont _____ l’année prochaine."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11a" value="a">
+                        <label for="q11a">construira</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11b" value="b">
+                        <label for="q11b">sera construit</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11c" value="c">
+                        <label for="q11c">va construire</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q11" id="q11d" value="d">
+                        <label for="q11d">construit</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 12 -->
+            <div class="question" id="q12">
+                <p>12. Complétez avec la bonne expression :</p>
+                <p>"Je suis désolé(e), mais je dois _____. J’ai une réunion tôt demain."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12a" value="a">
+                        <label for="q12a">me fâcher</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12b" value="b">
+                        <label for="q12b">m’arrêter pour aujourd’hui</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12c" value="c">
+                        <label for="q12c">briser la glace</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q12" id="q12d" value="d">
+                        <label for="q12d">faire face aux conséquences</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 13 -->
+            <div class="question" id="q13">
+                <p>13. Choisissez la bonne question tag en anglais :</p>
+                <p>"You haven't seen my keys, _____?"</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13a" value="a">
+                        <label for="q13a">have you</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13b" value="b">
+                        <label for="q13b">did you</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13c" value="c">
+                        <label for="q13c">hadn't you</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q13" id="q13d" value="d">
+                        <label for="q13d">do you</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 14 -->
+            <div class="question" id="q14">
+                <p>14. Choisissez le mot qui complète le mieux la phrase :</p>
+                <p>"L’entreprise cherche des candidats _____ ayant au moins cinq ans d’expérience."</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14a" value="a">
+                        <label for="q14a">applicables</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14b" value="b">
+                        <label for="q14b">appropriés</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14c" value="c">
+                        <label for="q14c">adaptés</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q14" id="q14d" value="d">
+                        <label for="q14d">correspondants</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jautājums 15 -->
+            <div class="question" id="q15">
+                <p>15. Choisissez la phrase correcte :</p>
+                <div class="options">
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15a" value="a">
+                        <label for="q15a">Je voudrais que j’irai à la fête hier.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15b" value="b">
+                        <label for="q15b">J’aurais aimé être allé(e) à la fête hier.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15c" value="c">
+                        <label for="q15c">Je souhaite que je suis allé(e) à la fête hier.</label>
+                    </div>
+                    <div class="option">
+                        <input type="radio" name="q15" id="q15d" value="d">
+                        <label for="q15d">J’aimerais aller à la fête hier.</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="navigation-buttons">
+                <button type="button" id="prevBtn" class="prev-btn" disabled>Iepriekšējais</button>
+                <button type="button" id="nextBtn" class="next-btn">Nākamais</button>
+            </div>
+        </form>
+
+        <div id="result">
+            <h2>Tavs rezultāts:</h2>
+            <div id="level"></div>
+            <p id="score"></p>
+            <p id="explanation"></p>
+            <div style="display:flex; justify-content:center; gap:1rem; margin-top:2rem; flex-wrap:wrap;">
+                <button type="button" id="saveResultBtn" class="submit-btn">Saglabāt rezultātu</button>
+                <a href="../exercises_french.html" class="prev-btn" style="text-decoration:none;">Atpakaļ uz vingrinājumiem</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/language-test.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const themeToggle = document.getElementById('themeToggle');
+            const savedTheme = localStorage.getItem('theme');
+
+            if (savedTheme === 'dark') {
+                document.body.classList.add('dark');
+                if (themeToggle) themeToggle.checked = true;
+            }
+
+            if (themeToggle) {
+                themeToggle.addEventListener('change', function() {
+                    document.body.classList.toggle('dark', this.checked);
+                    localStorage.setItem('theme', this.checked ? 'dark' : 'light');
+                });
+            }
+
+            let user = null;
+            try {
+                user = JSON.parse(localStorage.getItem('user'));
+            } catch (e) {}
+
+            const userProfileNav = document.getElementById('userProfileNav');
+            const authButtons = document.getElementById('authButtons');
+            const headerProfileAvatar = document.getElementById('headerProfileAvatar');
+            const headerLietotājvārds = document.getElementById('headerLietotājvārds');
+
+            if (user && userProfileNav && authButtons) {
+                userProfileNav.style.display = 'flex';
+                authButtons.style.display = 'none';
+                if (headerProfileAvatar && headerLietotājvārds) {
+                    headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
+                    headerLietotājvārds.textContent = user.username;
+                }
+            }
+
+            // DOM elements
+            const form = document.getElementById('englishTest');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const resultDiv = document.getElementById('result');
+            const levelDiv = document.getElementById('level');
+            const scoreDiv = document.getElementById('score');
+            const explanationDiv = document.getElementById('explanation');
+            const progressBar = document.getElementById('progressBar');
+            const questionCounter = document.getElementById('questionCounter');
+            const saveResultBtn = document.getElementById('saveResultBtn');
+
+            // Variables
+            const totalJautājumss = 15;
+            let currentJautājums = 1;
+            const answeredJautājumss = {}; // Track answered questions
+            let latestScore = 0;
+            const testStartTime = Date.now();
+
+            // Correct answers
+            const correctAnswers = {
+                q1: 'c',
+                q2: 'a',
+                q3: 'c',
+                q4: 'a',
+                q5: 'd',
+                q6: 'b',
+                q7: 'a',
+                q8: 'a',
+                q9: 'a',
+                q10: 'b',
+                q11: 'b',
+                q12: 'b',
+                q13: 'a',
+                q14: 'b',
+                q15: 'b'
+            };
+
+            // Update question counter
+            function updateJautājumsCounter() {
+                questionCounter.textContent = `Jautājums ${currentJautājums} no ${totalJautājumss}`;
+            }
+
+            // Show question
+            function showJautājums(questionNumber) {
+                // Hide all questions
+                document.querySelectorAll('.question').forEach(q => {
+                    q.classList.remove('active');
+                });
+
+                // Show current question
+                document.getElementById(`q${questionNumber}`).classList.add('active');
+
+                // Update counter
+                updateJautājumsCounter();
+
+                // Update navigation buttons
+                prevBtn.disabled = questionNumber === 1;
+                nextBtn.textContent = questionNumber === totalJautājumss ? 'Pabeigt' : 'Nākamais';
+
+                // Update progress bar
+                const progress = ((questionNumber - 1) / totalJautājumss) * 100;
+                progressBar.style.width = `${progress}%`;
+            }
+
+            // Handle next button click
+            nextBtn.addEventListener('click', function() {
+                // Check if current question is answered
+                const currentRadios = document.querySelectorAll(`input[name="q${currentJautājums}"]`);
+                let isAnswered = false;
+
+                currentRadios.forEach(radio => {
+                    if (radio.checked) {
+                        isAnswered = true;
+                        answeredJautājumss[`q${currentJautājums}`] = radio.value;
+                    }
+                });
+
+                // If the user hasn't answered the question, alert them
+                if (!isAnswered) {
+                    alert('Lūdzu, izvēlies atbildi pirms turpināšanas.');
+                    return;
+                }
+
+                if (currentJautājums === totalJautājumss && nextBtn.textContent === 'Pabeigt') {
+                    calculateResult();
+                    return;
+                }
+
+                // Move to next question
+                currentJautājums++;
+                showJautājums(currentJautājums);
+            });
+
+            // Handle previous button click
+            prevBtn.addEventListener('click', function() {
+                if (currentJautājums > 1) {
+                    currentJautājums--;
+                    showJautājums(currentJautājums);
+                }
+            });
+
+            // Calculate the result
+            function calculateResult() {
+                let score = 0;
+
+                // Count correct answers
+                for (const [question, answer] of Object.entries(answeredJautājumss)) {
+                    if (answer === correctAnswers[question]) {
+                        score++;
+                    }
+                }
+
+                // Calculate percentage
+                const percentage = (score / totalJautājumss) * 100;
+                latestScore = score;
+
+                // Determine proficiency level
+                let level, explanation;
+
+                if (percentage >= 90) {
+                    level = "C2 - Brīva pārvaldība";
+                    explanation = "Tev ir ļoti augsts franču valodas līmenis. Tu spēj brīvi un precīzi izteikties arī sarežģītās situācijās.";
+                } else if (percentage >= 75) {
+                    level = "C1 - Augstākais";
+                    explanation = "Tev ir augsts franču valodas līmenis. Tu vari efektīvi lietot valodu sociālās, akadēmiskās un profesionālās situācijās.";
+                } else if (percentage >= 60) {
+                    level = "B2 - Virs vidējā";
+                    explanation = "Tu vari sarunāties pietiekami brīvi un spontāni, lai regulāra saziņa ar dzimtās valodas runātājiem notiktu bez grūtībām.";
+                } else if (percentage >= 40) {
+                    level = "B1 - Vidējais";
+                    explanation = "Tu spēj tikt galā ar lielāko daļu situāciju, kas var rasties ceļojot vietā, kur runā šajā valodā.";
+                } else if (percentage >= 20) {
+                    level = "A2 - Pamata";
+                    explanation = "Tu vari sazināties vienkāršās ikdienas situācijās, kur nepieciešama vienkārša informācijas apmaiņa par pazīstamām tēmām.";
+                } else {
+                    level = "A1 - Iesācējs";
+                    explanation = "Tu vari saprast un lietot pazīstamus ikdienas izteicienus un ļoti vienkāršas frāzes konkrētu vajadzību izteikšanai.";
+                }
+
+                // Display the result
+                levelDiv.textContent = level;
+                scoreDiv.textContent = `Tu ieguvi ${score} no ${totalJautājumss} (${percentage.toFixed(1)}%)`;
+                explanationDiv.textContent = explanation;
+
+                // Hide the test and show the result
+                form.style.display = 'none';
+                resultDiv.style.display = 'block';
+
+                // Hide the progress bar and question counter
+                document.querySelector('.progress').style.display = 'none';
+                questionCounter.style.display = 'none';
+            }
+
+            function buildErrorList() {
+                const errors = [];
+
+                Object.entries(correctAnswers).forEach(([questionKey, correctValue]) => {
+                    const selectedValue = answeredJautājumss[questionKey];
+                    if (!selectedValue || selectedValue === correctValue) {
+                        return;
+                    }
+
+                    const questionEl = document.getElementById(questionKey);
+                    const prompt = questionEl.querySelector('p:nth-child(2)')?.textContent || questionKey;
+                    const userLabel = questionEl.querySelector(`input[value="${selectedValue}"]`)?.nextElementSibling?.textContent || selectedValue;
+                    const correctLabel = questionEl.querySelector(`input[value="${correctValue}"]`)?.nextElementSibling?.textContent || correctValue;
+
+                    errors.push({
+                        questionId: parseInt(questionKey.replace('q', ''), 10),
+                        userAnswer: userLabel,
+                        correctAnswer: correctLabel,
+                        questionText: prompt
+                    });
+                });
+
+                return errors;
+            }
+
+            async function saveLevelTestResult() {
+                try {
+                    await saveTestResult({
+                        resultType: 'test',
+                        topicId: 32,
+                        topicKey: 'french-level-test',
+                        score: latestScore,
+                        maxScore: totalJautājumss,
+                        timeSpent: Math.floor((Date.now() - testStartTime) / 1000),
+                        errors: buildErrorList()
+                    });
+
+                    alert('Rezultāts veiksmīgi saglabāts!');
+                    window.location.href = '../profile.html';
+                } catch (error) {
+                    console.error('Error saving French level test result:', error);
+                    if (String(error.message || '').includes('401') || String(error.message || '').toLowerCase().includes('log in')) {
+                        alert('Lūdzu, piesakies, lai saglabātu rezultātu.');
+                        window.location.href = '../login.html';
+                    } else {
+                        alert('Neizdevās saglabāt rezultātu. Mēģini vēlreiz.');
+                    }
+                }
+            }
+
+            // Initialize
+            showJautājums(currentJautājums);
+            saveResultBtn.addEventListener('click', saveLevelTestResult);
+        });
+    </script>
+    <script src="../scripts/ai-widget.js?v=2"></script>
+</body>
+</html>

@@ -9,7 +9,16 @@ try {
     echo "<p style='color: green;'>✓ Database connection successful</p>";
     
     // Проверяем таблицы
-    $tables = ['users', 'sessions', 'topics', 'questions', 'test_results', 'user_answers'];
+    $tables = [
+        'users',
+        'sessions',
+        'topics',
+        'test_results',
+        'test_errors',
+        'exercise_results',
+        'exercise_answers',
+        'user_progress'
+    ];
     
     foreach ($tables as $table) {
         echo "<h2>Table: $table</h2>";
@@ -93,17 +102,16 @@ try {
     }
     echo "</ul>";
     
-    // Проверяем ответы пользователей
-    $answerStmt = $pdo->query("SELECT ua.answer_id, ua.result_id, q.question_text, ua.answer_text, q.correct_answer 
-                               FROM user_answers ua 
-                               JOIN questions q ON ua.question_id = q.question_id 
-                               LIMIT 10");
-    $answers = $answerStmt->fetchAll();
-    echo "<h3>User Answers:</h3>";
+    // Проверяем ответы по упражнениям
+    $exerciseAnswerStmt = $pdo->query("SELECT exercise_answer_id, exercise_result_id, question_text, user_answer, correct_answer, is_correct 
+                                       FROM exercise_answers 
+                                       LIMIT 10");
+    $exerciseAnswers = $exerciseAnswerStmt->fetchAll();
+    echo "<h3>Exercise Answers:</h3>";
     echo "<ul>";
-    foreach ($answers as $answer) {
-        $isCorrect = $answer['answer_text'] === $answer['correct_answer'] ? '✓' : '✗';
-        echo "<li>Result ID: {$answer['result_id']}, Question: " . substr($answer['question_text'], 0, 50) . "..., Answer: {$answer['answer_text']}, Correct: {$answer['correct_answer']} $isCorrect</li>";
+    foreach ($exerciseAnswers as $answer) {
+        $isCorrect = $answer['is_correct'] === null ? '?' : ($answer['is_correct'] ? '✓' : '✗');
+        echo "<li>Exercise Result ID: {$answer['exercise_result_id']}, Question: " . substr((string)$answer['question_text'], 0, 50) . "..., Answer: " . htmlspecialchars((string)$answer['user_answer']) . ", Correct: " . htmlspecialchars((string)$answer['correct_answer']) . " $isCorrect</li>";
     }
     echo "</ul>";
     

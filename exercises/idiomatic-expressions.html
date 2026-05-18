@@ -614,17 +614,38 @@
         saveResultBtn.style.display = 'inline-flex';
         saveResultBtn.onclick = async function() {
             try {
+                const answerDetails = Object.keys(answers).map((questionId, index) => {
+                    const selectedOptionId = userAnswers[questionId] || null;
+                    const selectedLabel = selectedOptionId ? document.querySelector(`label[for="${selectedOptionId}"]`) : null;
+                    const correctOptionId = answers[questionId];
+                    const correctLabel = document.querySelector(`label[for="${correctOptionId}"]`);
+                    const questionContainer = document.getElementById(`question-${index + 1}`);
+                    return {
+                        questionId: index + 1,
+                        questionText: questionContainer?.querySelector('.question')?.textContent.trim() || questionId,
+                        userAnswer: selectedLabel ? selectedLabel.textContent.trim() : null,
+                        correctAnswer: correctLabel ? correctLabel.textContent.trim() : null,
+                        isCorrect: selectedOptionId === correctOptionId
+                    };
+                });
+
                 const testData = {
-                    topicId: 79, // ID темы "Idiomatic Expressions" в базе данных
-                    score: correctCount,
-                    maxScore: questions.length,
+                    resultType: 'exercise',
+                    topicId: 6,
+                    exerciseSlug: 'idiomatic-expressions',
+                    exerciseType: 'vocabulary',
+                    score: answerDetails.filter(item => item.isCorrect).length,
+                    maxScore: Object.keys(answers).length,
                     timeSpent: Math.floor((Date.now() - startTime) / 1000),
-                    errors: incorrectAnswers.map(item => ({
-                        questionId: questions.findIndex(q => q.question === item.question) + 1,
-                        userAnswer: item.userAnswer,
-                        correctAnswer: item.correctAnswer,
-                        questionText: item.question
-                    }))
+                    answers: answerDetails,
+                    errors: answerDetails
+                        .filter(item => !item.isCorrect)
+                        .map(item => ({
+                            questionId: item.questionId,
+                            userAnswer: item.userAnswer,
+                            correctAnswer: item.correctAnswer,
+                            questionText: item.questionText
+                        }))
                 };
 
                 await saveTestResult(testData);
@@ -645,6 +666,6 @@
 
     nextQuestion();
   </script>
+    <script src="../scripts/ai-widget.js?v=2"></script>
 </body>
 </html>
-

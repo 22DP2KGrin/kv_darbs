@@ -13,16 +13,18 @@ require_once 'config/database.php';
 try {
     // Получаем последние действия
     $stmt = $pdo->prepare("
-        SELECT 
+        SELECT
             a.id,
             a.action,
             a.description,
             a.created_at,
-            u.username as user_name
+            u.username AS user_name,
+            ad.username AS admin_name
         FROM admin_activity_log a
-        LEFT JOIN users u ON a.user_id = u.id
+        LEFT JOIN users u ON a.user_id = u.user_id
+        LEFT JOIN admins ad ON a.admin_id = ad.id
         ORDER BY a.created_at DESC
-        LIMIT 10
+        LIMIT 25
     ");
     $stmt->execute();
     $activities = $stmt->fetchAll(PDO::FETCH_ASSOC);

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Profile - Language Learning Platform</title>
+    <title>Mans profils - Valodu apguves platforma</title>
     <style>
         /* Base Variables */
         :root {
@@ -359,6 +359,94 @@
             display: flex;
             gap: 1rem;
             margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .dashboard-block {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid var(--border);
+        }
+
+        .dashboard-subtitle {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(79, 70, 229, 0.02));
+            border: 1px solid rgba(79, 70, 229, 0.15);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+        }
+
+        .stat-label {
+            color: var(--muted-foreground);
+            font-size: 0.95rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .table-wrapper {
+            overflow-x: auto;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+        }
+
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            background-color: var(--background);
+        }
+
+        .data-table th,
+        .data-table td {
+            padding: 0.9rem 1rem;
+            border-bottom: 1px solid var(--border);
+            text-align: left;
+        }
+
+        .data-table th {
+            background-color: rgba(79, 70, 229, 0.06);
+            color: var(--muted-foreground);
+            font-weight: 600;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .result-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background-color: rgba(79, 70, 229, 0.1);
+            color: var(--primary);
+        }
+
+        .empty-state {
+            padding: 1.25rem;
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+            color: var(--muted-foreground);
+            text-align: center;
         }
 
         .logout-btn {
@@ -377,7 +465,7 @@
             box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
         }
 
-        /* Messages */
+        /* Ziņas */
         .message {
             padding: 1rem;
             border-radius: var(--radius);
@@ -607,21 +695,21 @@
     <!-- Header -->
     <header class="header">
         <div class="container header-container">
-            <h1 class="logo"><a href="index.html">Language Learning Platform</a></h1>
+            <h1 class="logo"><a href="index.html">Valodu apguves platforma</a></h1>
             <nav class="main-nav">
                 <div class="nav-links">
                    
-                    <a href="about.html" class="nav-link">About Us</a>
-                    <a href="contact.html" class="nav-link">Contact</a>
+                    <a href="about.html" class="nav-link">Par mums</a>
+                    <a href="contact.html" class="nav-link">Kontakti</a>
                     <div class="user-profile-nav" id="userProfileNav" style="display: none;">
                         <a href="profile.html" class="nav-link profile-link">
                             <div class="profile-avatar-small" id="headerProfileAvatar"></div>
-                            <span id="headerUsername"></span>
+                            <span id="headerLietotājvārds"></span>
                         </a>
                     </div>
                     <div class="auth-buttons" id="authButtons">
-                        <a href="login.html" class="nav-link">Login</a>
-                        <a href="register.html" class="nav-link">Register</a>
+                        <a href="login.html" class="nav-link">Pieteikties</a>
+                        <a href="signup.html" class="nav-link">Reģistrēties</a>
                     </div>
                 </div>
                 <!-- Theme Toggle -->
@@ -642,7 +730,7 @@
         <div class="container">
             <!-- Profile Header -->
             <div class="profile-header">
-                <h1>Welcome, <span id="userName">User</span>!</h1>
+                <h1>Sveika, <span id="userName">User</span>!</h1>
             </div>
 
             <!-- Profile Layout -->
@@ -655,7 +743,7 @@
                                 <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
                                 </svg>
-                                My Profile
+                                Mans profils
                             </a>
                         </li>
                         <li>
@@ -666,7 +754,7 @@
                                 <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
                                 </svg>
-                                Security
+                                Drošība
                             </a>
                         </li>
                         <li>
@@ -685,19 +773,32 @@
                 <div class="content-area">
                     <!-- Profile Section -->
                     <div id="profile" class="section active">
-                        <h2 class="section-title">My Profile</h2>
+                        <h2 class="section-title">Mans profils</h2>
                         <div class="profile-container">
                             <div class="profile-image-container">
                                 <div class="profile-image" id="profileAvatar"></div>
                             </div>
                             <div class="profile-details">
-                                <span class="profile-label">Username:</span>
-                                <span class="profile-value" id="profileUsername">Loading...</span>
+                                <span class="profile-label">Lietotājvārds:</span>
+                                <span class="profile-value" id="profileLietotājvārds">Ielādējas...</span>
                                 
-                                <span class="profile-label">Email:</span>
-                                <span class="profile-value" id="profileEmail">Loading...</span>
+                                <span class="profile-label">E-pasts:</span>
+                                <span class="profile-value" id="profileE-pasts">Ielādējas...</span>
 
-                             
+                                <span class="profile-label">Vārds un uzvārds:</span>
+                                <span class="profile-value" id="profileFullName">Ielādējas...</span>
+
+                                <span class="profile-label">Valsts:</span>
+                                <span class="profile-value" id="profileCountry">Ielādējas...</span>
+
+                                <span class="profile-label">Interfeisa valoda:</span>
+                                <span class="profile-value" id="profileLanguage">Ielādējas...</span>
+
+                                <span class="profile-label">Reģistrēts:</span>
+                                <span class="profile-value" id="profileCreatedAt">Ielādējas...</span>
+
+                                <span class="profile-label">Pēdējā pieslēgšanās:</span>
+                                <span class="profile-value" id="profileLastLogin">Ielādējas...</span>
                             </div>
                         </div>
                         
@@ -707,59 +808,95 @@
                                 <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" style="width: 20px; height: 20px; margin-right: 8px;">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path>
                                 </svg>
-                                View Test History
+                                Skatīt testu vēsturi
                             </a>
-                            <button class="logout-btn" id="logoutBtn" onclick="logout()">Logout</button>
+                            <button class="logout-btn" id="logoutBtn" onclick="logout()">Izrakstīties</button>
                         </div>
                         
-                        
+                        <div class="dashboard-block">
+                            <h3 class="dashboard-subtitle">Kopējais progress</h3>
+                            <div class="stats-grid">
+                                <div class="stat-card">
+                                    <div class="stat-label">Kopā testi</div>
+                                    <div class="stat-value" id="statTotalTests">0</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Kopā vingrinājumi</div>
+                                    <div class="stat-value" id="statTotalExercises">0</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Vidējais rezultāts</div>
+                                    <div class="stat-value" id="statAvgScore">0%</div>
+                                </div>
+                                <div class="stat-card">
+                                    <div class="stat-label">Apgūtās tēmas</div>
+                                    <div class="stat-value" id="statTopicsCovered">0</div>
+                                </div>
+                            </div>
+                        </div>
 
-                    <!-- Security Section -->
+                        <div class="dashboard-block">
+                            <h3 class="dashboard-subtitle">Rezultāti pa valodām</h3>
+                            <div id="languageStatsContainer" class="table-wrapper"></div>
+                        </div>
+
+                        <div class="dashboard-block">
+                            <h3 class="dashboard-subtitle">Jaunākie rezultāti</h3>
+                            <div id="recentResultsContainer" class="table-wrapper"></div>
+                        </div>
+
+                        <div class="dashboard-block">
+                            <h3 class="dashboard-subtitle">Progress pa tēmām</h3>
+                            <div id="topicStatsContainer" class="table-wrapper"></div>
+                        </div>
+                    </div>
+
+                    <!-- Drošība Section -->
                     <div id="security" class="section">
-                        <h2 class="section-title">Security Settings</h2>
+                        <h2 class="section-title">Drošība Settings</h2>
                         <div class="form-group">
-                            <p>For security reasons, password changes are currently disabled.</p>
-                            <p>If you need to change your password, please contact support.</p>
+                            <p>Drošības apsvērumu dēļ paroles maiņa pašlaik nav pieejama.</p>
+                            <p>Ja tev nepieciešams nomainīt paroli, sazinies ar atbalstu.</p>
                         </div>
                     </div>
 
                     <!-- Settings Section -->
                     <div id="settings" class="section">
-                        <h2 class="section-title">Account Settings</h2>
+                        <h2 class="section-title">Konta iestatījumi</h2>
                         <div style="margin-bottom: 2rem;">
-                            <h3 style="margin-bottom: 1rem;">Notifications</h3>
+                            <h3 style="margin-bottom: 1rem;">Paziņojumi</h3>
                             <div style="display: flex; flex-direction: column; gap: 1rem;">
                                 <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <input type="checkbox" id="emailNotifications" checked>
-                                    Email Notifications
+                                    <input type="checkbox" id="emailPaziņojumi" checked>
+                                    E-pasts Paziņojumi
                                 </label>
                                 <label style="display: flex; align-items: center; gap: 0.5rem;">
                                     <input type="checkbox" id="progressUpdates" checked>
-                                    Progress Updates
+                                    Progresa atjauninājumi
                                 </label>
                                 <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <input type="checkbox" id="marketingEmails">
-                                    Marketing Emails
+                                    <input type="checkbox" id="marketingE-pastss">
+                                    Marketing E-pastss
                                 </label>
                             </div>
                         </div>
 
                         <div style="margin-bottom: 2rem;">
-                            <h3 style="margin-bottom: 1rem;">Privacy</h3>
+                            <h3 style="margin-bottom: 1rem;">Privātums</h3>
                             <div style="display: flex; flex-direction: column; gap: 1rem;">
                                 <label style="display: flex; align-items: center; gap: 0.5rem;">
                                     <input type="checkbox" id="publicProfile">
-                                    Make profile public
+                                    Padarīt profilu publisku
                                 </label>
                                 <label style="display: flex; align-items: center; gap: 0.5rem;">
                                     <input type="checkbox" id="shareProgress" checked>
-                                    Share progress with friends
+                                    Kopīgot progresu ar draugiem
                                 </label>
                             </div>
                         </div>
 
                         <div style="margin-top: 2rem;">
-                            <button class="btn btn-primary" id="saveSettingsBtn">Save Settings</button>
+                            <button class="btn btn-primary" id="saveSettingsBtn">Saglabāt iestatījumus</button>
                         </div>
                     </div>
                 </div>
@@ -810,53 +947,238 @@
             });
         });
 
-        // Profile Management
-        const user = JSON.parse(localStorage.getItem('user'));
+        const sessionToken = localStorage.getItem('userSessionToken');
         const userProfileNav = document.getElementById('userProfileNav');
         const authButtons = document.getElementById('authButtons');
         const headerProfileAvatar = document.getElementById('headerProfileAvatar');
-        const headerUsername = document.getElementById('headerUsername');
+        const headerLietotājvārds = document.getElementById('headerLietotājvārds');
 
-        if (!user) {
+        function redirectToLogin() {
+            localStorage.removeItem('userSessionToken');
+            localStorage.removeItem('user');
             window.location.href = 'login.html';
-        } else {
-            // Show profile navigation and hide auth buttons
-            userProfileNav.style.display = 'flex';
-            authButtons.style.display = 'none';
+        }
 
-            // Update header profile information
-            headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
-            headerUsername.textContent = user.username;
+        if (!sessionToken) {
+            redirectToLogin();
+        }
 
-            // Update profile information
-            document.getElementById('userName').textContent = user.username;
-            document.getElementById('profileUsername').textContent = user.username;
-            document.getElementById('profileEmail').textContent = user.email;
-            document.getElementById('profileAvatar').textContent = user.username.charAt(0).toUpperCase();
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function formatDateTime(value) {
+            if (!value) return 'Nav datu';
+            const date = new Date(value.replace(' ', 'T'));
+            return Number.isNaN(date.getTime()) ? value : date.toLocaleString('lv-LV');
+        }
+
+        function formatSeconds(totalSeconds) {
+            const seconds = Number(totalSeconds || 0);
+            const hours = Math.floor(seconds / 3600);
+            const minutes = Math.floor((seconds % 3600) / 60);
+
+            if (hours > 0) {
+                return `${hours} h ${minutes} min`;
+            }
+            return `${minutes} min`;
+        }
+
+        function renderLanguageStats(items) {
+            const container = document.getElementById('languageStatsContainer');
+            if (!items || !items.length) {
+                container.innerHTML = '<div class="empty-state">Vēl nav saglabātu rezultātu nevienā valodā.</div>';
+                return;
+            }
+
+            container.innerHTML = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Valoda</th>
+                            <th>Mēģinājumi</th>
+                            <th>Vidējais rezultāts</th>
+                            <th>Pareizās atbildes</th>
+                            <th>Kopā jautājumi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${items.map(item => `
+                            <tr>
+                                <td>${escapeHtml(item.language_name)}</td>
+                                <td>${Number(item.attempts || 0)}</td>
+                                <td>${Number(item.avg_score || 0).toFixed(2)}%</td>
+                                <td>${Number(item.correct_answers || 0)}</td>
+                                <td>${Number(item.total_questions || 0)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function renderRecentResults(items) {
+            const container = document.getElementById('recentResultsContainer');
+            if (!items || !items.length) {
+                container.innerHTML = '<div class="empty-state">Rezultāti vēl nav saglabāti.</div>';
+                return;
+            }
+
+            container.innerHTML = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Valoda</th>
+                            <th>Tēma</th>
+                            <th>Tips</th>
+                            <th>Līmenis</th>
+                            <th>Rezultāts</th>
+                            <th>Laiks</th>
+                            <th>Datums</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${items.slice(0, 12).map(item => `
+                            <tr>
+                                <td>${escapeHtml(item.language_name)}</td>
+                                <td>${escapeHtml(item.result_type === 'exercise' && item.exercise_slug ? `${item.topic_name} (${item.exercise_slug})` : item.topic_name)}</td>
+                                <td><span class="result-badge">${item.result_type === 'test' ? 'Tests' : 'Vingrinājums'}</span></td>
+                                <td>${escapeHtml(item.difficulty_level)}</td>
+                                <td>${Number(item.score || 0)}/${Number(item.max_score || 0)} (${item.max_score ? ((Number(item.score) / Number(item.max_score)) * 100).toFixed(1) : '0.0'}%)</td>
+                                <td>${formatSeconds(item.time_spent)}</td>
+                                <td>${formatDateTime(item.completion_date)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        function renderTopicStats(items) {
+            const container = document.getElementById('topicStatsContainer');
+            if (!items || !items.length) {
+                container.innerHTML = '<div class="empty-state">Vēl nav datu par tēmām.</div>';
+                return;
+            }
+
+            container.innerHTML = `
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th>Valoda</th>
+                            <th>Tēma</th>
+                            <th>Mēģinājumi</th>
+                            <th>Vidējais rezultāts</th>
+                            <th>Pareizās atbildes</th>
+                            <th>Kopā jautājumi</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${items.map(item => `
+                            <tr>
+                                <td>${escapeHtml(item.language_name)}</td>
+                                <td>${escapeHtml(item.topic_name)}</td>
+                                <td>${Number(item.attempts || 0)}</td>
+                                <td>${Number(item.avg_score || 0).toFixed(2)}%</td>
+                                <td>${Number(item.correct_answers || 0)}</td>
+                                <td>${Number(item.total_questions || 0)}</td>
+                            </tr>
+                        `).join('')}
+                    </tbody>
+                </table>
+            `;
+        }
+
+        async function loadProfilePageData() {
+            try {
+                const [profileResponse, historyResponse] = await Promise.all([
+                    fetch('get_profile.php', {
+                        headers: {
+                            'Authorization': `Bearer ${sessionToken}`
+                        }
+                    }),
+                    fetch('api/get_test_history.php', {
+                        headers: {
+                            'Authorization': `Bearer ${sessionToken}`
+                        }
+                    })
+                ]);
+
+                const profileData = await profileResponse.json();
+                const historyData = await historyResponse.json();
+
+                if (!profileResponse.ok || !profileData.success) {
+                    throw new Error(profileData.message || 'Neizdevās ielādēt profila datus');
+                }
+
+                if (!historyResponse.ok || !historyData.success) {
+                    throw new Error(historyData.message || 'Neizdevās ielādēt progresa datus');
+                }
+
+                const user = profileData.user;
+                const fullName = [user.first_name, user.last_name].filter(Boolean).join(' ').trim() || 'Nav norādīts';
+                const avatarLetter = (user.username || '?').charAt(0).toUpperCase();
+
+                userProfileNav.style.display = 'flex';
+                authButtons.style.display = 'none';
+                headerProfileAvatar.textContent = avatarLetter;
+                headerLietotājvārds.textContent = user.username;
+
+                document.getElementById('userName').textContent = user.username;
+                document.getElementById('profileLietotājvārds').textContent = user.username;
+                document.getElementById('profileE-pasts').textContent = user.email || 'Nav norādīts';
+                document.getElementById('profileFullName').textContent = fullName;
+                document.getElementById('profileCountry').textContent = user.country || 'Nav norādīts';
+                document.getElementById('profileLanguage').textContent = user.language || 'Nav norādīts';
+                document.getElementById('profileCreatedAt').textContent = formatDateTime(user.created_at);
+                document.getElementById('profileLastLogin').textContent = formatDateTime(user.last_login);
+                document.getElementById('profileAvatar').textContent = avatarLetter;
+
+                document.getElementById('statTotalTests').textContent = Number(historyData.statistics.total_tests || 0);
+                document.getElementById('statTotalExercises').textContent = Number(historyData.statistics.total_exercises || 0);
+                document.getElementById('statAvgScore').textContent = `${Number(historyData.statistics.avg_score || 0).toFixed(1)}%`;
+                document.getElementById('statTopicsCovered').textContent = Number(historyData.statistics.topics_covered || 0);
+
+                renderLanguageStats(historyData.language_statistics || []);
+                renderRecentResults(historyData.test_results || []);
+                renderTopicStats(historyData.topic_statistics || []);
+            } catch (error) {
+                console.error('Profile load error:', error);
+                alert('Neizdevās ielādēt profila datus. Lūdzu, pieslēdzies vēlreiz.');
+                redirectToLogin();
+            }
         }
 
         // Settings Save
         const saveSettingsBtn = document.getElementById('saveSettingsBtn');
         saveSettingsBtn.addEventListener('click', () => {
-            alert('Settings saved successfully!');
+            alert('Šie interfeisa iestatījumi pašlaik netiek saglabāti datubāzē.');
         });
 
-        // Logout
+        // Izrakstīties
         const logoutBtn = document.getElementById('logoutBtn');
         logoutBtn.addEventListener('click', () => {
-            if (confirm('Are you sure you want to logout?')) {
+            if (confirm('Vai tiešām vēlies izrakstīties?')) {
                 localStorage.removeItem('user');
                 localStorage.removeItem('userSessionToken');
                 window.location.href = 'login.html';
             }
         });
 
-        // Logout functionality
+        // Izrakstīties functionality
         function logout() {
             localStorage.removeItem('user');
             localStorage.removeItem('userSessionToken');
             window.location.href = 'login.html';
         }
+
+        loadProfilePageData();
     </script>
+    <script src="scripts/ai-widget.js?v=2"></script>
 </body>
 </html>

@@ -25,7 +25,8 @@ class ExerciseHandler {
         const timeSpent = Math.floor((Date.now() - this.startTime) / 1000); // в секундах
 
         const resultData = {
-            exercise_id: this.currentExercise.id,
+            result_type: 'exercise',
+            exercise_slug: this.currentExercise.id,
             exercise_type: this.currentExercise.type,
             level: this.currentExercise.level,
             score: score,
@@ -35,10 +36,16 @@ class ExerciseHandler {
         };
 
         try {
-            const response = await fetch('save_exercise_result.php', {
+            const sessionToken = localStorage.getItem('userSessionToken');
+            if (!sessionToken) {
+                throw new Error('No session token found. Please log in to save your results.');
+            }
+
+            const response = await fetch('../api/save_test_result.php', {
                 method: 'POST',
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'X-Session-Token': sessionToken
                 },
                 body: JSON.stringify(resultData)
             });

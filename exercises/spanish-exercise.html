@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Spāņu valodas vingrinājums</title>
+    <style>
+        :root {
+            --primary-color: #6366f1;
+            --primary-hover: #4f46e5;
+            --secondary-color: #64748b;
+            --success-color: #10b981;
+            --danger-color: #ef4444;
+            --light-color: #f8fafc;
+            --dark-color: #1e293b;
+            --border-radius: 12px;
+            --box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+            --transition: all 0.3s ease;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+            background-size: 400% 400%;
+            animation: gradient 15s ease infinite;
+            min-height: 100vh;
+            padding: 2rem;
+        }
+
+        @keyframes gradient {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        .exercise-page {
+            max-width: 860px;
+            margin: 0 auto;
+            padding: 2.5rem;
+            background-color: rgba(255, 255, 255, 0.96);
+            border-radius: var(--border-radius);
+            box-shadow: var(--box-shadow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .exercise-page::before {
+            content: '';
+            position: absolute;
+            inset: 0 0 auto 0;
+            height: 8px;
+            background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .exercise-title {
+            color: var(--primary-color);
+            font-size: 2rem;
+            font-weight: 700;
+        }
+
+        .exercise-subtitle {
+            color: var(--secondary-color);
+            margin-top: 0.35rem;
+        }
+
+        .back-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.7rem 1rem;
+            border-radius: var(--border-radius);
+            background: #f1f5f9;
+            color: var(--secondary-color);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .progress-container {
+            height: 10px;
+            background-color: #e2e8f0;
+            border-radius: 999px;
+            overflow: hidden;
+            margin-bottom: 1.5rem;
+        }
+
+        .progress-bar {
+            width: 0%;
+            height: 100%;
+            background: linear-gradient(to right, #6366f1, #3b82f6, #06b6d4);
+            transition: width 0.3s ease;
+        }
+
+        .question-counter {
+            margin-bottom: 1rem;
+            color: var(--secondary-color);
+            font-weight: 600;
+        }
+
+        .question-container,
+        .result-container {
+            background: white;
+            border: 1px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            padding: 2rem;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .question {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 1.5rem;
+            color: var(--dark-color);
+        }
+
+        .options {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .option {
+            border: 2px solid #e2e8f0;
+            border-radius: var(--border-radius);
+            padding: 1rem 1.1rem;
+            background: #f8fafc;
+            cursor: pointer;
+            transition: var(--transition);
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        .option:hover,
+        .option.selected {
+            border-color: var(--primary-color);
+            background: rgba(99, 102, 241, 0.08);
+        }
+
+        .option input {
+            accent-color: var(--primary-color);
+        }
+
+        .exercise-controls,
+        .result-buttons {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .primary-button,
+        .secondary-button {
+            min-width: 140px;
+            border: none;
+            border-radius: var(--border-radius);
+            padding: 0.95rem 1.4rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition);
+        }
+
+        .primary-button {
+            background: linear-gradient(to right, #6366f1, #4f46e5);
+            color: white;
+        }
+
+        .secondary-button {
+            background: #f1f5f9;
+            color: var(--secondary-color);
+            border: 1px solid #cbd5e1;
+        }
+
+        .primary-button:hover,
+        .secondary-button:hover {
+            transform: translateY(-2px);
+        }
+
+        .result-container {
+            display: none;
+            text-align: center;
+        }
+
+        .result-score {
+            font-size: 3rem;
+            color: var(--primary-color);
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .result-feedback {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .incorrect-answers {
+            text-align: left;
+            background: #fef2f2;
+            border: 1px solid #fee2e2;
+            border-radius: var(--border-radius);
+            padding: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .incorrect-answer-item {
+            background: white;
+            border-left: 4px solid var(--danger-color);
+            border-radius: 10px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+
+        .incorrect-answer-question {
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .your-answer {
+            color: var(--danger-color);
+            display: block;
+        }
+
+        .correct-answer {
+            color: var(--success-color);
+            display: block;
+            margin-top: 0.35rem;
+        }
+
+        @media (max-width: 768px) {
+            body { padding: 1rem; }
+            .exercise-page { padding: 1.5rem; }
+            .exercise-header { flex-direction: column; align-items: flex-start; }
+            .exercise-controls,
+            .result-buttons { flex-direction: column; }
+        }
+    </style>
+</head>
+<body>
+    <div class="exercise-page">
+        <header class="exercise-header">
+            <div>
+                <h1 class="exercise-title" id="exerciseTitle">Spāņu valodas vingrinājums</h1>
+                <p class="exercise-subtitle" id="exerciseSubtitle">Ielādējas...</p>
+            </div>
+            <a class="back-link" href="../exercises_spanish.html">Atpakaļ</a>
+        </header>
+
+        <div class="progress-container">
+            <div class="progress-bar" id="progressBar"></div>
+        </div>
+
+        <div class="question-counter" id="questionCounter">Jautājums 1</div>
+
+        <div id="exercise-container" class="question-container"></div>
+
+        <div class="exercise-controls">
+            <button id="prevBtn" class="secondary-button" style="display:none;">Iepriekšējais</button>
+            <button id="nextBtn" class="primary-button">Nākamais</button>
+            <button id="checkBtn" class="primary-button" style="display:none;">Pārbaudīt atbildes</button>
+        </div>
+
+        <div id="result-container" class="result-container">
+            <h2 class="result-title">Tavs rezultāts</h2>
+            <div class="result-score" id="score">0/0</div>
+            <p class="result-feedback" id="feedback"></p>
+            <div id="incorrect-answers" class="incorrect-answers" style="display:none;">
+                <h3>Nepareizās atbildes</h3>
+                <div id="incorrect-answers-list"></div>
+            </div>
+            <div class="result-buttons">
+                <button id="saveResultBtn" class="primary-button">Saglabāt rezultātu</button>
+                <button id="restartBtn" class="secondary-button">Mēģināt vēlreiz</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="../js/spanish-exercise-data.js"></script>
+    <script src="../js/exercise-utils.js"></script>
+    <script src="../js/language-test.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const slug = new URLSearchParams(window.location.search).get('slug');
+            const exercise = slug ? SPANISH_EXERCISE_DATA[slug] : null;
+
+            if (!exercise) {
+                document.getElementById('exercise-container').innerHTML = '<p>Vingrinājums nav atrasts.</p>';
+                document.getElementById('nextBtn').style.display = 'none';
+                return;
+            }
+
+            document.title = exercise.title + ' | Valodu apguves platforma';
+            document.getElementById('exerciseTitle').textContent = exercise.title;
+            document.getElementById('exerciseSubtitle').textContent = exercise.subtitle;
+
+            const questions = exercise.questions;
+            let currentQuestion = 0;
+            let answers = Array(questions.length).fill(null);
+            const startTime = Date.now();
+
+            const exerciseContainer = document.getElementById('exercise-container');
+            const nextBtn = document.getElementById('nextBtn');
+            const prevBtn = document.getElementById('prevBtn');
+            const checkBtn = document.getElementById('checkBtn');
+            const progressBar = document.getElementById('progressBar');
+            const questionCounter = document.getElementById('questionCounter');
+            const resultContainer = document.getElementById('result-container');
+            const scoreElement = document.getElementById('score');
+            const feedbackElement = document.getElementById('feedback');
+            const incorrectAnswersContainer = document.getElementById('incorrect-answers');
+            const incorrectAnswersList = document.getElementById('incorrect-answers-list');
+            const saveResultBtn = document.getElementById('saveResultBtn');
+            const restartBtn = document.getElementById('restartBtn');
+
+            function renderQuestion() {
+                const question = questions[currentQuestion];
+                questionCounter.textContent = `Jautājums ${currentQuestion + 1} no ${questions.length}`;
+
+                let html = `<p class="question">${question.question}</p><div class="options">`;
+
+                question.options.forEach((option, index) => {
+                    const isSelected = answers[currentQuestion] === index;
+                    html += `
+                        <label class="option ${isSelected ? 'selected' : ''}">
+                            <input type="radio" name="question" value="${index}" ${isSelected ? 'checked' : ''}>
+                            <span>${option}</span>
+                        </label>
+                    `;
+                });
+
+                html += '</div>';
+                exerciseContainer.innerHTML = html;
+
+                exerciseContainer.querySelectorAll('.option').forEach((optionEl, index) => {
+                    optionEl.addEventListener('click', () => {
+                        answers[currentQuestion] = index;
+                        renderQuestion();
+                    });
+                });
+
+                prevBtn.style.display = currentQuestion > 0 ? 'inline-flex' : 'none';
+                nextBtn.style.display = currentQuestion === questions.length - 1 ? 'none' : 'inline-flex';
+                checkBtn.style.display = currentQuestion === questions.length - 1 ? 'inline-flex' : 'none';
+                progressBar.style.width = `${((currentQuestion + 1) / questions.length) * 100}%`;
+            }
+
+            nextBtn.addEventListener('click', () => {
+                if (answers[currentQuestion] === null) {
+                    alert('Lūdzu, izvēlies atbildi pirms turpināšanas.');
+                    return;
+                }
+                currentQuestion++;
+                renderQuestion();
+            });
+
+            prevBtn.addEventListener('click', () => {
+                currentQuestion--;
+                renderQuestion();
+            });
+
+            checkBtn.addEventListener('click', () => {
+                if (answers.includes(null)) {
+                    alert('Lūdzu, atbildi uz visiem jautājumiem pirms rezultātu pārbaudes.');
+                    return;
+                }
+
+                let score = 0;
+                const incorrectAnswers = [];
+
+                answers.forEach((answer, index) => {
+                    const question = questions[index];
+                    if (answer === question.correctAnswer) {
+                        score++;
+                    } else {
+                        incorrectAnswers.push({
+                            question: question.question,
+                            userAnswer: question.options[answer],
+                            correctAnswer: question.options[question.correctAnswer]
+                        });
+                    }
+                });
+
+                const percentage = (score / questions.length) * 100;
+                scoreElement.textContent = `${score}/${questions.length}`;
+                feedbackElement.textContent =
+                    percentage >= 85 ? 'Ļoti labi! Tu pārliecinoši orientējies šajā tēmā.'
+                    : percentage >= 65 ? 'Labs rezultāts. Vēl nedaudz treniņa, un būs vēl labāk.'
+                    : 'Turpini praktizēties un atkārto kļūdas.';
+
+                if (incorrectAnswers.length) {
+                    incorrectAnswersContainer.style.display = 'block';
+                    incorrectAnswersList.innerHTML = incorrectAnswers.map(item => `
+                        <div class="incorrect-answer-item">
+                            <div class="incorrect-answer-question">${item.question}</div>
+                            <span class="your-answer">Tava atbilde: ${item.userAnswer}</span>
+                            <span class="correct-answer">Pareizā atbilde: ${item.correctAnswer}</span>
+                        </div>
+                    `).join('');
+                } else {
+                    incorrectAnswersContainer.style.display = 'none';
+                    incorrectAnswersList.innerHTML = '';
+                }
+
+                document.getElementById('exercise-container').style.display = 'none';
+                document.querySelector('.exercise-controls').style.display = 'none';
+                questionCounter.style.display = 'none';
+                resultContainer.style.display = 'block';
+            });
+
+            saveResultBtn.addEventListener('click', async () => {
+                const saved = await saveMultipleChoiceResults(questions, answers, startTime);
+                if (saved) {
+                    alert('Rezultāts veiksmīgi saglabāts!');
+                    window.location.href = '../profile.html';
+                } else {
+                    alert('Neizdevās saglabāt rezultātu. Pārliecinies, ka esi pieslēdzies.');
+                }
+            });
+
+            restartBtn.addEventListener('click', () => {
+                currentQuestion = 0;
+                answers = Array(questions.length).fill(null);
+                resultContainer.style.display = 'none';
+                document.getElementById('exercise-container').style.display = 'block';
+                document.querySelector('.exercise-controls').style.display = 'flex';
+                questionCounter.style.display = 'block';
+                renderQuestion();
+            });
+
+            renderQuestion();
+        });
+    </script>
+    <script src="../scripts/ai-widget.js?v=2"></script>
+</body>
+</html>

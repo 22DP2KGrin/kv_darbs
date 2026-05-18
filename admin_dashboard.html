@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard | Language Learning Platform</title>
+    <title>Administratora panelis | Valodu apguves platforma</title>
     <style>
         * {
             margin: 0;
@@ -349,7 +349,7 @@
         <aside class="sidebar">
             <div class="logo">
                 <h1>🌐 LinguaAdmin</h1>
-                <p>Administrator Panel</p>
+                <p>Administratora panelis</p>
             </div>
             
             <nav>
@@ -357,37 +357,37 @@
                     <li class="nav-item">
                         <a href="#" class="nav-link active" data-page="dashboard">
                             <span class="nav-icon">📊</span>
-                            Dashboard
+                            Pārskats
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-page="users">
                             <span class="nav-icon">👥</span>
-                            User Management
+                            Lietotāju pārvaldība
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-page="courses">
                             <span class="nav-icon">📚</span>
-                            Courses
+                            Kursi
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-page="analytics">
                             <span class="nav-icon">📈</span>
-                            Analytics
+                            Analītika
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-page="communications">
                             <span class="nav-icon">💬</span>
-                            Communications
+                            Saziņa
                         </a>
                     </li>
                     <li class="nav-item">
                         <a href="#" class="nav-link" data-page="settings">
                             <span class="nav-icon">⚙️</span>
-                            Platform Settings
+                            Platformas iestatījumi
                         </a>
                     </li>
                 </ul>
@@ -395,34 +395,34 @@
         </aside>
 
         <div class="admin-info">
-            <span class="admin-name" id="adminName">Admin</span>
-            <button class="logout-btn" onclick="logout()">Logout</button>
+            <span class="admin-name" id="adminName">Administrators</span>
+            <button class="logout-btn" onclick="logout()">Izrakstīties</button>
         </div>
 
         <main class="main-content">
             <!-- Dashboard Page -->
             <div id="dashboard" class="page active">
                 <div class="page-header">
-                    <h1 class="page-title">Welcome Back!</h1>
-                    <p class="page-subtitle">Manage your language learning platform from one central hub</p>
+                    <h1 class="page-title">Prieks tevi redzēt atkal!</h1>
+                    <p class="page-subtitle">Pārvaldi savu valodu apguves platformu no vienas centrālās vietas.</p>
                 </div>
 
                 <div class="stats-grid">
                     <div class="stat-card">
                         <div class="stat-number" id="totalUsers">0</div>
-                        <div class="stat-label">Total Users</div>
+                        <div class="stat-label">Kopējais lietotāju skaits</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number" id="activeCourses">0</div>
-                        <div class="stat-label">Active Courses</div>
+                        <div class="stat-label">Aktīvie kursi</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number" id="totalLessons">0</div>
-                        <div class="stat-label">Total Lessons</div>
+                        <div class="stat-label">Kopējais nodarbību skaits</div>
                     </div>
                     <div class="stat-card">
                         <div class="stat-number" id="newRegistrations">0</div>
-                        <div class="stat-label">New Registrations</div>
+                        <div class="stat-label">Jaunas reģistrācijas</div>
                     </div>
                 </div>
 
@@ -430,30 +430,30 @@
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon">🚀</div>
-                            <h3 class="card-title">Quick Actions</h3>
+                            <h3 class="card-title">Ātrās darbības</h3>
                         </div>
-                        <p>Perform common administrative tasks quickly</p>
+                        <p>Ātri veic biežākos administratīvos uzdevumus.</p>
                         <div style="margin-top: 1rem;">
-                            <button class="btn btn-success" onclick="showAddUserModal()">Add New User</button>
-                            <button class="btn" onclick="showAddCourseModal()">Create Course</button>
-                            <button class="btn" onclick="showAddLessonModal()">Add Lesson</button>
-                            <button class="btn" onclick="showReportModal()">Generate Report</button>
+                            <button class="btn btn-success" onclick="showAddUserModal()">Pievienot jaunu lietotāju</button>
+                            <button class="btn" onclick="showAddCourseModal()">Izveidot kursu</button>
+                            <button class="btn" onclick="showAddLessonModal()">Pievienot nodarbību</button>
+                            <button class="btn" onclick="showReportModal()">Ģenerēt atskaiti</button>
                         </div>
                     </div>
 
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon">📊</div>
-                            <h3 class="card-title">Recent Activity</h3>
+                            <h3 class="card-title">Jaunākās aktivitātes</h3>
                         </div>
                         <div class="table-container">
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th>User</th>
-                                        <th>Action</th>
-                                        <th>Date</th>
-                                        <th>Status</th>
+                                        <th>Lietotājs</th>
+                                        <th>Darbība</th>
+                                        <th>Datums</th>
+                                        <th>Statuss</th>
                                     </tr>
                                 </thead>
                                 <tbody id="recentActivities">
@@ -468,8 +468,8 @@
             <!-- Users Management Page -->
             <div id="users" class="page">
                 <div class="page-header">
-                    <h1 class="page-title">User Management</h1>
-                    <p class="page-subtitle">Manage platform users, their roles and access</p>
+                    <h1 class="page-title">Lietotāju pārvaldība</h1>
+                    <p class="page-subtitle">Pārvaldi platformas lietotājus, viņu lomas un piekļuves tiesības.</p>
                 </div>
 
                 <div class="table-container">
@@ -477,13 +477,13 @@
                         <thead>
                             <tr>
                                 <th>ID</th>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Password Hash</th>
-                                <th>Created At</th>
-                                <th>Last Login</th>
-                                <th>Status</th>
-                                <th>Actions</th>
+                                <th>Lietotājvārds</th>
+                                <th>E-pasts</th>
+                                <th>Paroles hash</th>
+                                <th>Izveidots</th>
+                                <th>Pēdējā pieslēgšanās</th>
+                                <th>Statuss</th>
+                                <th>Darbības</th>
                             </tr>
                         </thead>
                         <tbody id="usersTableBody">
@@ -496,55 +496,55 @@
             <!-- Courses Page -->
             <div id="courses" class="page">
                 <div class="page-header">
-                    <h1 class="page-title">Course Management</h1>
-                    <p class="page-subtitle">Manage your language learning courses and content</p>
+                    <h1 class="page-title">Kursu pārvaldība</h1>
+                    <p class="page-subtitle">Pārvaldi valodu apguves kursus un saturu.</p>
                 </div>
 
                 <div class="cards-grid">
-                    <!-- Course Statistics -->
+                    <!-- Kursu statistika -->
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon">📊</div>
-                            <h3 class="card-title">Course Statistics</h3>
+                            <h3 class="card-title">Kursu statistika</h3>
                         </div>
                         <div class="stats-grid" style="margin-top: 1rem;">
                             <div class="stat-card">
                                 <div class="stat-number" id="totalCourses">0</div>
-                                <div class="stat-label">Total Courses</div>
+                                <div class="stat-label">Kopējais kursu skaits</div>
                             </div>
                             <div class="stat-card">
-                                <div class="stat-number" id="activeStudents">0</div>
-                                <div class="stat-label">Active Students</div>
+                                <div class="stat-number" id="activeStudenti">0</div>
+                                <div class="stat-label">Aktīvie studenti</div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-number" id="completedLessons">0</div>
-                                <div class="stat-label">Completed Lessons</div>
+                                <div class="stat-label">Pabeigtās nodarbības</div>
                             </div>
                             <div class="stat-card">
                                 <div class="stat-number" id="averageProgress">0%</div>
-                                <div class="stat-label">Average Progress</div>
+                                <div class="stat-label">Vidējais progress</div>
                             </div>
                         </div>
                     </div>
 
-                    <!-- Quick Actions -->
+                    <!-- Ātrās darbības -->
                     <div class="card">
                         <div class="card-header">
                             <div class="card-icon">⚡</div>
-                            <h3 class="card-title">Quick Actions</h3>
+                            <h3 class="card-title">Ātrās darbības</h3>
                         </div>
                         <div style="margin-top: 1rem;">
                             <button class="btn" onclick="showAddCourseModal()">
-                                <i class="fas fa-plus"></i> Create New Course
+                                <i class="fas fa-plus"></i> Izveidot jaunu kursu
                             </button>
                             <button class="btn" onclick="showAddLessonModal()">
-                                <i class="fas fa-book"></i> Add New Lesson
+                                <i class="fas fa-book"></i> Pievienot jaunu nodarbību
                             </button>
                             <button class="btn" onclick="showImportModal()">
-                                <i class="fas fa-file-import"></i> Import Content
+                                <i class="fas fa-file-import"></i> Importēt saturu
                             </button>
                             <button class="btn" onclick="showExportModal()">
-                                <i class="fas fa-file-export"></i> Export Content
+                                <i class="fas fa-file-export"></i> Eksportēt saturu
                             </button>
                         </div>
                     </div>
@@ -554,9 +554,9 @@
                 <div class="card" style="margin-top: 2rem;">
                     <div class="card-header">
                         <div class="card-icon">📚</div>
-                        <h3 class="card-title">Available Courses</h3>
+                        <h3 class="card-title">Pieejamie kursi</h3>
                         <div style="margin-left: auto; display: flex; gap: 1rem;">
-                            <input type="text" id="courseSearch" placeholder="Search courses..." style="
+                            <input type="text" id="courseSearch" placeholder="Meklēt kursus..." style="
                                 padding: 0.5rem;
                                 border: 1px solid #e2e8f0;
                                 border-radius: 8px;
@@ -567,7 +567,7 @@
                                 border: 1px solid #e2e8f0;
                                 border-radius: 8px;
                             ">
-                                <option value="all">All Languages</option>
+                                <option value="all">Visas valodas</option>
                                 <option value="en">English</option>
                                 <option value="es">Spanish</option>
                                 <option value="fr">French</option>
@@ -580,13 +580,13 @@
                             <thead>
                                 <tr>
                                     <th>ID</th>
-                                    <th>Course Name</th>
-                                    <th>Language</th>
-                                    <th>Level</th>
-                                    <th>Students</th>
+                                    <th>Kursa nosaukums</th>
+                                    <th>Valoda</th>
+                                    <th>Līmenis</th>
+                                    <th>Studenti</th>
                                     <th>Progress</th>
-                                    <th>Status</th>
-                                    <th>Actions</th>
+                                    <th>Statuss</th>
+                                    <th>Darbības</th>
                                 </tr>
                             </thead>
                             <tbody id="coursesTableBody">
@@ -597,33 +597,33 @@
                 </div>
             </div>
 
-            <!-- Analytics Page -->
+            <!-- Analītika Page -->
             <div id="analytics" class="page">
                 <div class="page-header">
-                    <h1 class="page-title">Analytics</h1>
-                    <p class="page-subtitle">View platform statistics and analytics</p>
+                    <h1 class="page-title">Analītika</h1>
+                    <p class="page-subtitle">Skati platformas statistiku un analītiku.</p>
                 </div>
             </div>
 
-            <!-- Add User Modal -->
+            <!-- Pievienot lietotāju Modal -->
             <div id="addUserModal" class="modal" style="display: none;">
                 <div class="modal-content" style="background: white; width: 90%; max-width: 500px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
-                    <h2 style="margin-bottom: 1.5rem;">Add New User</h2>
+                    <h2 style="margin-bottom: 1.5rem;">Pievienot jaunu lietotāju</h2>
                     <form id="addUserForm" style="display: flex; flex-direction: column; gap: 1rem;">
                         <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Username</label>
+                            <label style="display: block; margin-bottom: 0.5rem;">Lietotājvārds</label>
                             <input type="text" name="username" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Email</label>
+                            <label style="display: block; margin-bottom: 0.5rem;">E-pasts</label>
                             <input type="email" name="email" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Password</label>
+                            <label style="display: block; margin-bottom: 0.5rem;">Parole</label>
                             <input type="password" name="password" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Language</label>
+                            <label style="display: block; margin-bottom: 0.5rem;">Valoda</label>
                             <select name="language" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
                                 <option value="en">English</option>
                                 <option value="es">Spanish</option>
@@ -632,7 +632,7 @@
                             </select>
                         </div>
                         <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Timezone</label>
+                            <label style="display: block; margin-bottom: 0.5rem;">Laika josla</label>
                             <select name="timezone" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
                                 <option value="UTC">UTC</option>
                                 <option value="UTC+1">UTC+1</option>
@@ -641,21 +641,21 @@
                             </select>
                         </div>
                         <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                            <button type="submit" class="btn btn-success">Add User</button>
-                            <button type="button" class="btn btn-secondary" onclick="closeAddUserModal()">Cancel</button>
+                            <button type="submit" class="btn btn-success">Pievienot lietotāju</button>
+                            <button type="button" class="btn btn-secondary" onclick="closeAddUserModal()">Atcelt</button>
                         </div>
                     </form>
                 </div>
             </div>
 
-            <!-- Confirmation Modal -->
+            <!-- Apstiprinātation Modal -->
             <div id="confirmModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
                 <div class="modal-content" style="background: white; width: 90%; max-width: 400px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
                     <h2 id="confirmTitle" style="margin-bottom: 1rem;"></h2>
-                    <p id="confirmMessage" style="margin-bottom: 1.5rem;"></p>
+                    <p id="confirmZiņa" style="margin-bottom: 1.5rem;"></p>
                     <div style="display: flex; gap: 1rem; justify-content: flex-end;">
-                        <button id="confirmButton" class="btn btn-danger">Confirm</button>
-                        <button class="btn btn-secondary" onclick="closeConfirmModal()">Cancel</button>
+                        <button id="confirmButton" class="btn btn-danger">Apstiprināt</button>
+                        <button class="btn btn-secondary" onclick="closeApstiprinātModal()">Atcelt</button>
                     </div>
                 </div>
             </div>
@@ -672,7 +672,7 @@
             }
 
             // Load admin data
-            loadAdminData();
+            loadAdministratorsData();
             // Load statistics
             loadDashboardStats();
             // Load recent activities
@@ -713,14 +713,14 @@
             });
         }
 
-        // Logout function
+        // Izrakstīties function
         function logout() {
             localStorage.removeItem('adminSessionToken');
             window.location.href = 'admin_login.html';
         }
 
         // Load admin data
-        async function loadAdminData() {
+        async function loadAdministratorsData() {
             const token = localStorage.getItem('adminSessionToken');
             console.log('Loading admin data with token:', token);
             
@@ -730,9 +730,9 @@
                         'Authorization': `Bearer ${token}`
                     }
                 });
-                console.log('Admin data response status:', response.status);
+                console.log('Administrators data response status:', response.status);
                 const data = await response.json();
-                console.log('Admin data response:', data);
+                console.log('Administrators data response:', data);
                 if (data.success) {
                     document.getElementById('adminName').textContent = data.admin.username;
                 }
@@ -782,7 +782,7 @@
                     const tbody = document.getElementById('recentActivities');
                     tbody.innerHTML = data.activities.map(activity => `
                         <tr>
-                            <td>${activity.user_name || 'System'}</td>
+                            <td>${activity.user_name || 'Sistēma'}</td>
                             <td>${activity.action}</td>
                             <td>${new Date(activity.created_at).toLocaleString()}</td>
                             <td><span class="badge badge-success">${activity.description}</span></td>
@@ -800,15 +800,15 @@
         }
 
         function showAddCourseModal() {
-            alert('Course creation functionality will be implemented later');
+            alert('Kursa izveides funkcija tiks pievienota vēlāk.');
         }
 
         function showAddLessonModal() {
-            alert('Lesson addition functionality will be implemented later');
+            alert('Nodarbību pievienošanas funkcija tiks pievienota vēlāk.');
         }
 
         function showReportModal() {
-            alert('Report generation functionality will be implemented later');
+            alert('Atskaites ģenerēšanas funkcija tiks pievienota vēlāk.');
         }
 
         // Notification system
@@ -852,7 +852,7 @@
         `;
         document.head.appendChild(style);
 
-        // User Management Functions
+        // Lietotāju pārvaldība Functions
         function loadUsers() {
             fetch('get_users.php')
                 .then(response => response.json())
@@ -871,7 +871,7 @@
                         <td>${user.last_login}</td>
                                 <td>${user.is_active}</td>
                                 <td>
-                                    <button onclick="confirmAction('delete', ${user.user_id})" class="btn btn-danger btn-sm" title="Delete User">
+                                    <button onclick="confirmAction('delete', ${user.user_id})" class="btn btn-danger btn-sm" title="Dzēst lietotāju">
                                     <i class="fas fa-trash"></i>
                                 </button>
                         </td>
@@ -889,33 +889,33 @@
                 });
         }
 
-        // Show Add User Modal
+        // Show Pievienot lietotāju Modal
         function showAddUserModal() {
             document.getElementById('addUserModal').style.display = 'block';
         }
 
-        // Close Add User Modal
+        // Close Pievienot lietotāju Modal
         function closeAddUserModal() {
             document.getElementById('addUserModal').style.display = 'none';
         }
 
-        // Show Confirmation Modal
+        // Show Apstiprinātation Modal
         function confirmAction(action, userId) {
             const modal = document.getElementById('confirmModal');
             const title = document.getElementById('confirmTitle');
-            const message = document.getElementById('confirmMessage');
+            const message = document.getElementById('confirmZiņa');
             const button = document.getElementById('confirmButton');
 
-            title.textContent = 'Delete User';
-            message.textContent = 'Are you sure you want to delete this user? This action cannot be undone.';
-            button.textContent = 'Delete User';
+            title.textContent = 'Dzēst lietotāju';
+            message.textContent = 'Vai tiešām vēlies dzēst šo lietotāju? Šo darbību nevar atsaukt.';
+            button.textContent = 'Dzēst lietotāju';
             button.onclick = () => performAction(action, userId);
 
             modal.style.display = 'block';
         }
 
-        // Close Confirmation Modal
-        function closeConfirmModal() {
+        // Close Apstiprinātation Modal
+        function closeApstiprinātModal() {
             document.getElementById('confirmModal').style.display = 'none';
         }
 
@@ -945,10 +945,10 @@
                 showNotification('Error performing action', 'error');
             }
             
-            closeConfirmModal();
+            closeApstiprinātModal();
         }
 
-        // Add User Form Submit
+        // Pievienot lietotāju Form Submit
         document.getElementById('addUserForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             

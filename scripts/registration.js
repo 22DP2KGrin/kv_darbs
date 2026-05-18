@@ -38,8 +38,9 @@ document.addEventListener('DOMContentLoaded', function() {
             birthDateInput.max = maxDate.toISOString().split('T')[0];
         }
 
-        // API endpoint
-        const API_ENDPOINT = '/api/register_process.php';
+        // Use a path relative to the current project copy so the request
+        // does not accidentally go to another /api directory.
+        const API_ENDPOINT = 'api/register_process.php';
         
         signupForm.addEventListener('submit', async function(event) {
             event.preventDefault();
@@ -64,33 +65,28 @@ document.addEventListener('DOMContentLoaded', function() {
             // Validate fields
             let hasError = false;
 
-            // Username validation
             if (formData.username.length < 3 || formData.username.length > 50) {
-                showError('username', 'Username must be between 3 and 50 characters');
+                showError('username', 'Lietotājvārdam jābūt no 3 līdz 50 rakstzīmēm');
                 hasError = true;
             }
 
-            // Email validation
             if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-                showError('email', 'Please enter a valid email address');
+                showError('email', 'Lūdzu, ievadi derīgu e-pasta adresi');
                 hasError = true;
             }
 
-            // First name validation
             if (formData.firstName.length < 2) {
-                showError('firstName', 'First name must be at least 2 characters long');
+                showError('firstName', 'Vārdam jābūt vismaz 2 rakstzīmju garam');
                 hasError = true;
             }
 
-            // Last name validation
             if (formData.lastName.length < 2) {
-                showError('lastName', 'Last name must be at least 2 characters long');
+                showError('lastName', 'Uzvārdam jābūt vismaz 2 rakstzīmju garam');
                 hasError = true;
             }
 
-            // Country validation
             if (!formData.country) {
-                showError('country', 'Please select your country');
+                showError('country', 'Lūdzu, ievadi savu valsti');
                 hasError = true;
             }
 
@@ -99,32 +95,28 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Remove all non-digit characters for validation
                 const phoneDigits = formData.phone.replace(/\D/g, '');
                 if (phoneDigits.length < 8 || phoneDigits.length > 15) {
-                    showError('phone', 'Please enter a valid phone number (8-15 digits)');
+                    showError('phone', 'Lūdzu, ievadi derīgu tālruņa numuru (8-15 cipari)');
                     hasError = true;
                 }
             }
 
-            // Birth date validation
             if (!formData.birthDate) {
-                showError('birthDate', 'Please enter your birth date');
+                showError('birthDate', 'Lūdzu, izvēlies savu dzimšanas datumu');
                 hasError = true;
             }
 
-            // Gender validation
             if (!formData.gender) {
-                showError('gender', 'Please select your gender');
+                showError('gender', 'Lūdzu, izvēlies dzimumu');
                 hasError = true;
             }
 
-            // Password validation
             if (formData.password.length < 8) {
-                showError('password', 'Password must be at least 8 characters long');
+                showError('password', 'Parolei jābūt vismaz 8 rakstzīmju garai');
                 hasError = true;
             }
 
-            // Password confirmation
             if (formData.password !== formData.confirmPassword) {
-                showError('confirmPassword', 'Passwords do not match');
+                showError('confirmPassword', 'Paroles nesakrīt');
                 hasError = true;
             }
 
@@ -135,7 +127,7 @@ document.addEventListener('DOMContentLoaded', function() {
             // Disable submit button and show loading state
             const submitButton = signupForm.querySelector('button[type="submit"]');
             submitButton.disabled = true;
-            submitButton.textContent = 'Registering...';
+            submitButton.textContent = 'Notiek reģistrācija...';
             
             try {
                 const response = await fetch(API_ENDPOINT, {
@@ -150,14 +142,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 // Check if response is JSON
                 const contentType = response.headers.get('content-type');
                 if (!contentType || !contentType.includes('application/json')) {
+                    const responseText = await response.text();
+                    console.error('Non-JSON registration response:', responseText);
                     throw new Error('Server returned non-JSON response');
                 }
                 
                 const data = await response.json();
                 
                 if (data.success) {
-                    // Show success message
-                    alert('Registration successful! Please log in.');
+                    alert('Reģistrācija veiksmīga. Lūdzu, pieslēdzies.');
                     
                     // Store user data if needed
                     if (data.user) {
@@ -172,23 +165,20 @@ document.addEventListener('DOMContentLoaded', function() {
                 }
             } catch (error) {
                 console.error('Registration error:', error);
-                showError('general', 'An error occurred during registration. Please try again.');
+                showError('general', 'Reģistrācijas laikā radās kļūda. Mēģini vēlreiz.');
             } finally {
-                // Re-enable submit button
                 submitButton.disabled = false;
-                submitButton.textContent = 'Register';
+                submitButton.textContent = 'Reģistrēties';
             }
         });
     }
     
     function showError(field, message) {
-        console.log('Showing error:', { field, message });
         const errorElement = document.getElementById(field + 'Error');
         if (errorElement) {
             errorElement.textContent = message;
             errorElement.style.display = 'block';
         } else {
-            // If no specific field element exists, show in general error
             const generalError = document.getElementById('generalError');
             if (generalError) {
                 generalError.textContent = message;

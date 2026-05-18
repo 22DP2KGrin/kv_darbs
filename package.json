@@ -12,5 +12,8 @@
   "keywords": [],
   "devDependencies": {
     "serve": "^14.2.4"
+  },
+  "dependencies": {
+    "express": "^5.2.1"
   }
 }

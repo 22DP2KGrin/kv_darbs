@@ -12,21 +12,19 @@ if (!checkAdminAuth()) {
 }
 
 try {
-    // Get all exercises with their topic information
-    $stmt = $pdo->prepare("
-        SELECT 
-            e.exercise_id,
-            e.exercise_name,
-            t.topic_name,
-            e.time_limit,
-            e.total_questions,
-            e.description
-        FROM exercises e
-        JOIN topics t ON e.topic_id = t.topic_id
-        ORDER BY e.exercise_id DESC
-    ");
-    $stmt->execute();
-    $exercises = $stmt->fetchAll(PDO::FETCH_ASSOC);
+    $exerciseFiles = glob(__DIR__ . '/exercises/*.html') ?: [];
+    $exercises = array_map(function ($file, $index) {
+        $name = basename($file, '.html');
+        return [
+            'exercise_id' => $index + 1,
+            'exercise_name' => ucwords(str_replace('-', ' ', $name)),
+            'topic_name' => ucwords(str_replace('-', ' ', $name)),
+            'time_limit' => null,
+            'total_questions' => null,
+            'description' => 'Exercise page stored in the project files.',
+            'path' => 'exercises/' . basename($file)
+        ];
+    }, $exerciseFiles, array_keys($exerciseFiles));
 
     echo json_encode([
         'success' => true,

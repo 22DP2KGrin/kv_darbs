@@ -5,3 +5,4 @@ config/database.php
 db_connect.php
 session_token.txt
 .DS_Store
+openai_config.php

@@ -21,7 +21,9 @@ define('SESSION_LIFETIME', 24 * 60 * 60);
 
 // Set headers
 header('Content-Type: application/json');
-header('Access-Control-Allow-Origin: http://localhost:8888');
+if (isset($_SERVER['HTTP_ORIGIN'])) {
+    header('Access-Control-Allow-Origin: ' . $_SERVER['HTTP_ORIGIN']);
+}
 header('Access-Control-Allow-Methods: POST, OPTIONS');
 header('Access-Control-Allow-Headers: Content-Type, Accept');
 header('Access-Control-Allow-Credentials: true');

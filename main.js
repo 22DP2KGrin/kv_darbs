@@ -41,8 +41,8 @@ function updateNavigation(user) {
     if (user) {
         // User is logged in
         const authLinks = `
-            <a href="profile.html" class="nav-link">My Profile</a>
-            <button id="signOutBtn" class="nav-link register-btn">Sign Out</button>
+            <a href="profile.html" class="nav-link">Mans profils</a>
+            <button id="signOutBtn" class="nav-link register-btn">Izrakstīties</button>
         `;
         
         // Replace login/register links with profile and sign out

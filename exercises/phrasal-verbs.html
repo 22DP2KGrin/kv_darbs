@@ -919,12 +919,22 @@
                 // Save results to database
                 try {
                     const testData = {
-                        topicId: 82, // ID темы "Phrasal Verbs" в базе данных
+                        resultType: 'exercise',
+                        topicId: 9,
+                        exerciseSlug: 'phrasal-verbs',
+                        exerciseType: 'vocabulary',
                         score: correctCount,
                         maxScore: questions.length,
                         timeSpent: Math.floor((Date.now() - startTime) / 1000),
+                        answers: questions.map((question, index) => ({
+                            questionId: index + 1,
+                            questionText: question.question,
+                            userAnswer: answers[index] !== null ? question.options[answers[index]] : null,
+                            correctAnswer: question.options[question.correctAnswer],
+                            isCorrect: answers[index] === question.correctAnswer
+                        })),
                         errors: incorrectAnswers.map(item => ({
-                            questionId: questions.findIndex(q => q.question === item.question) + 1,
+                            questionId: questions.findIndex(q => q.question === item.question_text) + 1,
                             userAnswer: item.user_answer,
                             correctAnswer: item.correct_answer,
                             questionText: item.question_text
@@ -987,5 +997,6 @@
             initExercise();
         });
     </script>
+    <script src="../scripts/ai-widget.js?v=2"></script>
 </body>
 </html>

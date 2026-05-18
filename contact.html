@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Language Learning Platform</title>
+    <title>Kontakti - Valodu apguves platforma</title>
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles/footer.css">
     <style>
@@ -134,7 +134,7 @@
             }
         }
 
-        /* Contact Form Container */
+        /* Kontakti Form Container */
         .contact-form-container {
             background-color: var(--background);
             padding: 2.5rem;
@@ -243,7 +243,7 @@
             transform: translateY(0);
         }
 
-        /* Contact Info Container */
+        /* Kontakti Info Container */
         .contact-info-container {
             background-color: var(--background);
             padding: 2.5rem;
@@ -343,7 +343,7 @@
             box-shadow: 0 4px 8px rgba(79, 70, 229, 0.3);
         }
 
-        /* Success/Error Messages */
+        /* Success/Error Ziņas */
         .message {
             padding: 1rem;
             border-radius: var(--radius);
@@ -630,20 +630,20 @@
     <!-- Header -->
     <header class="header">
         <div class="container header-container">
-            <h1 class="logo"><a href="index.html">Language Learning Platform</a></h1>
+            <h1 class="logo"><a href="index.html">Valodu apguves platforma</a></h1>
             <nav class="main-nav">
                 <div class="nav-links">
-                    <a href="about.html" class="nav-link">About Us</a>
-                    <a href="contact.html" class="nav-link active">Contact</a>
+                    <a href="about.html" class="nav-link">Par mums</a>
+                    <a href="contact.html" class="nav-link active">Kontakti</a>
                     <div class="user-profile-nav" id="userProfileNav" style="display: none;">
                         <a href="profile.html" class="nav-link profile-link">
                             <div class="profile-avatar-small" id="headerProfileAvatar"></div>
-                            <span id="headerUsername"></span>
+                            <span id="headerLietotājvārds"></span>
                         </a>
                     </div>
                     <div class="auth-buttons" id="authButtons">
-                        <a href="login.html" class="nav-link">Login</a>
-                        <a href="signup.html" class="nav-link">Sign up</a>
+                        <a href="login.html" class="nav-link">Pieteikties</a>
+                        <a href="signup.html" class="nav-link">Reģistrēties</a>
                     </div>
                 </div>
                 <!-- Theme Toggle -->
@@ -662,36 +662,36 @@
     <!-- Main Content -->
     <main class="main-content">
         <div class="container">
-            <h2 class="page-title">Get in Touch</h2>
-            <p class="page-subtitle">We'd love to hear from you. Send us a message and we'll respond as soon as possible.</p>
+            <h2 class="page-title">Sazinies ar mums</h2>
+            <p class="page-subtitle">Mēs labprāt uzklausīsim tevi. Nosūti mums ziņu, un mēs atbildēsim pēc iespējas ātrāk.</p>
 
             <div class="contact-grid">
                 <div class="contact-form-container">
-                    <h3 class="section-title">Send Message</h3>
+                    <h3 class="section-title">Nosūtīt ziņu</h3>
                     <form id="contactForm" class="contact-form">
                         <div class="form-group">
-                            <label for="name" class="form-label">Full Name</label>
-                            <input type="text" id="name" name="name" class="form-input" placeholder="Enter your full name" required>
+                            <label for="name" class="form-label">Pilns vārds</label>
+                            <input type="text" id="name" name="name" class="form-input" placeholder="Ievadi savu pilno vārdu" required>
                         </div>
                         <div class="form-group">
-                            <label for="email" class="form-label">Email Address</label>
+                            <label for="email" class="form-label">E-pasta adrese</label>
                             <input type="email" id="email" name="email" class="form-input" placeholder="your.email@example.com" required>
                         </div>
                         <div class="form-group">
-                            <label for="subject" class="form-label">Subject</label>
-                            <input type="text" id="subject" name="subject" class="form-input" placeholder="What is this about?" required>
+                            <label for="subject" class="form-label">Temats</label>
+                            <input type="text" id="subject" name="subject" class="form-input" placeholder="Par ko ir šī ziņa?" required>
                         </div>
                         <div class="form-group">
-                            <label for="message" class="form-label">Message</label>
-                            <textarea id="message" name="message" class="form-textarea" placeholder="Tell us more details..." rows="5" required></textarea>
+                            <label for="message" class="form-label">Ziņa</label>
+                            <textarea id="message" name="message" class="form-textarea" placeholder="Pastāsti vairāk..." rows="5" required></textarea>
                         </div>
-                        <button type="submit" class="btn-primary" id="submitBtn">Send Message</button>
-                        <div class="message" id="formMessage"></div>
+                        <button type="submit" class="btn-primary" id="submitBtn">Nosūtīt ziņu</button>
+                        <div class="message" id="formZiņa"></div>
                     </form>
                 </div>
 
                 <div class="contact-info-container">
-                    <h3 class="section-title">Contact Information</h3>
+                    <h3 class="section-title">Kontaktinformācija</h3>
                     
                     <div class="contact-info">
                         <div class="contact-item">
@@ -702,7 +702,7 @@
                                 </svg>
                             </div>
                             <div class="contact-details">
-                                <h4>Email Us</h4>
+                                <h4>Raksti mums</h4>
                                 <p>info@languageplatform.com</p>
                                 <p>support@languageplatform.com</p>
                             </div>
@@ -715,7 +715,7 @@
                                 </svg>
                             </div>
                             <div class="contact-details">
-                                <h4>Call Us</h4>
+                                <h4>Zvani mums</h4>
                                 <p>+1 (555) 123-4567</p>
                                 <p>+1 (555) 987-6543</p>
                             </div>
@@ -729,10 +729,10 @@
                                 </svg>
                             </div>
                             <div class="contact-details">
-                                <h4>Visit Us</h4>
+                                <h4>Apmeklē mūs</h4>
                                 <p>123 Language Street</p>
                                 <p>San Francisco, CA 94103</p>
-                                <p>United States</p>
+                                <p>Amerikas Savienotās Valstis</p>
                             </div>
                         </div>
 
@@ -744,16 +744,16 @@
                                 </svg>
                             </div>
                             <div class="contact-details">
-                                <h4>Business Hours</h4>
-                                <p>Monday - Friday: 9:00 AM - 6:00 PM</p>
-                                <p>Saturday: 10:00 AM - 4:00 PM</p>
-                                <p>Sunday: Closed</p>
+                                <h4>Darba laiks</h4>
+                                <p>Pirmdiena - piektdiena: 9:00 - 18:00</p>
+                                <p>Sestdiena: 10:00 - 16:00</p>
+                                <p>Svētdiena: slēgts</p>
                             </div>
                         </div>
                     </div>
 
                     <div class="social-links">
-                        <h4>Follow Us</h4>
+                        <h4>Seko mums</h4>
                         <div class="social-icons">
                             <a href="#" class="social-link">Twitter</a>
                             <a href="#" class="social-link">Facebook</a>
@@ -771,7 +771,7 @@
         <div class="container">
             <div class="footer-main">
                 <div class="footer-section">
-                    <h3>Language Learning</h3>
+                    <h3>Valodu apguve</h3>
                     <ul>
                         <li><a href="#"><span class="flag-icon">🇺🇸</span>English</a></li>
                         <li><a href="#"><span class="flag-icon">🇪🇸</span>Spanish</a></li>
@@ -780,35 +780,35 @@
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Resources</h3>
+                    <h3>Resursi</h3>
                     <ul>
-                        <li><a href="#">Grammar</a></li>
-                        <li><a href="#">Vocabulary</a></li>
-                        <li><a href="#">Pronunciation</a></li>
-                        <li><a href="#">Exercises</a></li>
-                        <li><a href="#">Tests</a></li>
-                        <li><a href="#">Certificates</a></li>
+                        <li><a href="#">Gramatika</a></li>
+                        <li><a href="#">Vārdu krājums</a></li>
+                        <li><a href="#">Izruna</a></li>
+                        <li><a href="#">Vingrinājumi</a></li>
+                        <li><a href="#">Testi</a></li>
+                        <li><a href="#">Sertifikāti</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Support</h3>
+                    <h3>Atbalsts</h3>
                     <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Feedback</a></li>
-                        <li><a href="#">Technical Support</a></li>
+                        <li><a href="#">Palīdzības centrs</a></li>
+                        <li><a href="#">Sazinies ar mums</a></li>
+                        <li><a href="#">Biežāk uzdotie jautājumi</a></li>
+                        <li><a href="#">Atsauksmes</a></li>
+                        <li><a href="#">Tehniskais atbalsts</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Company</h3>
+                    <h3>Uzņēmums</h3>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Team</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
-                        <li><a href="#">Partners</a></li>
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Par mums</a></li>
+                        <li><a href="#">Mūsu komanda</a></li>
+                        <li><a href="#">Karjera</a></li>
+                        <li><a href="#">Prese</a></li>
+                        <li><a href="#">Partneri</a></li>
+                        <li><a href="#">Blogs</a></li>
                     </ul>
                 </div>
             </div>
@@ -816,24 +816,24 @@
             <div class="footer-apps">
                 <div class="apps-grid">
                     <div>
-                        <h3>Download Our Apps</h3>
+                        <h3>Lejupielādē mūsu lietotnes</h3>
                         <div class="app-buttons">
                             <a href="#" class="app-button">
-                                <div class="app-button-title">Download on the</div>
+                                <div class="app-button-title">Lejupielādē no</div>
                                 <div class="app-button-name">App Store</div>
                             </a>
                             <a href="#" class="app-button">
-                                <div class="app-button-title">Get it on</div>
+                                <div class="app-button-title">Pieejams</div>
                                 <div class="app-button-name">Google Play</div>
                             </a>
                         </div>
                     </div>
                     <div class="newsletter">
-                        <h3>Stay Updated</h3>
-                        <p>Get the latest news and updates about new courses</p>
+                        <h3>Saņem jaunākās ziņas</h3>
+                        <p>Saņem jaunākās ziņas par jaunajiem kursiem</p>
                         <div class="newsletter-form">
-                            <input type="email" class="newsletter-input" placeholder="Enter your email address">
-                            <button class="newsletter-btn">Subscribe</button>
+                            <input type="email" class="newsletter-input" placeholder="Ievadi savu e-pasta adresi">
+                            <button class="newsletter-btn">Abonēt</button>
                         </div>
                     </div>
                 </div>
@@ -841,12 +841,12 @@
 
             <div class="footer-bottom">
                 <div class="footer-bottom-left">
-                    <div>© 2024 Language Learning Platform. All rights reserved.</div>
+                    <div>© 2024 Valodu apguves platforma. Visas tiesības aizsargātas.</div>
                     <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                        Platform Version: 2.1.0 | Last Updated: May 2024
+                        Platformas versija: 2.1.0 | Pēdējoreiz atjaunināts: 2024. gada maijs
                     </div>
                     <div style="font-size: 0.8rem; opacity: 0.7;">
-                        Contact Information<br>
+                        Kontaktinformācija<br>
                         info@languagelearning.com<br>
                         +1 (800) 123-4567<br>
                         123 Education Street, Learning City, LC 12345
@@ -854,11 +854,11 @@
                 </div>
                 <div class="footer-bottom-right">
                     <div class="legal-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Cookie Policy</a>
-                        <a href="#">Security</a>
-                        <a href="#">Accessibility</a>
+                        <a href="#">Privātuma politika</a>
+                        <a href="#">Lietošanas noteikumi</a>
+                        <a href="#">Sīkdatņu politika</a>
+                        <a href="#">Drošība</a>
+                        <a href="#">Pieejamība</a>
                     </div>
                 </div>
             </div>
@@ -941,19 +941,19 @@
                 console.error('Theme toggle element not found!');
             }
 
-            // Contact form handling
+            // Kontakti form handling
             const contactForm = document.getElementById('contactForm');
             const submitBtn = document.getElementById('submitBtn');
-            const formMessage = document.getElementById('formMessage');
+            const formZiņa = document.getElementById('formZiņa');
 
-            function showMessage(message, type) {
-                formMessage.textContent = message;
-                formMessage.className = `message ${type}`;
-                formMessage.style.display = 'block';
+            function showZiņa(message, type) {
+                formZiņa.textContent = message;
+                formZiņa.className = `message ${type}`;
+                formZiņa.style.display = 'block';
                 
                 // Hide message after 5 seconds
                 setTimeout(() => {
-                    formMessage.style.display = 'none';
+                    formZiņa.style.display = 'none';
                 }, 5000);
             }
 
@@ -969,12 +969,12 @@
                     
                     // Simple validation
                     if (!name || !email || !subject || !message) {
-                        showMessage('Please fill in all required fields.', 'error');
+                        showZiņa('Please fill in all required fields.', 'error');
                         return;
                     }
                     
                     if (!email.includes('@')) {
-                        showMessage('Please enter a valid email address.', 'error');
+                        showZiņa('Please enter a valid email address.', 'error');
                         return;
                     }
                     
@@ -988,13 +988,13 @@
                         submitBtn.disabled = false;
                         
                         // Show success message
-                        showMessage('Thank you for your message! We\'ll get back to you soon.', 'success');
+                        showZiņa('Thank you for your message! We\'ll get back to you soon.', 'success');
                         
                         // Reset form
                         contactForm.reset();
                         
                         // Log form data for demo purposes
-                        console.log('Contact form submitted:', {
+                        console.log('Kontakti form submitted:', {
                             name,
                             email,
                             subject,
@@ -1042,7 +1042,7 @@
             const userProfileNav = document.getElementById('userProfileNav');
             const authButtons = document.getElementById('authButtons');
             const headerProfileAvatar = document.getElementById('headerProfileAvatar');
-            const headerUsername = document.getElementById('headerUsername');
+            const headerLietotājvārds = document.getElementById('headerLietotājvārds');
 
             if (user) {
                 // Show profile navigation and hide auth buttons
@@ -1051,7 +1051,7 @@
 
                 // Update header profile information
                 headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
-                headerUsername.textContent = user.username;
+                headerLietotājvārds.textContent = user.username;
             }
         });
         
@@ -1076,5 +1076,6 @@
             }
         }
     </script>
+    <script src="scripts/ai-widget.js?v=2"></script>
 </body>
 </html>

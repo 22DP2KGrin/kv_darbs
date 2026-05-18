@@ -1267,16 +1267,38 @@ body {
             saveResultBtn.onclick = async function() {
                 try {
                     const testData = {
-                        topicId: 83, // ID темы "Present Perfect vs Past Simple" в базе данных
+                        resultType: 'exercise',
+                        topicId: 10,
+                        exerciseSlug: 'present-perfect-vs-past-simple',
+                        exerciseType: 'grammar',
                         score: score,
                         maxScore: totalQuestions,
                         timeSpent: Math.floor((Date.now() - startTime) / 1000),
-                        errors: userAnswers.map(item => ({
-                            questionId: currentQuestion,
-                            userAnswer: item.selected,
-                            correctAnswer: item.correct ? 'true' : 'false',
-                            questionText: document.querySelector('.question').textContent
-                        }))
+                        answers: Array.from({ length: totalQuestions }, (_, index) => {
+                            const questionNumber = index + 1;
+                            const questionContainer = document.getElementById(`q${questionNumber}-container`);
+                            const correctOption = questionContainer.querySelector('.option[data-correct="true"]');
+                            const answerData = userAnswers[questionNumber] || null;
+                            return {
+                                questionId: questionNumber,
+                                questionText: questionContainer.querySelector('.question').textContent.replace(/^\d+\.\s+/, '').trim(),
+                                userAnswer: answerData ? answerData.selected : null,
+                                correctAnswer: correctOption ? correctOption.getAttribute('data-value') : null,
+                                isCorrect: answerData ? !!answerData.correct : false
+                            };
+                        }),
+                        errors: Array.from({ length: totalQuestions }, (_, index) => {
+                            const questionNumber = index + 1;
+                            const questionContainer = document.getElementById(`q${questionNumber}-container`);
+                            const correctOption = questionContainer.querySelector('.option[data-correct="true"]');
+                            const answerData = userAnswers[questionNumber] || null;
+                            return {
+                                questionId: questionNumber,
+                                userAnswer: answerData ? answerData.selected : null,
+                                correctAnswer: correctOption ? correctOption.getAttribute('data-value') : null,
+                                questionText: questionContainer.querySelector('.question').textContent.replace(/^\d+\.\s+/, '').trim()
+                            };
+                        }).filter(item => item.userAnswer !== item.correctAnswer)
                     };
 
                     await saveTestResult(testData);
@@ -1294,5 +1316,6 @@ body {
             };
         });
     </script>
+    <script src="../scripts/ai-widget.js?v=2"></script>
 </body>
 </html>

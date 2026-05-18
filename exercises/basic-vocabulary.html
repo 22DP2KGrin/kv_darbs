@@ -970,10 +970,20 @@ a.secondary-button {
                 saveResultBtn.onclick = async function() {
                     try {
                         const testData = {
-                            topicId: 7, // ID темы "Basic Vocabulary" в базе данных
+                            resultType: 'exercise',
+                            topicId: 1,
+                            exerciseSlug: 'basic-vocabulary',
+                            exerciseType: 'vocabulary',
                             score: score,
                             maxScore: questions.length,
                             timeSpent: Math.floor((Date.now() - startTime) / 1000),
+                            answers: questions.map((question, index) => ({
+                                questionId: index + 1,
+                                questionText: question.question,
+                                userAnswer: answers[index] !== null ? question.options[answers[index]] : null,
+                                correctAnswer: question.options[question.correctAnswer],
+                                isCorrect: answers[index] === question.correctAnswer
+                            })),
                             errors: incorrectAnswers.map(item => ({
                                 questionId: questions.findIndex(q => q.question === item.question) + 1,
                                 userAnswer: item.userAnswer,
@@ -1040,5 +1050,6 @@ a.secondary-button {
             initExercise();
         });
     </script>
+    <script src="../scripts/ai-widget.js?v=2"></script>
 </body>
 </html>

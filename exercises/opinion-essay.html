@@ -606,6 +606,8 @@
       wordCounter.textContent = wordCount;
     });
     
+    const exerciseStartTime = Date.now();
+
     // Timer functionality
     let timerInterval;
     let timeLeft = 25 * 60; // 25 minutes in seconds
@@ -640,7 +642,7 @@
       }
       
       // Save results
-      const saved = await saveEssayResults(essayText, selectedTopic, Date.now());
+      const saved = await saveEssayResults(essayText, selectedTopic, exerciseStartTime);
       if (saved) {
         showSuccessNotification('Your essay has been saved successfully!');
         // Return to home page after a short delay
@@ -661,20 +663,12 @@
         saveResultBtn.style.display = 'inline-flex';
         saveResultBtn.onclick = async function() {
             try {
-                const testData = {
-                    topicId: 78, // ID темы "Opinion Essay" в базе данных
-                    score: correctCount,
-                    maxScore: questions.length,
-                    timeSpent: Math.floor((Date.now() - startTime) / 1000),
-                    errors: incorrectAnswers.map(item => ({
-                        questionId: questions.findIndex(q => q.question === item.question) + 1,
-                        userAnswer: item.userAnswer,
-                        correctAnswer: item.correctAnswer,
-                        questionText: item.question
-                    }))
-                };
-
-                await saveTestResult(testData);
+                const essayText = essayArea.value.trim();
+                const selectedTopic = document.getElementById('selected-topic').textContent;
+                const saved = await saveEssayResults(essayText, selectedTopic, exerciseStartTime);
+                if (!saved) {
+                    throw new Error('Failed to save essay');
+                }
                 alert('Results saved successfully!');
                 window.location.href = '../test_history.html';
             } catch (error) {
@@ -690,5 +684,6 @@
         // ... existing code ...
     });
   </script>
+    <script src="../scripts/ai-widget.js?v=2"></script>
 </body>
 </html>

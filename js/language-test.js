@@ -5,15 +5,27 @@ async function saveTestResult(testData) {
     }
 
     const resultData = {
+        result_type: testData.resultType || 'test',
         topic_id: testData.topicId,
+        topic_key: testData.topicKey || null,
         score: testData.score,
         max_score: testData.maxScore,
         time_spent: testData.timeSpent,
-        errors: testData.errors.map(error => ({
+        exercise_slug: testData.exerciseSlug || null,
+        exercise_type: testData.exerciseType || null,
+        content_text: testData.contentText || null,
+        errors: (testData.errors || []).map(error => ({
             question_id: error.questionId,
             user_answer: error.userAnswer,
             correct_answer: error.correctAnswer,
             question_text: error.questionText
+        })),
+        answers: (testData.answers || []).map(answer => ({
+            question_id: answer.questionId,
+            question_text: answer.questionText,
+            user_answer: answer.userAnswer,
+            correct_answer: answer.correctAnswer,
+            is_correct: answer.isCorrect
         }))
     };
 

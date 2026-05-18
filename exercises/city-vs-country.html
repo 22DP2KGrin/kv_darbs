@@ -1170,16 +1170,26 @@
             saveResultBtn.onclick = async function() {
                 try {
                     const testData = {
-                        topicId: 81, // ID темы "City vs Country" в базе данных
+                        resultType: 'exercise',
+                        topicId: 8,
+                        exerciseSlug: 'city-vs-country',
+                        exerciseType: 'reading',
                         score: score,
                         maxScore: quizData.length,
                         timeSpent: Math.floor((Date.now() - startTime) / 1000),
+                        answers: quizData.map((question, index) => ({
+                            questionId: index + 1,
+                            questionText: question.question,
+                            userAnswer: userAnswers[index] !== null ? question.options[userAnswers[index]] : null,
+                            correctAnswer: question.options[question.correctAnswer],
+                            isCorrect: userAnswers[index] === question.correctAnswer
+                        })),
                         errors: userAnswers.map((answer, index) => ({
                             questionId: index + 1,
-                            userAnswer: answer,
-                            correctAnswer: quizData[index].correctAnswer,
+                            userAnswer: answer !== null ? quizData[index].options[answer] : null,
+                            correctAnswer: quizData[index].options[quizData[index].correctAnswer],
                             questionText: quizData[index].question
-                        }))
+                        })).filter(item => item.userAnswer !== item.correctAnswer)
                     };
 
                     await saveTestResult(testData);
@@ -1197,5 +1207,6 @@
             };
         });
     </script>
+    <script src="../scripts/ai-widget.js?v=2"></script>
 </body>
 </html>

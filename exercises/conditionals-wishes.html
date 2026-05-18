@@ -1356,17 +1356,37 @@ a.secondary-button {
             saveResultBtn.style.display = 'inline-flex';
             saveResultBtn.onclick = async function() {
                 try {
+                    const answerDetails = Object.keys(answers).map((questionId, index) => {
+                        const selectedValue = userAnswers[questionId] || null;
+                        const selectedInput = selectedValue ? document.querySelector(`input[name="${questionId}"][value="${selectedValue}"]`) : null;
+                        const correctInput = document.querySelector(`input[name="${questionId}"][value="${answers[questionId]}"]`);
+                        const questionContainer = document.getElementById(`question-${index + 1}`);
+                        return {
+                            questionId: index + 1,
+                            questionText: questionContainer?.querySelector('.question')?.textContent.trim() || questionId,
+                            userAnswer: selectedInput ? selectedInput.nextElementSibling.textContent.trim() : null,
+                            correctAnswer: correctInput ? correctInput.nextElementSibling.textContent.trim() : null,
+                            isCorrect: selectedValue === answers[questionId]
+                        };
+                    });
+
                     const testData = {
-                        topicId: 80, // ID темы "Conditionals and Wishes" в базе данных
-                        score: correctCount,
-                        maxScore: questions.length,
+                        resultType: 'exercise',
+                        topicId: 7,
+                        exerciseSlug: 'conditionals-wishes',
+                        exerciseType: 'grammar',
+                        score: answerDetails.filter(item => item.isCorrect).length,
+                        maxScore: Object.keys(answers).length,
                         timeSpent: Math.floor((Date.now() - startTime) / 1000),
-                        errors: incorrectAnswers.map(item => ({
-                            questionId: questions.findIndex(q => q.question === item.question) + 1,
-                            userAnswer: item.userAnswer,
-                            correctAnswer: item.correctAnswer,
-                            questionText: item.question
-                        }))
+                        answers: answerDetails,
+                        errors: answerDetails
+                            .filter(item => !item.isCorrect)
+                            .map(item => ({
+                                questionId: item.questionId,
+                                userAnswer: item.userAnswer,
+                                correctAnswer: item.correctAnswer,
+                                questionText: item.questionText
+                            }))
                     };
 
                     await saveTestResult(testData);
@@ -1385,5 +1405,6 @@ a.secondary-button {
             // ... existing code ...
         });
     </script>
+    <script src="../scripts/ai-widget.js?v=2"></script>
 </body>
 </html>

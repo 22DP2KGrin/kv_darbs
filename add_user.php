@@ -1,10 +1,9 @@
 <?php
 header('Content-Type: application/json');
 require_once 'db_connect.php';
+require_once 'admin_auth_check.php';
 
-// Check if user is logged in and is admin
-session_start();
-if (!isset($_SESSION['user_id']) || !isset($_SESSION['is_admin']) || !$_SESSION['is_admin']) {
+if (!checkAdminAuth()) {
     http_response_code(403);
     echo json_encode(['error' => 'Unauthorized access']);
     exit;
@@ -25,7 +24,7 @@ foreach ($required_fields as $field) {
 
 try {
     // Check if username or email already exists
-    $stmt = $pdo->prepare("SELECT id FROM users WHERE username = ? OR email = ?");
+    $stmt = $pdo->prepare("SELECT user_id FROM users WHERE username = ? OR email = ?");
     $stmt->execute([$data['username'], $data['email']]);
     if ($stmt->rowCount() > 0) {
         http_response_code(400);
@@ -38,7 +37,7 @@ try {
 
     // Insert new user
     $stmt = $pdo->prepare("
-        INSERT INTO users (username, email, password, language, timezone, created_at, is_active)
+        INSERT INTO users (username, email, password_hash, language, timezone, created_at, is_active)
         VALUES (?, ?, ?, ?, ?, NOW(), 1)
     ");
 

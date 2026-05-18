@@ -16,12 +16,12 @@ try {
     // Получаем последние результаты тестов
     $stmt = $pdo->prepare("
         SELECT tr.*, 
-               COUNT(te.id) as total_errors,
+               COUNT(te.error_id) as total_errors,
                DATE_FORMAT(tr.completion_date, '%Y-%m-%d %H:%i') as formatted_date
         FROM test_results tr
-        LEFT JOIN test_errors te ON tr.id = te.result_id
+        LEFT JOIN test_errors te ON tr.result_id = te.result_id
         WHERE tr.user_id = ?
-        GROUP BY tr.id
+        GROUP BY tr.result_id
         ORDER BY tr.completion_date DESC
         LIMIT 10
     ");
@@ -33,9 +33,9 @@ try {
         $stmt = $pdo->prepare("
             SELECT * FROM test_errors 
             WHERE result_id = ?
-            ORDER BY id
+            ORDER BY error_id
         ");
-        $stmt->execute([$result['id']]);
+        $stmt->execute([$result['result_id']]);
         $result['errors'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
@@ -59,7 +59,7 @@ try {
                 'total_tests' => (int)$statistics['total_tests'],
                 'average_score' => round($statistics['average_score'], 2),
                 'total_time' => (int)$statistics['total_time'],
-                'current_level' => 'Beginner'
+                'current_level' => 'Iesacejs'
             ]
         ]
     ]);

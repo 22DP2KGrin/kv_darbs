@@ -29,7 +29,7 @@ function checkAdminAuth() {
     error_log("Token from header: " . $token);
 
     // Проверяем токен в базе данных
-    require_once 'db_connect.php';
+    require_once __DIR__ . '/db_connect.php';
     try {
         $stmt = $pdo->prepare("
             SELECT admin_id 

@@ -22,7 +22,7 @@ if (!$token) {
 
 try {
     // Проверяем токен и получаем ID пользователя
-    $stmt = $pdo->prepare("SELECT user_id FROM sessions WHERE token = ? AND expires_at > NOW()");
+    $stmt = $pdo->prepare("SELECT user_id FROM sessions WHERE session_token = ? AND expires_at > NOW()");
     $stmt->execute([$token]);
     $session = $stmt->fetch(PDO::FETCH_ASSOC);
 
@@ -73,16 +73,16 @@ try {
     // Если есть новый пароль, обновляем его
     if (isset($data['newPassword']) && !empty($data['newPassword'])) {
         // Проверяем текущий пароль
-        $stmt = $pdo->prepare("SELECT password FROM users WHERE user_id = ?");
+        $stmt = $pdo->prepare("SELECT password_hash FROM users WHERE user_id = ?");
         $stmt->execute([$userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        if (!password_verify($data['currentPassword'], $user['password'])) {
+        if (!password_verify($data['currentPassword'], $user['password_hash'])) {
             echo json_encode(['success' => false, 'message' => 'Current password is incorrect']);
             exit;
         }
 
-        $updateFields[] = "password = ?";
+        $updateFields[] = "password_hash = ?";
         $params[] = password_hash($data['newPassword'], PASSWORD_DEFAULT);
     }
 

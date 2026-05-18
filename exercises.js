@@ -57,7 +57,7 @@ function populateExerciseCards(level, exercises) {
                     <div>
                         <h3 class="exercise-title">${exercise.title}</h3>
                     </div>
-                    <span class="exercise-badge ${exercise.completed ? 'completed' : ''}">${exercise.completed ? 'Completed' : 'New'}</span>
+                    <span class="exercise-badge ${exercise.completed ? 'completed' : ''}">${exercise.completed ? 'Pabeigts' : 'Jauns'}</span>
                 </div>
                 <div class="exercise-content">
                     <p class="exercise-description">${exercise.description}</p>
@@ -67,13 +67,13 @@ function populateExerciseCards(level, exercises) {
                             ${getExerciseTypeTitle(exercise.type)}
                         </div>
                         <div class="exercise-stats">
-                            ${exercise.questions} questions • ${exercise.estimatedTime}
+                            ${exercise.questions} jautājumi • ${exercise.estimatedTime}
                         </div>
                     </div>
                 </div>
                 <div class="exercise-footer">
                     <a href="${getExerciseUrl(exercise.id)}" class="btn btn-primary btn-block">
-                        ${exercise.completed ? 'Review Exercise' : 'Start Exercise'}
+                        ${exercise.completed ? 'Skatīt vēlreiz' : 'Sākt vingrinājumu'}
                     </a>
                 </div>
             </div>
@@ -86,17 +86,17 @@ function populateExerciseCards(level, exercises) {
 // Get exercise type title
 function getExerciseTypeTitle(type) {
     const types = {
-        vocabulary: 'Vocabulary',
-        grammar: 'Grammar',
-        reading: 'Reading',
-        writing: 'Writing',
-        listening: 'Listening',
-        speaking: 'Speaking',
-        quiz: 'Quiz',
-        games: 'Games'
+        vocabulary: 'Vārdu krājums',
+        grammar: 'Gramatika',
+        reading: 'Lasīšana',
+        writing: 'Rakstīšana',
+        listening: 'Klausīšanās',
+        speaking: 'Runāšana',
+        quiz: 'Tests',
+        games: 'Spēles'
     };
     
-    return types[type] || 'Exercise';
+    return types[type] || 'Vingrinājums';
 }
 
 // Get exercise URL

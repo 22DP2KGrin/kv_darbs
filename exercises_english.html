@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="lv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>English Exercises - Language Learning Platform</title>
+    <title>Angļu valodas vingrinājumi - Valodu apguves platforma</title>
     <link rel="stylesheet" href="../css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -11,21 +11,29 @@
     <!-- Header -->
     <header class="header">
         <div class="container header-container">
-            <h1 class="logo"><a href="../index.html">Language Learning Platform</a></h1>
+            <h1 class="logo"><a href="../index.html">Valodu apguves platforma</a></h1>
             <nav class="main-nav">
                 <div class="nav-links">
-                    <a href="../about.html" class="nav-link">About Us</a>
-                    <a href="../contact.html" class="nav-link">Contacts</a>
+                    <a href="../about.html" class="nav-link">Par mums</a>
+                    <a href="../contact.html" class="nav-link">Kontakti</a>
                     <div class="user-profile-nav" id="userProfileNav" style="display: none;">
                         <a href="../profile.html" class="nav-link profile-link">
                             <div class="profile-avatar-small" id="headerProfileAvatar"></div>
-                            <span id="headerUsername"></span>
+                            <span id="headerLietotājvārds"></span>
                         </a>
                     </div>
                     <div class="auth-buttons" id="authButtons">
-                        <a href="../login.html" class="nav-link">Login</a>
-                        <a href="../signup.html" class="nav-link">Sign up</a>
+                        <a href="../login.html" class="nav-link">Pieteikties</a>
+                        <a href="../signup.html" class="nav-link">Reģistrēties</a>
                     </div>
+                </div>
+                <div class="theme-toggle">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+                    <label class="switch">
+                        <input type="checkbox" id="themeToggle">
+                        <span class="slider round"></span>
+                    </label>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 </div>
             </nav>
         </div>
@@ -35,19 +43,19 @@
         <div class="container">
             <div class="exercises-header">
                 <div>
-                    <h2 class="page-title">English Exercises</h2>
-                    <p class="page-subtitle">Practice and improve your language skills</p>
+                    <h2 class="page-title">Angļu valodas vingrinājumi</h2>
+                    <p class="page-subtitle">Praktizējies un uzlabo savas valodas prasmes</p>
                 </div>
                 <div class="exercises-actions">
-                    <a href="../english/test.html" class="btn btn-primary">Take Level Test</a>
+                    <a href="../english/test.html" class="btn btn-primary">Veikt līmeņa testu</a>
                 </div>
             </div>
 
             <div class="tabs">
                 <div class="tab-list" id="levelTabs">
-                    <button class="tab-button active" data-level="beginner">Beginner</button>
-                    <button class="tab-button" data-level="intermediate">Intermediate</button>
-                    <button class="tab-button" data-level="advanced">Advanced</button>
+                    <button class="tab-button active" data-level="beginner">Iesācējs</button>
+                    <button class="tab-button" data-level="intermediate">Vidējais</button>
+                    <button class="tab-button" data-level="advanced">Augstākais</button>
                 </div>
 
                 <div class="exercise-types">
@@ -56,49 +64,49 @@
                             <div class="exercise-type-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"></path><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"></path></svg>
                             </div>
-                            <h3 class="exercise-type-title">Vocabulary</h3>
-                            <p class="exercise-type-description">Build your word bank with interactive vocabulary exercises</p>
+                            <h3 class="exercise-type-title">Vārdu krājums</h3>
+                            <p class="exercise-type-description">Paplašini savu vārdu krājumu ar interaktīviem vingrinājumiem</p>
                         </div>
                         <div class="exercise-type-card">
                             <div class="exercise-type-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
                             </div>
-                            <h3 class="exercise-type-title">Grammar</h3>
-                            <p class="exercise-type-description">Master language structure with targeted grammar practice</p>
+                            <h3 class="exercise-type-title">Gramatika</h3>
+                            <p class="exercise-type-description">Nostiprini valodas struktūru ar mērķtiecīgiem gramatikas vingrinājumiem</p>
                         </div>
                         <div class="exercise-type-card">
                             <div class="exercise-type-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                             </div>
-                            <h3 class="exercise-type-title">Reading</h3>
-                            <p class="exercise-type-description">Improve your reading comprehension skills</p>
+                            <h3 class="exercise-type-title">Lasīšana</h3>
+                            <p class="exercise-type-description">Uzlabo lasītprasmi un teksta izpratni</p>
                         </div>
                         <div class="exercise-type-card">
                             <div class="exercise-type-icon">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon"><path d="M12 19l7-7 3 3-7 7-3-3z"></path><path d="M18 13l-1.5-7.5L2 2l3.5 14.5L13 18l5-5z"></path><path d="M2 2l7.586 7.586"></path><circle cx="11" cy="11" r="2"></circle></svg>
                             </div>
-                            <h3 class="exercise-type-title">Writing</h3>
-                            <p class="exercise-type-description">Practice writing in your target language</p>
+                            <h3 class="exercise-type-title">Rakstīšana</h3>
+                            <p class="exercise-type-description">Praktizē rakstīšanu apgūstamajā valodā</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="tab-content active" id="beginner-content">
-                    <h3 class="content-title">Available Exercises</h3>
+                    <h3 class="content-title">Pieejamie vingrinājumi</h3>
                     <div class="exercise-grid" id="beginner-exercises">
                         <!-- Exercise cards will be loaded here by JavaScript -->
                     </div>
                 </div>
 
                 <div class="tab-content" id="intermediate-content">
-                    <h3 class="content-title">Available Exercises</h3>
+                    <h3 class="content-title">Pieejamie vingrinājumi</h3>
                     <div class="exercise-grid" id="intermediate-exercises">
                         <!-- Exercise cards will be loaded here by JavaScript -->
                     </div>
                 </div>
 
                 <div class="tab-content" id="advanced-content">
-                    <h3 class="content-title">Available Exercises</h3>
+                    <h3 class="content-title">Pieejamie vingrinājumi</h3>
                     <div class="exercise-grid" id="advanced-exercises">
                         <!-- Exercise cards will be loaded here by JavaScript -->
                     </div>
@@ -112,68 +120,68 @@
         <div class="container">
             <div class="footer-main">
                 <div class="footer-section">
-                    <h3>Language Learning</h3>
+                    <h3>Valodu apguve</h3>
                     <ul>
-                        <li><a href="#"><span class="flag-icon">🇺🇸</span>English</a></li>
-                        <li><a href="#"><span class="flag-icon">🇪🇸</span>Spanish</a></li>
-                        <li><a href="#"><span class="flag-icon">🇫🇷</span>French</a></li>
-                        <li><a href="#"><span class="flag-icon">🇱🇻</span>Latvian</a></li>
+                        <li><a href="#"><span class="flag-icon">🇺🇸</span>Angļu valoda</a></li>
+                        <li><a href="#"><span class="flag-icon">🇪🇸</span>Spāņu valoda</a></li>
+                        <li><a href="#"><span class="flag-icon">🇫🇷</span>Franču valoda</a></li>
+                        <li><a href="#"><span class="flag-icon">🇱🇻</span>Latviešu valoda</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Resources</h3>
+                    <h3>Resursi</h3>
                     <ul>
-                        <li><a href="#">Grammar</a></li>
-                        <li><a href="#">Vocabulary</a></li>
-                        <li><a href="#">Pronunciation</a></li>
-                        <li><a href="#">Exercises</a></li>
-                        <li><a href="#">Tests</a></li>
-                        <li><a href="#">Certificates</a></li>
+                        <li><a href="#">Gramatika</a></li>
+                        <li><a href="#">Vārdu krājums</a></li>
+                        <li><a href="#">Izruna</a></li>
+                        <li><a href="#">Vingrinājumi</a></li>
+                        <li><a href="#">Testi</a></li>
+                        <li><a href="#">Sertifikāti</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Support</h3>
+                    <h3>Atbalsts</h3>
                     <ul>
-                        <li><a href="#">Help Center</a></li>
-                        <li><a href="#">Contact Us</a></li>
-                        <li><a href="#">FAQ</a></li>
-                        <li><a href="#">Feedback</a></li>
-                        <li><a href="#">Technical Support</a></li>
+                        <li><a href="#">Palīdzības centrs</a></li>
+                        <li><a href="#">Sazinies ar mums</a></li>
+                        <li><a href="#">Biežāk uzdotie jautājumi</a></li>
+                        <li><a href="#">Atsauksmes</a></li>
+                        <li><a href="#">Tehniskais atbalsts</a></li>
                     </ul>
                 </div>
                 <div class="footer-section">
-                    <h3>Company</h3>
+                    <h3>Uzņēmums</h3>
                     <ul>
-                        <li><a href="#">About Us</a></li>
-                        <li><a href="#">Our Team</a></li>
-                        <li><a href="#">Careers</a></li>
-                        <li><a href="#">Press</a></li>
-                        <li><a href="#">Partners</a></li>
-                        <li><a href="#">Blog</a></li>
+                        <li><a href="#">Par mums</a></li>
+                        <li><a href="#">Mūsu komanda</a></li>
+                        <li><a href="#">Karjera</a></li>
+                        <li><a href="#">Prese</a></li>
+                        <li><a href="#">Partneri</a></li>
+                        <li><a href="#">Blogs</a></li>
                     </ul>
                 </div>
             </div>
 
             <div class="footer-bottom">
                 <div class="footer-bottom-left">
-                    <div>© 2024 Language Learning Platform. All rights reserved.</div>
+                    <div>© 2024 Valodu apguves platforma. Visas tiesības aizsargātas.</div>
                     <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                        Platform Version: 2.1.0 | Last Updated: May 2024
+                        Platformas versija: 2.1.0 | Pēdējo reizi atjaunināts: 2024. gada maijā
                     </div>
                     <div style="font-size: 0.8rem; opacity: 0.7;">
-                        Contact Information<br>
+                        Kontaktinformācija<br>
                         info@languagelearning.com<br>
-                        +1 (800) 123-4567<br>
-                        123 Education Street, Learning City, LC 12345
+                        +371 20000000<br>
+                        Rīga, Latvija
                     </div>
                 </div>
                 <div class="footer-bottom-right">
                     <div class="legal-links">
-                        <a href="#">Privacy Policy</a>
-                        <a href="#">Terms of Service</a>
-                        <a href="#">Cookie Policy</a>
-                        <a href="#">Security</a>
-                        <a href="#">Accessibility</a>
+                        <a href="#">Privātuma politika</a>
+                        <a href="#">Lietošanas noteikumi</a>
+                        <a href="#">Sīkdatņu politika</a>
+                        <a href="#">Drošība</a>
+                        <a href="#">Pieejamība</a>
                     </div>
                 </div>
             </div>
@@ -265,12 +273,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Header */
 .header {
-  background-color: var(--background);
-  padding: 1.25rem 0;
-  box-shadow: var(--shadow);
+  background-color: var(--header-bg, var(--background));
+  padding: 1.5rem 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
   z-index: 100;
+  transition: background-color 0.3s ease;
 }
 
 .header-container {
@@ -279,15 +288,28 @@ h1, h2, h3, h4, h5, h6 {
   align-items: center;
 }
 
+.logo {
+  font-size: 1.5rem;
+  margin: 0;
+  font-weight: bold;
+  color: var(--body-color, var(--text-primary));
+}
+
 .logo a {
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--primary);
+  color: inherit;
 }
 
 .main-nav {
   display: flex;
-  gap: 1rem;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
   align-items: center;
 }
 
@@ -295,6 +317,7 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
   padding: 0.5rem 1rem;
   border-radius: var(--radius);
+  color: var(--body-color, var(--text-primary));
 }
 
 .nav-link:hover {
@@ -328,7 +351,7 @@ h1, h2, h3, h4, h5, h6 {
   background-color: var(--background-alt);
 }
 
-/* Exercises Header */
+/* Vingrinājumi Header */
 .exercises-header {
   display: flex;
   justify-content: space-between;
@@ -504,13 +527,18 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  margin-left: 1rem;
+}
+
+.theme-toggle .icon {
+  color: var(--indigo-600, #4f46e5);
 }
 
 .switch {
   position: relative;
   display: inline-block;
-  width: 60px;
-  height: 30px;
+  width: 40px;
+  height: 24px;
 }
 
 .switch input {
@@ -526,15 +554,15 @@ h1, h2, h3, h4, h5, h6 {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: var(--text-secondary);
+  background-color: #ccc;
   transition: .4s;
 }
 
 .slider:before {
   position: absolute;
   content: "";
-  height: 22px;
-  width: 22px;
+  height: 16px;
+  width: 16px;
   left: 4px;
   bottom: 4px;
   background-color: white;
@@ -542,11 +570,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 input:checked + .slider {
-  background-color: var(--primary);
+  background-color: var(--indigo-600, #4f46e5);
 }
 
 input:checked + .slider:before {
-  transform: translateX(30px);
+  transform: translateX(16px);
 }
 
 .slider.round {
@@ -562,7 +590,7 @@ input:checked + .slider:before {
 }
 
 .sun-icon, .moon-icon {
-  color: var(--text-secondary);
+  color: var(--indigo-600, #4f46e5);
 }
 
 /* Exercise Card Styles */
@@ -742,7 +770,7 @@ input:checked + .slider:before {
             },
             {
                 id: 'b2',
-                title: 'Basic Vocabulary',
+                title: 'Basic Vārdu krājums',
                 type: 'vocabulary',
                 description: 'Learn essential words for everyday conversations',
                 duration: '8 min',
@@ -794,7 +822,7 @@ input:checked + .slider:before {
             },
             {
                 id: 'i3',
-                title: 'City Life vs Country Life',
+                title: 'City Life vs Valsts Life',
                 type: 'reading',
                 description: 'Read about the differences between urban and rural living',
                 duration: '20 min',
@@ -915,7 +943,7 @@ input:checked + .slider:before {
     }
 
     // Function to load exercises
-    function loadExercises() {
+    function loadVingrinājumi() {
         const beginnerContainer = document.getElementById('beginner-exercises');
         const intermediateContainer = document.getElementById('intermediate-exercises');
         const advancedContainer = document.getElementById('advanced-exercises');
@@ -966,7 +994,7 @@ input:checked + .slider:before {
     const userProfileNav = document.getElementById('userProfileNav');
     const authButtons = document.getElementById('authButtons');
     const headerProfileAvatar = document.getElementById('headerProfileAvatar');
-    const headerUsername = document.getElementById('headerUsername');
+    const headerLietotājvārds = document.getElementById('headerLietotājvārds');
 
     if (user) {
         // Show profile navigation and hide auth buttons
@@ -975,17 +1003,16 @@ input:checked + .slider:before {
 
         // Update header profile information
         headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
-        headerUsername.textContent = user.username;
+        headerLietotājvārds.textContent = user.username;
     }
 
     // Initialize everything when DOM is loaded
     document.addEventListener('DOMContentLoaded', () => {
         initializeTabs();
-        loadExercises();
+        loadVingrinājumi();
         initializeThemeToggle();
     });
 </script>
-<body>
-    
+    <script src="scripts/ai-widget.js?v=2"></script>
+</body>
 </html>
-

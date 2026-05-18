@@ -988,10 +988,20 @@
             saveResultBtn.onclick = async function() {
                 try {
                     const testData = {
-                        topicId: 6,
+                        resultType: 'exercise',
+                        topicId: 3,
+                        exerciseSlug: 'mydaily-routine',
+                        exerciseType: 'reading',
                         score: parseInt(scoreElement.textContent.split('/')[0]),
                         maxScore: questions.length,
                         timeSpent: Math.floor((Date.now() - startTime) / 1000),
+                        answers: questions.map((question, index) => ({
+                            questionId: index + 1,
+                            questionText: question.question,
+                            userAnswer: answers[index] !== null ? question.options[answers[index]] : null,
+                            correctAnswer: question.options[question.correctAnswer],
+                            isCorrect: answers[index] === question.correctAnswer
+                        })),
                         errors: Array.from(document.querySelectorAll('.incorrect-answer-item')).map(item => ({
                             questionId: parseInt(item.querySelector('.incorrect-answer-question').textContent.split('.')[0]),
                             userAnswer: item.querySelector('.your-answer').textContent.replace('Your answer: ', ''),
@@ -1015,5 +1025,6 @@
             };
         });
     </script>
+    <script src="../scripts/ai-widget.js?v=2"></script>
 </body>
 </html>
