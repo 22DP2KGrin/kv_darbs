@@ -1,10 +1,11 @@
 <?php
-// Local database configuration. Override via environment variables when needed.
-define('DB_HOST', 'sql306.infinityfree.com');
+// Local database configuration for MAMP/MySQL.
+define('DB_HOST', 'localhost');
 define('DB_PORT', '3306');
-define('DB_NAME', 'if0_41951739_language');
-define('DB_USER', 'if0_41951739');
-define('DB_PASS', 'Katrina8282');
+define('DB_NAME', 'language_learning_platform');
+define('DB_USER', 'root');
+define('DB_PASS', 'root');
+define('DB_SOCKET', '/tmp/mysql.sock');
 // Session configuration
 define('SESSION_LIFETIME', 86400); // 24 hours in seconds
 
@@ -160,6 +161,30 @@ function createTables($pdo) {
                 INDEX idx_progress_topic (topic_id)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+            CREATE TABLE IF NOT EXISTS courses (
+                course_id INT AUTO_INCREMENT PRIMARY KEY,
+                course_name VARCHAR(255) NOT NULL,
+                language_id INT NOT NULL,
+                level ENUM('beginner', 'intermediate', 'advanced') DEFAULT 'beginner',
+                description TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                is_active BOOLEAN DEFAULT TRUE,
+                FOREIGN KEY (language_id) REFERENCES languages(language_id) ON DELETE CASCADE,
+                INDEX idx_course_language (language_id),
+                INDEX idx_course_level (level)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+            CREATE TABLE IF NOT EXISTS lessons (
+                lesson_id INT AUTO_INCREMENT PRIMARY KEY,
+                course_id INT NOT NULL,
+                lesson_title VARCHAR(255) NOT NULL,
+                lesson_description TEXT,
+                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+                is_active BOOLEAN DEFAULT TRUE,
+                FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE,
+                INDEX idx_lesson_course (course_id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
             CREATE TABLE IF NOT EXISTS admins (
                 id INT AUTO_INCREMENT PRIMARY KEY,
                 username VARCHAR(50) NOT NULL UNIQUE,
@@ -201,6 +226,11 @@ function createTables($pdo) {
                 INDEX idx_admin_activity_created (created_at)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
         ");
+
+        $legacySessionColumn = $pdo->query("SHOW COLUMNS FROM sessions LIKE 'token'")->fetch();
+        if ($legacySessionColumn) {
+            $pdo->exec("ALTER TABLE sessions CHANGE token session_token VARCHAR(255) NOT NULL");
+        }
 
         $stmt = $pdo->prepare("
             INSERT IGNORE INTO languages (language_id, language_name, language_code) VALUES

@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>Mans profils - Valodu apguves platforma</title>
-=======
-    <title>Mans profils - Valodu mācību platforma</title>
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
     <style>
         /* Base Variables */
         :root {
@@ -72,7 +68,7 @@
 
         /* Header Styles */
         .header {
-            background-color: var(--background);
+            background-color: var(--header-bg, var(--background));
             padding: 1.5rem 0;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
             position: sticky;
@@ -91,7 +87,7 @@
             font-size: 1.5rem;
             margin: 0;
             font-weight: bold;
-            color: var(--foreground);
+            color: var(--body-color, var(--foreground));
         }
 
         .main-nav {
@@ -110,7 +106,7 @@
             padding: 0.5rem 1rem;
             border-radius: var(--radius);
             transition: all 0.2s ease;
-            color: var(--foreground);
+            color: var(--body-color, var(--foreground));
         }
 
         .nav-link:hover {
@@ -123,9 +119,7 @@
 
         /* Profile Layout */
         .profile-layout {
-            display: grid;
-            grid-template-columns: 300px 1fr;
-            gap: 2rem;
+            display: block;
             margin: 2rem 0;
         }
 
@@ -133,47 +127,6 @@
             .profile-layout {
                 grid-template-columns: 1fr;
             }
-        }
-
-        /* Sidebar */
-        .sidebar {
-            background-color: var(--background);
-            padding: 1.5rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-            height: fit-content;
-            position: sticky;
-            top: 120px;
-        }
-
-        .profile-menu {
-            list-style: none;
-        }
-
-        .profile-menu li {
-            margin-bottom: 0.5rem;
-        }
-
-        .menu-link {
-            display: flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem;
-            border-radius: var(--radius);
-            transition: all 0.3s ease;
-            border: 2px solid transparent;
-            font-weight: 500;
-        }
-
-        .menu-link:hover {
-            background-color: rgba(79, 70, 229, 0.05);
-            border-color: rgba(79, 70, 229, 0.2);
-        }
-
-        .menu-link.active {
-            background-color: var(--primary);
-            color: white;
-            border-color: var(--primary);
         }
 
         .menu-icon {
@@ -196,7 +149,7 @@
             box-shadow: var(--shadow);
             position: relative;
             overflow: hidden;
-            display: none;
+            display: block;
         }
 
         .section.active {
@@ -591,9 +544,6 @@
                 font-size: 3rem;
             }
 
-            .sidebar {
-                position: static;
-            }
         }
 
         /* Profile Header */
@@ -633,7 +583,7 @@
             width: 32px;
             height: 32px;
             border-radius: 50%;
-            background: linear-gradient(90deg, var(--primary), var(--primary-deep));
+            background: linear-gradient(90deg, var(--indigo-600, var(--primary)), var(--indigo-800, var(--primary-deep)));
             color: white;
             display: flex;
             align-items: center;
@@ -643,7 +593,20 @@
         }
 
         .auth-buttons {
-            margin: 0.5rem 0;
+            display: flex;
+            gap: 1rem;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
+        }
+
+        .theme-toggle .icon {
+            color: var(--indigo-600, var(--primary));
         }
 
         @media (max-width: 768px) {
@@ -695,7 +658,6 @@
         }
     </style>
 </head>
-<<<<<<< HEAD
 <body>
     <!-- Header -->
     <header class="header">
@@ -729,9 +691,6 @@
             </nav>
         </div>
     </header>
-=======
-
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
 
     <!-- Main Content -->
     <main class="main-content">
@@ -743,40 +702,6 @@
 
             <!-- Profile Layout -->
             <div class="profile-layout">
-                <!-- Sidebar -->
-                <div class="sidebar">
-                    <ul class="profile-menu">
-                        <li>
-                            <a href="#profile" class="menu-link active" data-section="profile">
-                                <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"></path>
-                                </svg>
-                                Mans profils
-                            </a>
-                        </li>
-                        <li>
-                            
-                        </li>
-                        <li>
-                            <a href="#security" class="menu-link" data-section="security">
-                                <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"></path>
-                                </svg>
-                                Drošība
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#settings" class="menu-link" data-section="settings">
-                                <svg class="menu-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                </svg>
-                                Settings
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
                 <!-- Content Area -->
                 <div class="content-area">
                     <!-- Profile Section -->
@@ -859,54 +784,6 @@
                         </div>
                     </div>
 
-                    <!-- Drošība Section -->
-                    <div id="security" class="section">
-                        <h2 class="section-title">Drošība Settings</h2>
-                        <div class="form-group">
-                            <p>Drošības apsvērumu dēļ paroles maiņa pašlaik nav pieejama.</p>
-                            <p>Ja tev nepieciešams nomainīt paroli, sazinies ar atbalstu.</p>
-                        </div>
-                    </div>
-
-                    <!-- Settings Section -->
-                    <div id="settings" class="section">
-                        <h2 class="section-title">Konta iestatījumi</h2>
-                        <div style="margin-bottom: 2rem;">
-                            <h3 style="margin-bottom: 1rem;">Paziņojumi</h3>
-                            <div style="display: flex; flex-direction: column; gap: 1rem;">
-                                <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <input type="checkbox" id="emailPaziņojumi" checked>
-                                    E-pasts Paziņojumi
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <input type="checkbox" id="progressUpdates" checked>
-                                    Progresa atjauninājumi
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <input type="checkbox" id="marketingE-pastss">
-                                    Marketing E-pastss
-                                </label>
-                            </div>
-                        </div>
-
-                        <div style="margin-bottom: 2rem;">
-                            <h3 style="margin-bottom: 1rem;">Privātums</h3>
-                            <div style="display: flex; flex-direction: column; gap: 1rem;">
-                                <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <input type="checkbox" id="publicProfile">
-                                    Padarīt profilu publisku
-                                </label>
-                                <label style="display: flex; align-items: center; gap: 0.5rem;">
-                                    <input type="checkbox" id="shareProgress" checked>
-                                    Kopīgot progresu ar draugiem
-                                </label>
-                            </div>
-                        </div>
-
-                        <div style="margin-top: 2rem;">
-                            <button class="btn btn-primary" id="saveSettingsBtn">Saglabāt iestatījumus</button>
-                        </div>
-                    </div>
                 </div>
             </div>
         </div>
@@ -918,33 +795,11 @@
     <!-- Page-specific scripts -->
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Navigation
-            const menuLinks = document.querySelectorAll('.menu-link');
-            const sections = document.querySelectorAll('.section');
-
-            menuLinks.forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    // Remove active class from all links and sections
-                    menuLinks.forEach(l => l.classList.remove('active'));
-                    sections.forEach(s => s.classList.remove('active'));
-                    
-                    // Add active class to clicked link
-                    link.classList.add('active');
-                    
-                    // Show corresponding section
-                    const sectionId = link.getAttribute('data-section');
-                    document.getElementById(sectionId).classList.add('active');
-                });
-            });
-
-<<<<<<< HEAD
         const sessionToken = localStorage.getItem('userSessionToken');
-        const userProfileNav = document.getElementById('userProfileNav');
-        const authButtons = document.getElementById('authButtons');
-        const headerProfileAvatar = document.getElementById('headerProfileAvatar');
-        const headerLietotājvārds = document.getElementById('headerLietotājvārds');
+        const getUserProfileNav = () => document.getElementById('userProfileNav');
+        const getAuthButtons = () => document.getElementById('authButtons');
+        const getHeaderProfileAvatar = () => document.getElementById('headerProfileAvatar');
+        const getHeaderUsernameElement = () => document.getElementById('headerUsername') || document.getElementById('headerLietotājvārds');
 
         function redirectToLogin() {
             localStorage.removeItem('userSessionToken');
@@ -1117,10 +972,22 @@
                 const fullName = [user.first_name, user.last_name].filter(Boolean).join(' ').trim() || 'Nav norādīts';
                 const avatarLetter = (user.username || '?').charAt(0).toUpperCase();
 
-                userProfileNav.style.display = 'flex';
-                authButtons.style.display = 'none';
-                headerProfileAvatar.textContent = avatarLetter;
-                headerLietotājvārds.textContent = user.username;
+                const userProfileNav = getUserProfileNav();
+                const authButtons = getAuthButtons();
+                if (userProfileNav) {
+                    userProfileNav.style.display = 'flex';
+                }
+                if (authButtons) {
+                    authButtons.style.display = 'none';
+                }
+                const headerProfileAvatar = getHeaderProfileAvatar();
+                if (headerProfileAvatar) {
+                    headerProfileAvatar.textContent = avatarLetter;
+                }
+                const headerUsernameElement = getHeaderUsernameElement();
+                if (headerUsernameElement) {
+                    headerUsernameElement.textContent = user.username;
+                }
 
                 document.getElementById('userName').textContent = user.username;
                 document.getElementById('profileLietotājvārds').textContent = user.username;
@@ -1147,48 +1014,14 @@
             }
         }
 
-        // Settings Save
-        const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-        saveSettingsBtn.addEventListener('click', () => {
-            alert('Šie interfeisa iestatījumi pašlaik netiek saglabāti datubāzē.');
-        });
-
         // Izrakstīties
         const logoutBtn = document.getElementById('logoutBtn');
         logoutBtn.addEventListener('click', () => {
             if (confirm('Vai tiešām vēlies izrakstīties?')) {
                 localStorage.removeItem('user');
                 localStorage.removeItem('userSessionToken');
-=======
-            // Profile Management
-            const user = JSON.parse(localStorage.getItem('user'));
-
-            if (!user) {
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
                 window.location.href = 'login.html';
-            } else {
-                // Update profile information
-                document.getElementById('userName').textContent = user.username;
-                document.getElementById('profileUsername').textContent = user.username;
-                document.getElementById('profileEmail').textContent = user.email;
-                document.getElementById('profileAvatar').textContent = user.username.charAt(0).toUpperCase();
             }
-
-            // Settings Save
-            const saveSettingsBtn = document.getElementById('saveSettingsBtn');
-            saveSettingsBtn.addEventListener('click', () => {
-                alert('Settings saved successfully!');
-            });
-
-            // Logout
-            const logoutBtn = document.getElementById('logoutBtn');
-            logoutBtn.addEventListener('click', () => {
-                if (confirm('Are you sure you want to logout?')) {
-                    localStorage.removeItem('user');
-                    localStorage.removeItem('userSessionToken');
-                    window.location.href = 'login.html';
-                }
-            });
         });
 
         // Izrakstīties functionality
@@ -1199,6 +1032,7 @@
         }
 
         loadProfilePageData();
+        });
     </script>
     <script src="scripts/ai-widget.js?v=2"></script>
 </body>

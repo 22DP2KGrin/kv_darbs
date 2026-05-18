@@ -17,7 +17,9 @@ if (!file_exists(__DIR__ . '/../logs')) {
 require_once __DIR__ . '/../config/database.php';
 
 // Define session lifetime (24 hours in seconds)
-define('SESSION_LIFETIME', 24 * 60 * 60);
+if (!defined('SESSION_LIFETIME')) {
+    define('SESSION_LIFETIME', 24 * 60 * 60);
+}
 
 // Set headers
 header('Content-Type: application/json');

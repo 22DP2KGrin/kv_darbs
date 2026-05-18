@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>Par mums - Valodu apguves platforma</title>
-=======
-    <title>Par mums - Valodu mācību platforma</title>
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles/footer.css">
     <style>
@@ -372,15 +368,15 @@
         }
 
         .main-nav {
-            display: flex !important;
-            gap: 2rem !important;
-            align-items: center !important;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
         }
 
         .nav-links {
-            display: flex !important;
-            gap: 2rem !important;
-            align-items: center !important;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
         }
 
         .nav-link {
@@ -402,7 +398,7 @@
         .user-profile-nav {
             display: flex;
             align-items: center;
-            margin-left: 1rem !important;
+            margin-left: 1rem;
         }
 
         .profile-link {
@@ -432,17 +428,17 @@
         }
 
         .auth-buttons {
-            display: flex !important;
-            gap: 1rem !important;
-            margin-left: 1rem !important;
+            display: flex;
+            gap: 1rem;
+            margin-left: 1rem;
         }
 
         /* Theme Toggle */
         .theme-toggle {
-            display: flex !important;
-            align-items: center !important;
-            gap: 0.5rem !important;
-            margin-left: 1rem !important;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-left: 1rem;
         }
 
         .theme-toggle .icon {
@@ -569,7 +565,6 @@
     </style>
 </head>
 <body>
-<<<<<<< HEAD
     <!-- Header -->
     <header class="header">
         <div class="container header-container">
@@ -601,8 +596,6 @@
             </nav>
         </div>
     </header>
-=======
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
 
     <!-- Page Title -->
     <div class="container">
@@ -735,81 +728,12 @@
         </div>
     </section>
 
-<<<<<<< HEAD
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer simple-footer">
         <div class="container">
-            <div class="footer-main">
-                <div class="footer-section">
-                    <h3>Valodu apguve</h3>
-                    <ul>
-                        <li><a href="#"><span class="flag-icon">🇺🇸</span>English</a></li>
-                        <li><a href="#"><span class="flag-icon">🇪🇸</span>Spanish</a></li>
-                        <li><a href="#"><span class="flag-icon">🇫🇷</span>French</a></li>
-                        <li><a href="#"><span class="flag-icon">🇱🇻</span>Latvian</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Resursi</h3>
-                    <ul>
-                        <li><a href="#">Gramatika</a></li>
-                        <li><a href="#">Vārdu krājums</a></li>
-                        <li><a href="#">Izruna</a></li>
-                        <li><a href="#">Vingrinājumi</a></li>
-                        <li><a href="#">Testi</a></li>
-                        <li><a href="#">Sertifikāti</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Atbalsts</h3>
-                    <ul>
-                        <li><a href="#">Palīdzības centrs</a></li>
-                        <li><a href="#">Sazinies ar mums</a></li>
-                        <li><a href="#">Biežāk uzdotie jautājumi</a></li>
-                        <li><a href="#">Atsauksmes</a></li>
-                        <li><a href="#">Tehniskais atbalsts</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Uzņēmums</h3>
-                    <ul>
-                        <li><a href="#">Par mums</a></li>
-                        <li><a href="#">Mūsu komanda</a></li>
-                        <li><a href="#">Karjera</a></li>
-                        <li><a href="#">Prese</a></li>
-                        <li><a href="#">Partneri</a></li>
-                        <li><a href="#">Blogs</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-bottom-left">
-                    <div>© 2024 Valodu apguves platforma. Visas tiesības aizsargātas.</div>
-                    <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                        Platformas versija: 2.1.0 | Pēdējoreiz atjaunināts: May 2024
-                    </div>
-                    <div style="font-size: 0.8rem; opacity: 0.7;">
-                        Kontaktinformācija<br>
-                        info@languagelearning.com<br>
-                        +1 (800) 123-4567<br>
-                        123 Education Street, Learning City, LC 12345
-                    </div>
-                </div>
-                <div class="footer-bottom-right">
-                    <div class="legal-links">
-                        <a href="#">Privātuma politika</a>
-                        <a href="#">Lietošanas noteikumi</a>
-                        <a href="#">Sīkdatņu politika</a>
-                        <a href="#">Drošība</a>
-                        <a href="#">Pieejamība</a>
-                    </div>
-                </div>
-            </div>
+            <p>© 2024 Valodu apguves platforma. Visas tiesības aizsargātas.</p>
         </div>
     </footer>
-=======
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
 
     <!-- Load shared layout (header, footer, theme, auth) -->
     <script src="js/shared-layout.js"></script>
@@ -890,25 +814,6 @@
                 console.error('Theme toggle element not found!');
             }
 
-            // Profile Management
-            let user = null;
-            if (isLocalStorageAvailable()) {
-                user = JSON.parse(localStorage.getItem('user'));
-            }
-            const userProfileNav = document.getElementById('userProfileNav');
-            const authButtons = document.getElementById('authButtons');
-            const headerProfileAvatar = document.getElementById('headerProfileAvatar');
-            const headerLietotājvārds = document.getElementById('headerLietotājvārds');
-
-            if (user) {
-                // Show profile navigation and hide auth buttons
-                userProfileNav.style.display = 'flex';
-                authButtons.style.display = 'none';
-
-                // Update header profile information
-                headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
-                headerLietotājvārds.textContent = user.username;
-            }
         });
         
         // Fallback for immediate execution

@@ -1117,26 +1117,6 @@
                     localStorage.setItem('theme', this.checked ? 'dark' : 'light');
                 });
             }
-
-            let user = null;
-            try {
-                user = JSON.parse(localStorage.getItem('user'));
-            } catch (e) {}
-
-            const userProfileNav = document.getElementById('userProfileNav');
-            const authButtons = document.getElementById('authButtons');
-            const headerProfileAvatar = document.getElementById('headerProfileAvatar');
-            const headerLietotājvārds = document.getElementById('headerLietotājvārds');
-
-            if (user && userProfileNav && authButtons) {
-                userProfileNav.style.display = 'flex';
-                authButtons.style.display = 'none';
-                if (headerProfileAvatar && headerLietotājvārds) {
-                    headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
-                    headerLietotājvārds.textContent = user.username;
-                }
-            }
-
             // DOM elements
             const form = document.getElementById('englishTest');
             const prevBtn = document.getElementById('prevBtn');
@@ -1347,5 +1327,6 @@
         });
     </script>
     <script src="../scripts/ai-widget.js?v=2"></script>
+    <script src="../js/shared-layout.js"></script>
 </body>
 </html>

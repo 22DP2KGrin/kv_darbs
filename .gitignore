@@ -1,6 +1,12 @@
 node_modules/
 logs/
 *.log
+*.docx
+.vscode/
+.env
+.env.*
+kv_darbs/
+kv_darbs_new/
 config/database.php
 db_connect.php
 session_token.txt

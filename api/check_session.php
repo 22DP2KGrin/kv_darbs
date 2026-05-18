@@ -19,7 +19,7 @@ try {
     
     // Проверяем сессию в базе данных
     $stmt = $pdo->prepare("
-        SELECT s.user_id, u.is_active
+        SELECT s.user_id, u.username, u.email, u.is_active
         FROM sessions s
         JOIN users u ON s.user_id = u.user_id
         WHERE s.session_token = ? 
@@ -43,7 +43,14 @@ try {
     ");
     $stmt->execute([$sessionToken]);
 
-    echo json_encode(['success' => true]);
+    echo json_encode([
+        'success' => true,
+        'user' => [
+            'user_id' => $session['user_id'],
+            'username' => $session['username'],
+            'email' => $session['email']
+        ]
+    ]);
 
 } catch (Exception $e) {
     error_log("Error checking session: " . $e->getMessage());
@@ -52,4 +59,4 @@ try {
         'error' => 'Failed to check session'
     ]);
 }
-?> 
+?>

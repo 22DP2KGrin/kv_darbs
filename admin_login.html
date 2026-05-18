@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>Administratora pieslēgšanās | Valodu apguves platforma</title>
-=======
-    <title>Administratora pieteikšanās | Valodu mācību platforma</title>
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
     <style>
         :root {
             --background: #ffffff;
@@ -359,12 +355,13 @@
                 submitButton.disabled = true;
                 submitButton.textContent = 'Signing in...';
 
+                const authPath = 'admin_auth.php';
                 console.log('Preparing login request...');
-                console.log('Request URL:', window.location.origin + '/admin_auth.php');
+                console.log('Request URL:', window.location.origin + window.location.pathname.replace(/\/[^\/]*$/, '/') + authPath);
 
                 try {
                     console.log('Sending login request...');
-                    const response = await fetch('/admin_auth.php', {
+                    const response = await fetch(authPath, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json',

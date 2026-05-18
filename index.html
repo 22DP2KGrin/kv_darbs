@@ -757,7 +757,7 @@
         <div class="hero-content">
             <h2 class="hero-title">Attīsti savas valodu prasmes</h2>
             <p class="hero-description">Pievienojies mūsu platformai, lai attīstītu valodu prasmes ar interaktīvām nodarbībām un kopienas atbalstu.</p>
-            <a href="signup.html" class="btn btn-primary btn-lg">Sāc tagad</a>
+            <a href="#languageCards" class="btn btn-primary btn-lg" data-auth-required>Sāc tagad</a>
         </div>
     </section>
 
@@ -792,7 +792,7 @@
     </section>
 
     <!-- Valoda Cards Section -->
-    <section class="language-cards">
+    <section class="language-cards" id="languageCards">
         <div class="container">
             <h2 class="section-title">Izvēlies savu valodu</h2>
             <div class="language-grid">
@@ -801,7 +801,7 @@
                         <img src="https://upload.wikimedia.org/wikipedia/commons/0/0b/English_language.svg" alt="English Valoda" style="width: 100%; height: 100%; object-fit: contain; padding: 1rem;">
                     </div>
                     <h3 class="language-title">English</h3>
-                    <a href="exercises_english.html" class="btn btn-primary">Sākt mācīties</a>
+                    <a href="exercises_english.html" class="btn btn-primary" data-auth-required>Sākt mācīties</a>
                 </div>
                 <div class="language-card">
                     <div class="language-image">
@@ -809,21 +809,21 @@
 RrRyZAB+LhY8R2iOVgymo52ScXZ9dWVybW13ZBhLVnxkWDrPq1fLsGrTqj7gsj1uZlAAOJRNVmSyml+8lzaejV6igCHmsynFo1KSdSOIeUXGqmmajGWslmKNdDOmmXOJe1PkpAbRhA3ft1jy9Peic2Wef3O8WRhtQRGCPAC2Shp/RQuOfAC1j5eXABB0NgxyTwShGjKLXEitVmOqaHGUPxaRLQDYig6wcRVwVygSXTZFXiLPdBW2QBt8FhWwZRqgcihbJA5INQMjEAM+AA4tAAtiABaFTCNZSwBKKwVoGA5zIABoMDeWW3eGZCuYhY6fO0uKZ0GwRoy6ZZyqlaKYeI2oUomlZo6aRHEAQomMM0FnSk6fShORMS+ORD0mQnhSIVs0K2+KDjZsGUy0dJ1YWFN2FD0HQptYVR8Ac0wyXC0rPGQ8QlC5hU9lc5VpZ22nQTJveItOIClcc2c0XkwAJpD1jQFVAAAMG0lEQVR4nO2dj1/TZhrA23Rp0sbSNDRFQ8PENbQkQqRJf4RS1IBUdCfK/DHnD/BOxNxK2VZ07sCbt/Ocm9cd4Da8Ouc2x93Obeex/YP3Ji0U6D7bfZb0cxHer5+WYPs2vl+e93meJpE6HBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFA6nBBNuN4AbIZBwLZjMMJ2Qx0Ug90Ug90Ug90Ug90Ug90Uk8DnWCCp3Ev3kga58Tjp9sb9uINpXFOsI7meMNevKE0cO14WAFr3Ks3kAaunaHc4Ya9eENpiBOPjjDcPNyF6VuN2EUjaYgT/5Huoy//5tjI8VMvd3cfOeV8zqxY68Sjx4hw5MQZlj05+or4yuhJlj1z4sgpECvPUbhY6+TS0dOnT3efiUT9/mhcfFWMtPv97fEzJ04fPXv2kvC8xIt1TjzCyyf2RVj2nNiJgDSCObnXOEHf8KbFcywb2afHi2V7aySWOfEIZ8+znV2C8Aqnf4shTu6CKCB6NUaCF/1CVzpy/sTzIcW6OOnOdTgxEBcXgwgQMjbeI+7mro+POcF38Z3gEQxLc92CZbtrIFY58Vw6yWJg5gjyGucc63FRhCT+NqcQlKtnDKMvAjOYE4mzRyzaXUOxzMkRrhPx+scnXvhdTqNQFMVJevcZHgdbVIq7/MLEuN+LRMVt5cR5VOz0X6UIFA1d1nQTKDqVvELoX/HJQ0ASQV31p8WzVu2ukVjmpDvCUYYKlE9RuhRca0sYTgh+svIA5aO7rdpdI7Fu7Zzk8pWZB5tICscpLRXUJhWwIf2+WTEihxLj3c9D4bEsToRzvRKuT53UNJnlXXRTkpCbkvl8Ijgl8yCEgJ3JC9uq7jixjmRSISWUb9pByWz+9bzMT5Fq/nUpwUpakxaieIltZhGrdtdILOzt/c2Fph3T0xqvKVToDQInkhIeegMk1wKpKdNqk4/tsm5njcRCJ8h4TObffCuLJhISn0gUE8VgUQ0WpckkhU+/nlenyl7rdtZIrHwPiEVlKU8X1RRP05MyJ6vglvLRGgn8zFCpzvVPtXC3lmPSiQfxn/SuTRDpitApmfP5OI7O0YXeXnDvM75N+dh0zYNHSNtZijkniP/a9bfHa2kCEziaPd+8/8aN+IV4iucjF+Lv3Hin7TybFLvWpddTbcPtNq5Appxgf1A0Sctrs7W/8cciJ5pZLsjS9P79++lkMknTzeea58bXlGDp6zdvJib+2GlbK+bihKQK6hRHSmNrSwGL05woFq689O7cHEmSPJ+aVGUfTdfGYCnpA+WAQipddu3fzMVJdErMibkr1w0l+uEADInTt/703p/fu307pigUAZp7nJBSIusxHvUYg7RCoSD2Xrfk398IzMWJN33rL8UrPuPIkbO9QmczJ965c+v9d+/enZv7YGqqVxSDHdEKfl2Kt/NOb6ogem2bZs05icdlUHEjcTBXrDO2ilLlw3Cgyp4qw4i+uuI+Wa4MsifmnETaDJq7MOCEwDcSamHcVQYYY5PZqTthK4MiXXYNFJNxQlcw4qRyqAAHmVUytmpOmN0XB9Y5qQ2yJ+acYJw+Oc4PfuIVJyA8CskkabxB1p0w7gFwW7z311cHwouLhhMn5jMG2TZMzDnx+EGTCkivOsGVOf5d8f05Xj/oqDsZLA26PyrNZzJ/2903X4kTj18fssNn31bWXJx4dg0MDLQG9ItvKk74ZLIQ7E3SYsUJU8osMotv3stkvmIWFipOnJ4L+qBW2y4ds052gyzRGvavOkHRXlGhU1P7lWqctCwAKeFMJnOfmV9cdbIL5JnAi9vFCc4XuANcby93QMIr+SQwn/kYLJ3MJ+77zJoT97ZyInJcUuRoLslXnLiZ+/MZ4OTj0jZ2QtNGqV1zEmYWM5n5eSDkk23mZK3u8CBQdApStT/5dCEzv5DJ9DHMV+Htkk8YhmkNRAUn4jVyLEW/zbJsLtdbzbGlTxdKA26QT9xMn55jvV6n4N8N7GxZJ4jz8lvTSt4lSfn8hHGCi+KWaJY9/mTVCRMogaBY/DizANoTN3Osh5cUyZUnlQf3orZ9E2jCCSb0kLOzDvRmnlBdKB6rOHkCMsrwcNVJ5V0OWDugQQmDrb+Hyo582UGoRHmGmh2z6ZmNX+8EG5OIctlRxsszaL6MG05wiouAOGGTvTguxWItepCUBu5l+sDicRtO0ARVng3ddCSKuEvqsacUE3EC0qgacs08fNBSvklKlO6EUmij8LC9kkJlAQ/1DqUvA7q2vooTibx69bOWh3nHzKw6S43Zcvn8eifILIo7Piu5mdawgCDOMZVA8an9IEgeDUfY5JUQ8fnI4y+y0+G98wvz7vufZAwn10A2RnaBNTXUAqxIfgtnYh0m1s44ocwEGKMWe4EiUHfwVJJl6f6DLMtRrpF+wJfZvcxe8Jy9C1/pDdxO/YmY0Z+EZ0jqqj1PgpmpOzE8O2g4yU8IRn8C4gSw/JTefyD7+MlSf//wiJQf0BNtab6PqRw/wcZn9UGBgAtXrtly6ZhxgvRIVScuqQMzejaCArhcFCi4S7kn/Y/Yw59n9TzrDodL1WNKQixbdUKQ1k3DUszECTbWEzD62DyoIMBJ7bAjRX1xOJnrf9I8PAIWT42dCKhWecNJ+OY1yyZhMebOZSCgt2daW1B0Aji5eyA2d0C/3Y3dJr7uFw8ujdBLI9mWvTWGESxKhD4KM3ofa89C7LSgt3cPukIoAeKkozlIkE1BlGyi8Tnqi/7l/jPLy/2Ps3OhrCubdbiyLlf2JS82RqEhR0t4y/b2IE4GpSxIIxOIs+pkh37DeRKUneORHCg8oSlZVVUt4SuqMvqS14lEQd4JuR6UtmacIGNXCWAkNK2fDF6Nk4qTqezj/mX6af+IS/JpRbWc2iHzQVV34kT8D0MhNBQix+16xYUZJxP6O+GsqyVsHI/dECdJKTTSf2yp/+tsjCAInwQqUiLF47oTJ7arJGVDILocfntKMdWzASPS4OoxpQ1x0qSh2S8ffx7LKgkSLWoynk+QWqrixAP62NK0C/i8as/lY8JJlEBnL7uZn3ayQ5FC2SwxRxZllRc1XlWphExUnYBiFWidINCt9x5QUHhs3bHHjU58+Jx8NzYlknyCw2VKU4uEr4CuOXEHXhR6lPGttnacSIyI/owTvqkXp1QcJ1VeJRMSjhd5fL2TLkqJbjknmCBd+xknJHBCgnalTMrv5JRyEdfKG50o1+y5dMzV4g7nLzhJFINiyvePf37j08SEqhLrnfhte1GOuZ7N8wtO+ARBqqT2TY4E+UTdGCdbs2fbeH7nJ9eOTOH5YlHPKDhaq8Vb/vwO8zNOZI0nVVB3CFUuSrVazGzhcxmV6woOVa4rSCc3O7mCayLoTzTQx4IuhQK1WN361xV4BG7tUhKsXdzsZBhFE1Iij/JTGg6+qhQR1K8/Ebb09SeeKMcCaON3enjvbHLS3DqNq8E86FAKKRyngglUMeRF6dogW2LKicBF9OlFaGOuHb6NPVuOGcyqqoTiuEbgKJFQibtGqRGNQSxt20Axdexx9brHeNSY7C10vZP80EBgGuVlmQROKDVRJiph4qle99iWtmsxNtPHth/619ODT58cfHrw+KiRUWLrnGT37vr2bKsLV3mfkuBVzYdSCWTDoMMnbRooZpzs+6410Pqdfvfse72IIOnbbVUnbfJb4UvKt90lV2iSV8tBXqUk2btu0J7W1mfHbRooppwsLS8tPzq8vLS0NGQUVsQv3tGdZGe4IXf47L+/BZ1IiysbmgnhVKzDu34QGLO0JZ08awV/nulXjh+qNBsYlr7yn7eHBwPugRs3Vo4dWrnxgzs82PKg5cO4UBGAjdYGDW1BJ+dHRg7/uLz046OlH4+vNmCYt2vf0B6GYdwrKz+srKyEGSb87GLauTp9bF9t0OEt6KR9FPE6R/f5vd6u0Vq6xDCkq+P8zqE9e74HoXDoIpv2INjGQZ66QbbCVC3GjDtPdWv9A4jHKRjo/6vnfxtkH+Dve6wHOqkHOqkHOqkHOqkHOqkHOqkHfg5CPfDzMuqBn6tSz//7o24gEAgEAoFAIBAIBAKBQCAQCAQCgUAgEAgEAoFAIBAIBAKBQCAQCAQCsSP/BcB0xxMsySwoAAAAAElFTkSuQmCC" alt="Spanish Valoda" style="width: 100%; height: 100%; object-fit: contain; padding: 1rem;">
                     </div>
                     <h3 class="language-title">Spanish</h3>
-                    <a href="exercises_spanish.html" class="btn btn-primary">Sākt mācīties</a>
+                    <a href="exercises_spanish.html" class="btn btn-primary" data-auth-required>Sākt mācīties</a>
                 </div>
                 <div class="language-card">
                     <div class="language-image">
                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAPoAAACnCAMAAAAPIrEmAAAAHlBMVEUAI5XtKTn///+qttz5ub5SW6rzb3r70NTEqsf4r7X1kzKGAAAAzUlEQVR4nO3PyRWAIBAFsGERpf+G6YH3vSUdpCpv9LjZ8n6Yq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq6urq1/Vn7zvjdsr7wCzuKqVC083sAAAAABJRU5ErkJggg==" alt="French Valoda" style="width: 100%; height: 100%; object-fit: contain; padding: 1rem;">
                     </div>
                     <h3 class="language-title">French</h3>
-                    <a href="exercises_french.html" class="btn btn-primary">Sākt mācīties</a>
+                    <a href="exercises_french.html" class="btn btn-primary" data-auth-required>Sākt mācīties</a>
                 </div>
                 <div class="language-card">
                     <div class="language-image">
                         <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAT4AAACfCAMAAABX0UX9AAAADFBMVEWdIjX///+aDynGkpihl9DPAAAAkUlEQVR4nO3awQkAIRDAwNXrv+drQchDhJkS8s4MAAAAAAAAAAAAAAAAAAAAAAAAwDM2wXwEswjkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5EvkS+RL5Ev8fYm7NLn9BgMAAAAAAAAAAAAAAAAAAAAAAACc+wFAMTLvWw7cDAAAAABJRU5ErkJggg==" alt="Latvian Valoda" style="width: 100%; height: 100%; object-fit: contain; padding: 1rem;">
                     </div>
                     <h3 class="language-title">Latvian</h3>
-                    <a href="exercises_latvian.html" class="btn btn-primary">Sākt mācīties</a>
+                    <a href="exercises_latvian.html" class="btn btn-primary" data-auth-required>Sākt mācīties</a>
                 </div>
             </div>
         </div>
@@ -832,78 +832,9 @@ RrRyZAB+LhY8R2iOVgymo52ScXZ9dWVybW13ZBhLVnxkWDrPq1fLsGrTqj7gsj1uZlAAOJRNVmSyml+8
     
 
     <!-- Footer -->
-    <footer class="footer">
+    <footer class="footer simple-footer">
         <div class="container">
-            <div class="footer-main">
-                <div class="footer-section">
-                    <h3>Valodu apguve</h3>
-                    <ul>
-                        <li><a href="#"><span class="flag-icon">🇺🇸</span>English</a></li>
-                        <li><a href="#"><span class="flag-icon">🇪🇸</span>Spanish</a></li>
-                        <li><a href="#"><span class="flag-icon">🇫🇷</span>French</a></li>
-                        <li><a href="#"><span class="flag-icon">🇱🇻</span>Latvian</a></li>
-                        
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Resursi</h3>
-                    <ul>
-                        <li><a href="#">Gramatika</a></li>
-                        <li><a href="#">Vārdu krājums</a></li>
-                        <li><a href="#">Izruna</a></li>
-                        <li><a href="#">Vingrinājumi</a></li>
-                        <li><a href="#">Testi</a></li>
-                        <li><a href="#">Sertifikāti</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Atbalsts</h3>
-                    <ul>
-                        <li><a href="#">Palīdzības centrs</a></li>
-                        <li><a href="#">Sazinies ar mums</a></li>
-                        <li><a href="#">Biežāk uzdotie jautājumi</a></li>
-                        <li><a href="#">Atsauksmes</a></li>
-                        <li><a href="#">Tehniskais atbalsts</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Uzņēmums</h3>
-                    <ul>
-                        <li><a href="#">Par mums</a></li>
-                        <li><a href="#">Mūsu komanda</a></li>
-                        <li><a href="#">Karjera</a></li>
-                        <li><a href="#">Prese</a></li>
-                        <li><a href="#">Partneri</a></li>
-                        <li><a href="#">Blogs</a></li>
-                    </ul>
-                </div>
-            </div>
-
-            
-
-            <div class="footer-bottom">
-                <div class="footer-bottom-left">
-                    <div>© 2024 Valodu apguves platforma. Visas tiesības aizsargātas.</div>
-                    <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                        Platformas versija: 2.1.0 | Pēdējoreiz atjaunināts: 2024. gada maijs
-                    </div>
-                    <div style="font-size: 0.8rem; opacity: 0.7;">
-                        Kontaktinformācija<br>
-                        info@languagelearning.com<br>
-                        +1 (800) 123-4567<br>
-                        123 Education Street, Learning City, LC 12345
-                    </div>
-                </div>
-                <div class="footer-bottom-right">
-                    <div class="legal-links">
-                        <a href="#">Privātuma politika</a>
-                        <a href="#">Lietošanas noteikumi</a>
-                        <a href="#">Sīkdatņu politika</a>
-                        <a href="#">Drošība</a>
-                        <a href="#">Pieejamība</a>
-                    </div>
-                </div>
-            </div>
+            <p>© 2024 Valodu apguves platforma. Visas tiesības aizsargātas.</p>
         </div>
     </footer>
 
@@ -1002,6 +933,15 @@ RrRyZAB+LhY8R2iOVgymo52ScXZ9dWVybW13ZBhLVnxkWDrPq1fLsGrTqj7gsj1uZlAAOJRNVmSyml+8
                 headerLietotājvārds.textContent = user.username;
             }
 
+            document.querySelectorAll('[data-auth-required]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    if (!localStorage.getItem('userSessionToken')) {
+                        e.preventDefault();
+                        window.location.href = 'login.html';
+                    }
+                });
+            });
+
             // Animated background text
             const bgTexts = ['Learn', 'Grow', 'Explore', 'Discover', 'Master'];
             let currentBgTextIndex = 0;
@@ -1080,5 +1020,6 @@ RrRyZAB+LhY8R2iOVgymo52ScXZ9dWVybW13ZBhLVnxkWDrPq1fLsGrTqj7gsj1uZlAAOJRNVmSyml+8
         }
     </script>
     <script src="scripts/ai-widget.js?v=2"></script>
+    <script src="js/shared-layout.js"></script>
 </body>
 </html>

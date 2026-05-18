@@ -2,20 +2,20 @@
 <header class="header">
     <div class="container">
         <div class="header-container">
-            <a href="{basePath}index.html" class="logo">📚 Valodu Mācības</a>
+            <a href="{basePath}index.html" class="logo">Valodu apguves platforma</a>
             
             <nav class="main-nav">
                 <div class="nav-links">
-                    <a href="{basePath}index.html" class="nav-link">Sākums</a>
+                    <a href="{basePath}index.html" class="nav-link" data-home-link>Sākums</a>
                     <a href="{basePath}about.html" class="nav-link">Par mums</a>
                     <a href="{basePath}contact.html" class="nav-link">Kontakti</a>
                 </div>
 
                 <!-- User Profile / Auth Section -->
-                <div id="userProfileNav" style="display: none;">
-                    <a href="{basePath}profile.html" class="profile-link">
+                <div id="userProfileNav" class="user-profile-nav" style="display: none;">
+                    <a href="{basePath}profile.html" class="profile-link" aria-label="Profils" title="Profils">
                         <div class="profile-avatar-small" id="headerProfileAvatar">U</div>
-                        <span id="headerUsername">Lietotājs</span>
+                        <span id="headerUsername" class="profile-username">Lietotājs</span>
                     </a>
                 </div>
 

@@ -1,6 +1,12 @@
 document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.getElementById('loginForm');
     const errorMessage = document.getElementById('generalError');
+    const isNestedPage = window.location.pathname.includes('/exercises/')
+        || window.location.pathname.includes('/english/')
+        || window.location.pathname.includes('/french/')
+        || window.location.pathname.includes('/spanish/')
+        || window.location.pathname.includes('/latvian/');
+    const basePath = isNestedPage ? '../' : './';
 
     if (loginForm) {
         loginForm.addEventListener('submit', async function(e) {
@@ -15,7 +21,7 @@ document.addEventListener('DOMContentLoaded', function() {
             const password = document.getElementById('password').value;
             
             try {
-                const response = await fetch('/api/login_process.php', {
+                const response = await fetch(basePath + 'api/login_process.php', {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -46,7 +52,7 @@ document.addEventListener('DOMContentLoaded', function() {
                     localStorage.setItem('user', JSON.stringify(data.user));
 
                     setTimeout(() => {
-                        window.location.href = '/index.html';
+                        window.location.href = basePath + 'index.html';
                     }, 1000);
                 } else {
                     if (errorMessage) {

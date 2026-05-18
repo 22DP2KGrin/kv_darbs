@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
     <title>Administratora panelis | Valodu apguves platforma</title>
-=======
-    <title>Administrācijas panelis | Valodu mācību platforma</title>
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
     <style>
         * {
             margin: 0;
@@ -96,12 +92,8 @@
         }
 
         .page {
-            display: none;
-            animation: fadeIn 0.3s ease-in;
-        }
-
-        .page.active {
             display: block;
+            animation: fadeIn 0.3s ease-in;
         }
 
         @keyframes fadeIn {
@@ -201,6 +193,28 @@
 
         .btn-success {
             background: linear-gradient(135deg, #28a745, #20c997);
+        }
+
+        .btn-danger {
+            background: linear-gradient(135deg, #dc3545, #c82333);
+            color: white;
+        }
+
+        .btn-sm {
+            padding: 0.35rem 0.8rem;
+            font-size: 0.85rem;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.25rem 0.6rem;
+            border-radius: 999px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: white;
+            background: #28a745;
         }
 
         .btn-danger {
@@ -359,39 +373,21 @@
             <nav>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="#" class="nav-link active" data-page="dashboard">
+                        <a href="#dashboard" class="nav-link active">
                             <span class="nav-icon">📊</span>
                             Pārskats
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="users">
+                        <a href="#users" class="nav-link">
                             <span class="nav-icon">👥</span>
-                            Lietotāju pārvaldība
+                            Lietotāji
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="courses">
+                        <a href="#courses" class="nav-link">
                             <span class="nav-icon">📚</span>
                             Kursi
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="analytics">
-                            <span class="nav-icon">📈</span>
-                            Analītika
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="communications">
-                            <span class="nav-icon">💬</span>
-                            Saziņa
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="#" class="nav-link" data-page="settings">
-                            <span class="nav-icon">⚙️</span>
-                            Platformas iestatījumi
                         </a>
                     </li>
                 </ul>
@@ -602,13 +598,6 @@
             </div>
 
             <!-- Analītika Page -->
-            <div id="analytics" class="page">
-                <div class="page-header">
-                    <h1 class="page-title">Analītika</h1>
-                    <p class="page-subtitle">Skati platformas statistiku un analītiku.</p>
-                </div>
-            </div>
-
             <!-- Pievienot lietotāju Modal -->
             <div id="addUserModal" class="modal" style="display: none;">
                 <div class="modal-content" style="background: white; width: 90%; max-width: 500px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
@@ -652,6 +641,77 @@
                 </div>
             </div>
 
+            <!-- Add Course Modal -->
+            <div id="addCourseModal" class="modal" style="display: none;">
+                <div class="modal-content" style="background: white; width: 90%; max-width: 520px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
+                    <h2 style="margin-bottom: 1.5rem;">Izveidot kursu</h2>
+                    <form id="addCourseForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem;">Kursa nosaukums</label>
+                            <input type="text" name="course_name" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem;">Valoda</label>
+                            <select name="language_id" id="courseLanguageSelect" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem;">Līmenis</label>
+                            <select name="level" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
+                                <option value="beginner">Beginner</option>
+                                <option value="intermediate">Intermediate</option>
+                                <option value="advanced">Advanced</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem;">Apraksts</label>
+                            <textarea name="description" rows="4" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;"></textarea>
+                        </div>
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                            <button type="submit" class="btn btn-success">Saglabāt kursu</button>
+                            <button type="button" class="btn btn-secondary" onclick="closeAddCourseModal()">Atcelt</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Add Lesson Modal -->
+            <div id="addLessonModal" class="modal" style="display: none;">
+                <div class="modal-content" style="background: white; width: 90%; max-width: 520px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
+                    <h2 style="margin-bottom: 1.5rem;">Pievienot nodarbību</h2>
+                    <form id="addLessonForm" style="display: flex; flex-direction: column; gap: 1rem;">
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem;">Kursa izvēle</label>
+                            <select name="course_id" id="lessonCourseSelect" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
+                            </select>
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem;">Nodarbības nosaukums</label>
+                            <input type="text" name="lesson_title" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
+                        </div>
+                        <div>
+                            <label style="display: block; margin-bottom: 0.5rem;">Nodarbības apraksts</label>
+                            <textarea name="lesson_description" rows="4" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;"></textarea>
+                        </div>
+                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
+                            <button type="submit" class="btn btn-success">Saglabāt nodarbību</button>
+                            <button type="button" class="btn btn-secondary" onclick="closeAddLessonModal()">Atcelt</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <!-- Report Modal -->
+            <div id="reportModal" class="modal" style="display: none;">
+                <div class="modal-content" style="background: white; width: 90%; max-width: 520px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
+                    <h2 style="margin-bottom: 1.5rem;">Ģenerētā atskaite</h2>
+                    <div id="reportContent" style="display: grid; gap: 1rem;"></div>
+                    <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 1rem;">
+                        <button type="button" class="btn btn-secondary" onclick="closeReportModal()">Aizvērt</button>
+                    </div>
+                </div>
+            </div>
+
             <!-- Apstiprinātation Modal -->
             <div id="confirmModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
                 <div class="modal-content" style="background: white; width: 90%; max-width: 400px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
@@ -681,41 +741,13 @@
             loadDashboardStats();
             // Load recent activities
             loadRecentActivities();
-
-            // Initialize navigation
-            initializeNavigation();
+            // Load language list for courses
+            loadLanguages();
+            loadCourses();
+            loadUsers();
         });
 
-        // Navigation functionality
-        function initializeNavigation() {
-            document.querySelectorAll('[data-page]').forEach(link => {
-                link.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    
-                    // Remove active class from all nav links
-                    document.querySelectorAll('.nav-link').forEach(navLink => {
-                        navLink.classList.remove('active');
-                    });
-                    
-                    // Add active class to clicked link
-                    link.classList.add('active');
-                    
-                    // Hide all pages
-                    document.querySelectorAll('.page').forEach(page => {
-                        page.classList.remove('active');
-                    });
-                    
-                    // Show selected page
-                    const targetPage = link.getAttribute('data-page');
-                    const pageElem = document.getElementById(targetPage);
-                    if (pageElem) {
-                        pageElem.classList.add('active');
-                    } else {
-                        console.error('Page element not found:', targetPage);
-                    }
-                });
-            });
-        }
+        // No navigation page switching is needed in the one-page admin layout
 
         // Izrakstīties function
         function logout() {
@@ -723,16 +755,31 @@
             window.location.href = 'admin_login.html';
         }
 
+        function getAuthToken() {
+            const token = localStorage.getItem('adminSessionToken');
+            if (!token) {
+                window.location.href = 'admin_login.html';
+                return null;
+            }
+            return token;
+        }
+
+        function getAuthHeaders(additionalHeaders = {}) {
+            const token = getAuthToken();
+            if (!token) return {};
+            return Object.assign({
+                'Authorization': `Bearer ${token}`
+            }, additionalHeaders);
+        }
+
         // Load admin data
         async function loadAdministratorsData() {
-            const token = localStorage.getItem('adminSessionToken');
+            const token = getAuthToken();
             console.log('Loading admin data with token:', token);
             
             try {
                 const response = await fetch('admin_data.php', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: getAuthHeaders()
                 });
                 console.log('Administrators data response status:', response.status);
                 const data = await response.json();
@@ -747,21 +794,41 @@
 
         // Load statistics
         async function loadDashboardStats() {
-            const token = localStorage.getItem('adminSessionToken');
-            console.log('Loading stats with token:', token);
+            console.log('Loading stats');
             
             try {
                 const response = await fetch('admin_stats.php', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: getAuthHeaders()
                 });
                 console.log('Stats response status:', response.status);
                 const data = await response.json();
                 console.log('Stats response:', data);
                 if (data.success) {
-                    document.getElementById('totalUsers').textContent = data.stats.total_users;
-                    document.getElementById('activeCourses').textContent = data.stats.active_users;
+                    const stats = data.stats;
+                    if (document.getElementById('totalUsers')) {
+                        document.getElementById('totalUsers').textContent = stats.total_users;
+                    }
+                    if (document.getElementById('activeCourses')) {
+                        document.getElementById('activeCourses').textContent = stats.total_courses;
+                    }
+                    if (document.getElementById('totalLessons')) {
+                        document.getElementById('totalLessons').textContent = stats.total_lessons;
+                    }
+                    if (document.getElementById('newRegistrations')) {
+                        document.getElementById('newRegistrations').textContent = stats.active_users;
+                    }
+                    if (document.getElementById('totalCourses')) {
+                        document.getElementById('totalCourses').textContent = stats.total_courses;
+                    }
+                    if (document.getElementById('activeStudenti')) {
+                        document.getElementById('activeStudenti').textContent = stats.active_users;
+                    }
+                    if (document.getElementById('completedLessons')) {
+                        document.getElementById('completedLessons').textContent = stats.total_lessons;
+                    }
+                    if (document.getElementById('averageProgress')) {
+                        document.getElementById('averageProgress').textContent = `${stats.avg_score}%`;
+                    }
                 }
             } catch (error) {
                 console.error('Error loading stats:', error);
@@ -770,14 +837,11 @@
 
         // Load recent activities
         async function loadRecentActivities() {
-            const token = localStorage.getItem('adminSessionToken');
-            console.log('Loading activities with token:', token);
+            console.log('Loading activities');
             
             try {
                 const response = await fetch('admin_activities.php', {
-                    headers: {
-                        'Authorization': `Bearer ${token}`
-                    }
+                    headers: getAuthHeaders()
                 });
                 console.log('Activities response status:', response.status);
                 const data = await response.json();
@@ -798,21 +862,62 @@
             }
         }
 
-        // Modal window functions (placeholders)
+        // Modal window functions
         function showAddUserModal() {
             document.getElementById('addUserModal').style.display = 'block';
         }
 
-        function showAddCourseModal() {
-            alert('Kursa izveides funkcija tiks pievienota vēlāk.');
+        async function showAddCourseModal() {
+            await loadLanguages();
+            document.getElementById('addCourseModal').style.display = 'block';
         }
 
-        function showAddLessonModal() {
-            alert('Nodarbību pievienošanas funkcija tiks pievienota vēlāk.');
+        async function showAddLessonModal(courseId = null) {
+            await loadCourses();
+            const lessonCourseSelect = document.getElementById('lessonCourseSelect');
+            if (lessonCourseSelect && courseId) {
+                lessonCourseSelect.value = courseId;
+            }
+            document.getElementById('addLessonModal').style.display = 'block';
         }
 
         function showReportModal() {
-            alert('Atskaites ģenerēšanas funkcija tiks pievienota vēlāk.');
+            fetch('admin_stats.php', {
+                headers: getAuthHeaders()
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        const reportContent = document.getElementById('reportContent');
+                        reportContent.innerHTML = `
+                            <div><strong>Kopējie lietotāji:</strong> ${data.stats.total_users}</div>
+                            <div><strong>Aktīvie lietotāji (30 dienās):</strong> ${data.stats.active_users}</div>
+                            <div><strong>Kursu skaits:</strong> ${data.stats.total_courses}</div>
+                            <div><strong>Nodarbību skaits:</strong> ${data.stats.total_lessons}</div>
+                            <div><strong>Pabeigtie testi:</strong> ${data.stats.total_tests}</div>
+                            <div><strong>Vidējais rezultāts:</strong> ${data.stats.avg_score}%</div>
+                        `;
+                        document.getElementById('reportModal').style.display = 'block';
+                    } else {
+                        showNotification('Nevarēja ielādēt atskaiti', 'error');
+                    }
+                })
+                .catch(error => {
+                    console.error('Error loading report:', error);
+                    showNotification('Error loading report', 'error');
+                });
+        }
+
+        function closeAddCourseModal() {
+            document.getElementById('addCourseModal').style.display = 'none';
+        }
+
+        function closeAddLessonModal() {
+            document.getElementById('addLessonModal').style.display = 'none';
+        }
+
+        function closeReportModal() {
+            document.getElementById('reportModal').style.display = 'none';
         }
 
         // Notification system
@@ -856,29 +961,123 @@
         `;
         document.head.appendChild(style);
 
+        async function loadLanguages() {
+            try {
+                const response = await fetch('get_languages.php', {
+                    headers: getAuthHeaders()
+                });
+                const data = await response.json();
+                if (!data.success) {
+                    throw new Error(data.error || 'Cannot load languages');
+                }
+
+                const languageSelect = document.getElementById('courseLanguageSelect');
+                if (languageSelect) {
+                    languageSelect.innerHTML = data.languages.map(lang => `
+                        <option value="${lang.language_id}">${lang.language_name}</option>
+                    `).join('');
+                }
+
+                const courseFilter = document.getElementById('courseFilter');
+                if (courseFilter) {
+                    courseFilter.innerHTML = `
+                        <option value="all">Visas valodas</option>
+                        ${data.languages.map(lang => `
+                            <option value="${lang.language_code}">${lang.language_name}</option>
+                        `).join('')}
+                    `;
+                }
+            } catch (error) {
+                console.error('Error loading languages:', error);
+                showNotification('Error loading course languages', 'error');
+            }
+        }
+
+        async function loadCourses() {
+            try {
+                const response = await fetch('get_courses.php', {
+                    headers: getAuthHeaders()
+                });
+                const data = await response.json();
+                if (!data.success) {
+                    throw new Error(data.error || 'Cannot load courses');
+                }
+
+                renderCourses(data.courses);
+                populateCourseSelects(data.courses);
+                document.getElementById('totalCourses').textContent = data.courses.length;
+                const lessonTotal = data.courses.reduce((sum, item) => sum + Number(item.lesson_count), 0);
+                document.getElementById('completedLessons').textContent = lessonTotal;
+            } catch (error) {
+                console.error('Error loading courses:', error);
+                showNotification('Error loading courses', 'error');
+            }
+        }
+
+        function renderCourses(courses) {
+            const tbody = document.getElementById('coursesTableBody');
+            tbody.innerHTML = courses.map(course => `
+                <tr data-language-code="${course.language_code}">
+                    <td>${course.course_id}</td>
+                    <td>${course.course_name}</td>
+                    <td>${course.language_name}</td>
+                    <td>${course.level}</td>
+                    <td>${course.lesson_count}</td>
+                    <td>0%</td>
+                    <td>${course.is_active ? 'Active' : 'Inactive'}</td>
+                    <td>
+                        <button class="btn btn-secondary btn-sm" onclick="showAddLessonModal(${course.course_id})">Add lesson</button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function populateCourseSelects(courses) {
+            const lessonCourseSelect = document.getElementById('lessonCourseSelect');
+            if (!lessonCourseSelect) return;
+            lessonCourseSelect.innerHTML = courses.map(course => `
+                <option value="${course.course_id}">${course.course_name} (${course.language_name})</option>
+            `).join('');
+        }
+
+        function filterCourseTable() {
+            const search = document.getElementById('courseSearch').value.toLowerCase();
+            const filter = document.getElementById('courseFilter').value;
+            const rows = document.querySelectorAll('#coursesTableBody tr');
+            rows.forEach(row => {
+                const name = row.children[1].textContent.toLowerCase();
+                const languageCode = row.dataset.languageCode || '';
+                const matchSearch = !search || name.includes(search);
+                const matchFilter = filter === 'all' || languageCode === filter;
+                row.style.display = (matchSearch && matchFilter) ? '' : 'none';
+            });
+        }
+
         // Lietotāju pārvaldība Functions
         function loadUsers() {
-            fetch('get_users.php')
+            fetch('get_users.php', {
+                headers: getAuthHeaders()
+            })
                 .then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                const tbody = document.getElementById('usersTableBody');
+                        const tbody = document.getElementById('usersTableBody');
                         tbody.innerHTML = '';
                         data.users.forEach(user => {
                             const row = document.createElement('tr');
                             row.innerHTML = `
                                 <td>${user.user_id}</td>
-                        <td>${user.username}</td>
-                        <td>${user.email}</td>
+                                <td>${user.username}</td>
+                                <td>${user.email}</td>
                                 <td>${user.password_hash || 'N/A'}</td>
                                 <td>${user.created_at}</td>
-                        <td>${user.last_login}</td>
-                                <td>${user.is_active}</td>
+                                <td>${user.last_login}</td>
+                                <td>${user.is_active ? 'Active' : 'Inactive'}</td>
                                 <td>
                                     <button onclick="confirmAction('delete', ${user.user_id})" class="btn btn-danger btn-sm" title="Dzēst lietotāju">
-                                    <i class="fas fa-trash"></i>
-                                </button>
-                        </td>
+                                        <i class="fas fa-trash"></i>
+                                    </button>
+                                </td>
                             `;
                             tbody.appendChild(row);
                         });
@@ -888,14 +1087,9 @@
                     }
                 })
                 .catch(error => {
-                console.error('Error loading users:', error);
-                showNotification('Error loading users', 'error');
+                    console.error('Error loading users:', error);
+                    showNotification('Error loading users', 'error');
                 });
-        }
-
-        // Show Pievienot lietotāju Modal
-        function showAddUserModal() {
-            document.getElementById('addUserModal').style.display = 'block';
         }
 
         // Close Pievienot lietotāju Modal
@@ -928,9 +1122,9 @@
             try {
                 const response = await fetch('delete_user.php', {
                     method: 'POST',
-                    headers: {
+                    headers: getAuthHeaders({
                         'Content-Type': 'application/json'
-                    },
+                    }),
                     body: JSON.stringify({
                         user_id: userId
                     })
@@ -952,7 +1146,7 @@
             closeApstiprinātModal();
         }
 
-        // Pievienot lietotāju Form Submit
+        // Add User Form Submit
         document.getElementById('addUserForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             
@@ -962,9 +1156,9 @@
             try {
                 const response = await fetch('add_user.php', {
                     method: 'POST',
-                    headers: {
+                    headers: getAuthHeaders({
                         'Content-Type': 'application/json'
-                    },
+                    }),
                     body: JSON.stringify(userData)
                 });
 
@@ -975,8 +1169,8 @@
                 } else {
                     showNotification('User added successfully', 'success');
                     closeAddUserModal();
-                    loadUsers(); // Reload the users list
-                    e.target.reset(); // Reset the form
+                    loadUsers();
+                    e.target.reset();
                 }
             } catch (error) {
                 console.error('Error adding user:', error);
@@ -984,20 +1178,75 @@
             }
         });
 
-        // Make sure loadUsers is called when the users page is shown
-        document.querySelector('[data-page="users"]').addEventListener('click', () => {
-            console.log('Users page clicked, loading users...');
-            loadUsers();
-        });
+        // Add Course Form Submit
+        document.getElementById('addCourseForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const courseData = Object.fromEntries(formData.entries());
 
-        // Also load users when the page first loads if we're on the users page
-        document.addEventListener('DOMContentLoaded', function() {
-            const usersPage = document.getElementById('users');
-            if (usersPage && usersPage.classList.contains('active')) {
-                console.log('Users page is active on load, loading users...');
-                loadUsers();
+            try {
+                const response = await fetch('add_course.php', {
+                    method: 'POST',
+                    headers: getAuthHeaders({
+                        'Content-Type': 'application/json'
+                    }),
+                    body: JSON.stringify(courseData)
+                });
+
+                const data = await response.json();
+                if (data.error) {
+                    showNotification(data.error, 'error');
+                } else {
+                    showNotification('Course created successfully', 'success');
+                    closeAddCourseModal();
+                    e.target.reset();
+                    loadCourses();
+                }
+            } catch (error) {
+                console.error('Error adding course:', error);
+                showNotification('Error adding course', 'error');
             }
         });
+
+        // Add Lesson Form Submit
+        document.getElementById('addLessonForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const formData = new FormData(e.target);
+            const lessonData = Object.fromEntries(formData.entries());
+
+            try {
+                const response = await fetch('add_lesson.php', {
+                    method: 'POST',
+                    headers: getAuthHeaders({
+                        'Content-Type': 'application/json'
+                    }),
+                    body: JSON.stringify(lessonData)
+                });
+
+                const data = await response.json();
+                if (data.error) {
+                    showNotification(data.error, 'error');
+                } else {
+                    showNotification('Lesson added successfully', 'success');
+                    closeAddLessonModal();
+                    e.target.reset();
+                    loadCourses();
+                }
+            } catch (error) {
+                console.error('Error adding lesson:', error);
+                showNotification('Error adding lesson', 'error');
+            }
+        });
+
+        const courseSearch = document.getElementById('courseSearch');
+        if (courseSearch) {
+            courseSearch.addEventListener('input', filterCourseTable);
+        }
+
+        const courseFilter = document.getElementById('courseFilter');
+        if (courseFilter) {
+            courseFilter.addEventListener('change', filterCourseTable);
+        }
 
         // Close modals when clicking outside
         window.onclick = function(event) {

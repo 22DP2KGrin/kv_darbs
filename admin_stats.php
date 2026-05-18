@@ -20,6 +20,14 @@ try {
     $stmt = $pdo->query("SELECT COUNT(*) FROM users WHERE last_login > DATE_SUB(NOW(), INTERVAL 30 DAY)");
     $stats['active_users'] = $stmt->fetchColumn();
     
+    // Total courses
+    $stmt = $pdo->query("SELECT COUNT(*) FROM courses");
+    $stats['total_courses'] = $stmt->fetchColumn();
+    
+    // Total lessons
+    $stmt = $pdo->query("SELECT COUNT(*) FROM lessons");
+    $stats['total_lessons'] = $stmt->fetchColumn();
+    
     // Total tests completed
     $stmt = $pdo->query("SELECT COUNT(*) FROM test_results");
     $stats['total_tests'] = $stmt->fetchColumn();

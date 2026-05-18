@@ -61,7 +61,7 @@
             transition: background-color 0.3s ease;
         }
         
-        .header-container {
+        .test-header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -682,7 +682,7 @@
 </head>
 <body>
     <header class="header">
-        <div class="header-container">
+        <div class="test-header-container">
             <h1 class="logo"><a href="../index.html" style="text-decoration: none; color: inherit;">Valodu apguves platforma</a></h1>
             <nav class="main-nav">
                 <div class="nav-links">
@@ -915,26 +915,6 @@
                     localStorage.setItem('theme', this.checked ? 'dark' : 'light');
                 });
             }
-
-            let user = null;
-            try {
-                user = JSON.parse(localStorage.getItem('user'));
-            } catch (e) {}
-
-            const userProfileNav = document.getElementById('userProfileNav');
-            const authButtons = document.getElementById('authButtons');
-            const headerProfileAvatar = document.getElementById('headerProfileAvatar');
-            const headerLietotājvārds = document.getElementById('headerLietotājvārds');
-
-            if (user && userProfileNav && authButtons) {
-                userProfileNav.style.display = 'flex';
-                authButtons.style.display = 'none';
-                if (headerProfileAvatar && headerLietotājvārds) {
-                    headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
-                    headerLietotājvārds.textContent = user.username;
-                }
-            }
-
             // DOM elements
             const form = document.getElementById('spanishTest');
             const prevBtn = document.getElementById('prevBtn');
@@ -1146,5 +1126,6 @@
         });
     </script>
     <script src="../scripts/ai-widget.js?v=2"></script>
+    <script src="../js/shared-layout.js"></script>
 </body>
 </html>

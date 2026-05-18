@@ -3,13 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <meta http-equiv="Content-Valoda" content="lv">
-    <title>Reģistrēties | Valodu apguves platforma</title>
-=======
     <meta http-equiv="Content-Language" content="lv">
     <title>Reģistrēšanās | Valodu mācību platforma</title>
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
     <link rel="stylesheet" href="styles/footer.css">
     <!-- Add Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -99,12 +94,6 @@
             align-items: center;
         }
 
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-            align-items: center;
-        }
-
         .nav-link {
             padding: 0.5rem 1rem;
             border-radius: var(--radius);
@@ -136,44 +125,6 @@
 
         .register-btn:hover {
             background-color: var(--primary-hover);
-        }
-
-        .user-profile-nav {
-            display: flex;
-            align-items: center;
-            margin-left: 1rem;
-        }
-
-        .profile-link {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            border-radius: var(--radius);
-            transition: all 0.3s ease;
-        }
-
-        .profile-link:hover {
-            background-color: rgba(79, 70, 229, 0.1);
-        }
-
-        .profile-avatar-small {
-            width: 32px;
-            height: 32px;
-            border-radius: 50%;
-            background: linear-gradient(90deg, var(--primary), var(--primary-deep));
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1rem;
-        }
-
-        .auth-buttons {
-            display: flex;
-            gap: 1rem;
-            margin-left: 1rem;
         }
 
         .admin-btn {
@@ -340,54 +291,24 @@
         .theme-toggle {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            margin-left: 1rem;
-        }
-
-        .theme-toggle .icon {
-            color: var(--primary);
-        }
-
-        .switch {
-            position: relative;
-            display: inline-block;
+            justify-content: center;
             width: 40px;
-            height: 24px;
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0;
-        }
-
-        .slider {
-            position: absolute;
-            cursor: pointer;
-            inset: 0;
-            background-color: #cbd5e1;
-            transition: 0.3s ease;
-            border-radius: 24px;
-        }
-
-        .slider:before {
-            position: absolute;
-            content: '';
-            height: 18px;
-            width: 18px;
-            left: 3px;
-            bottom: 3px;
-            background-color: white;
-            transition: 0.3s ease;
+            height: 40px;
             border-radius: 50%;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--foreground);
+            transition: all 0.3s ease;
+            font-size: 1.25rem;
         }
 
-        input:checked + .slider {
-            background-color: var(--primary);
+        .theme-toggle:hover {
+            background-color: rgba(0, 0, 0, 0.05);
         }
 
-        input:checked + .slider:before {
-            transform: translateX(16px);
+        .dark .theme-toggle:hover {
+            background-color: rgba(255, 255, 255, 0.1);
         }
 
         @media (max-width: 640px) {
@@ -512,49 +433,12 @@
     </style>
 </head>
 <body>
-<<<<<<< HEAD
-    <!-- Header -->
-    <header class="header">
-        <div class="container header-container">
-            <h1 class="logo"><a href="index.html">Valodu apguves platforma</a></h1>
-            <nav class="main-nav">
-                <div class="nav-links">
-                    <a href="about.html" class="nav-link">Par mums</a>
-                    <a href="contact.html" class="nav-link">Kontakti</a>
-                    <div class="user-profile-nav" id="userProfileNav" style="display: none;">
-                        <a href="profile.html" class="nav-link profile-link">
-                            <div class="profile-avatar-small" id="headerProfileAvatar"></div>
-                            <span id="headerLietotājvārds"></span>
-                        </a>
-                    </div>
-                    <div class="auth-buttons" id="authButtons">
-                        <a href="login.html" class="nav-link login-btn">Pieteikties</a>
-                        <a href="signup.html" class="nav-link register-btn">Reģistrēties</a>
-                    </div>
-                </div>
-                <div class="theme-toggle">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon sun-icon"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
-                    <label class="switch">
-                        <input type="checkbox" id="themeToggle">
-                        <span class="slider"></span>
-                    </label>
-                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="icon moon-icon"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                </div>
-            </nav>
-        </div>
-    </header>
-=======
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
     
     <main class="main-content">
         <div class="signup-container">
             <div class="signup-header">
                 <h1 class="signup-title">Izveidot kontu</h1>
-<<<<<<< HEAD
-                <p class="signup-subtitle">Pievienojies mūsu valodu apguves kopienai</p>
-=======
                 <p class="signup-subtitle">Pievienojieties mūsu valodu mācību kopienai</p>
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
             </div>
 
             <div id="generalError" class="form-error"></div>
@@ -606,11 +490,7 @@
                                name="birthDate" 
                                class="form-input" 
                                required 
-<<<<<<< HEAD
-                               placeholder="Izvēlies savu dzimšanas datumu"
-=======
                                placeholder="Izvēlieties dzimšanas datumu"
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
                                readonly>
                         <div id="birthDateError" class="form-error"></div>
                     </div>
@@ -618,11 +498,7 @@
                     <div class="form-group">
                         <label for="gender" class="form-label">Dzimums</label>
                         <select id="gender" name="gender" class="form-input" required>
-<<<<<<< HEAD
-                            <option value="">Izvēlies dzimumu</option>
-=======
                             <option value="">Izvēlieties dzimumu</option>
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
                             <option value="male">Vīrietis</option>
                             <option value="female">Sieviete</option>
                             
@@ -638,11 +514,7 @@
                 </div>
 
                 <div class="form-group">
-<<<<<<< HEAD
-                    <label for="confirmPassword" class="form-label">Apstiprini paroli</label>
-=======
                     <label for="confirmPassword" class="form-label">Apstipriniet paroli</label>
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required autocomplete="new-password">
                     <div id="confirmPasswordError" class="form-error"></div>
                 </div>
@@ -651,11 +523,7 @@
             </form>
             
             <p style="text-align: center; margin-top: 15px;">
-<<<<<<< HEAD
-                Vai tev jau ir konts? <a href="login.html">Pieteikties</a>
-=======
                 Jau ir konts? <a href="login.html">Pieteikties</a>
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
             </p>
         </div>
     </main>
@@ -663,115 +531,14 @@
     <!-- Debug panel -->
     <div id="debug-panel"></div>
 
-<<<<<<< HEAD
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <div class="footer-main">
-                <div class="footer-section">
-                    <h3>Valodu apguve</h3>
-                    <ul>
-                        <li><a href="#"><span class="flag-icon">🇺🇸</span>English</a></li>
-                        <li><a href="#"><span class="flag-icon">🇪🇸</span>Spanish</a></li>
-                        <li><a href="#"><span class="flag-icon">🇫🇷</span>French</a></li>
-                        <li><a href="#"><span class="flag-icon">🇱🇻</span>Latvian</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Resursi</h3>
-                    <ul>
-                        <li><a href="#">Gramatika</a></li>
-                        <li><a href="#">Vārdu krājums</a></li>
-                        <li><a href="#">Izruna</a></li>
-                        <li><a href="#">Vingrinājumi</a></li>
-                        <li><a href="#">Testi</a></li>
-                        <li><a href="#">Sertifikāti</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Atbalsts</h3>
-                    <ul>
-                        <li><a href="#">Palīdzības centrs</a></li>
-                        <li><a href="#">Sazinies ar mums</a></li>
-                        <li><a href="#">Biežāk uzdotie jautājumi</a></li>
-                        <li><a href="#">Atsauksmes</a></li>
-                        <li><a href="#">Tehniskais atbalsts</a></li>
-                    </ul>
-                </div>
-                <div class="footer-section">
-                    <h3>Uzņēmums</h3>
-                    <ul>
-                        <li><a href="#">Par mums</a></li>
-                        <li><a href="#">Mūsu komanda</a></li>
-                        <li><a href="#">Karjera</a></li>
-                        <li><a href="#">Prese</a></li>
-                        <li><a href="#">Partneri</a></li>
-                        <li><a href="#">Blogs</a></li>
-                    </ul>
-                </div>
-            </div>
 
-            <div class="footer-apps">
-                <div class="apps-grid">
-                    <div>
-                        <h3>Lejupielādē mūsu lietotnes</h3>
-                        <div class="app-buttons">
-                            <a href="#" class="app-button">
-                                <div class="app-button-title">Lejupielādē no</div>
-                                <div class="app-button-name">App Store</div>
-                            </a>
-                            <a href="#" class="app-button">
-                                <div class="app-button-title">Pieejams</div>
-                                <div class="app-button-name">Google Play</div>
-                            </a>
-                        </div>
-                    </div>
-                    <div class="newsletter">
-                        <h3>Saņem jaunākās ziņas</h3>
-                        <p>Saņem jaunākās ziņas par jaunajiem kursiem</p>
-                        <div class="newsletter-form">
-                            <input type="email" class="newsletter-input" placeholder="Ievadi savu e-pasta adresi">
-                            <button class="newsletter-btn">Abonēt</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="footer-bottom">
-                <div class="footer-bottom-left">
-                    <div>© 2024 Valodu apguves platforma. Visas tiesības aizsargātas.</div>
-                    <div style="font-size: 0.8rem; opacity: 0.7; margin-top: 0.5rem;">
-                        Platformas versija: 2.1.0 | Pēdējoreiz atjaunināts: 2024. gada maijs
-                    </div>
-                    <div style="font-size: 0.8rem; opacity: 0.7;">
-                        Kontaktinformācija<br>
-                        info@languagelearning.com<br>
-                        +1 (800) 123-4567<br>
-                        123 Education Street, Learning City, LC 12345
-                    </div>
-                </div>
-                <div class="footer-bottom-right">
-                    <div class="legal-links">
-                        <a href="#">Privātuma politika</a>
-                        <a href="#">Lietošanas noteikumi</a>
-                        <a href="#">Sīkdatņu politika</a>
-                        <a href="#">Drošība</a>
-                        <a href="#">Pieejamība</a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </footer>
-=======
-
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
 
     <!-- Load shared layout (header, footer, theme, auth) -->
     <script src="js/shared-layout.js"></script>
     <!-- Include JavaScript -->
     <script>
         // Set base URL for API calls
-        const baseUrl = window.location.origin;
+        const baseUrl = 'http://localhost:8888';
     </script>
     <script src="scripts/registration.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -779,15 +546,6 @@
         // Error messages
         const errorMessages = {
             passwordMismatch: 'Paroles nesakrīt',
-<<<<<<< HEAD
-            generalError: 'Radās kļūda. Mēģini vēlreiz.',
-            invalidPhone: 'Lūdzu, ievadi derīgu tālruņa numuru ar valsts kodu',
-            invalidCountry: 'Lūdzu, ievadi derīgu valsts nosaukumu',
-            requiredField: 'Šis lauks ir obligāts',
-            invalidEmail: 'Lūdzu, ievadi derīgu e-pasta adresi',
-            invalidUsername: 'Lietotājvārdam jābūt no 3 līdz 50 rakstzīmēm',
-            invalidPassword: 'Parolei jābūt vismaz 8 rakstzīmju garai'
-=======
             generalError: 'Radās kļūda. Lūdzu, mēģiniet vēlreiz.',
             invalidPhone: 'Lūdzu, ievadiet derīgu tālruņa numuru ar starptautisko kodu',
             invalidCountry: 'Lūdzu, ievadiet derīgu valsts nosaukumu',
@@ -795,7 +553,6 @@
             invalidEmail: 'Lūdzu, ievadiet derīgu e-pasta adresi',
             invalidUsername: 'Lietotājvārdam jābūt no 3 līdz 50 rakstzīmju garam',
             invalidPassword: 'Parolei jābūt vismaz 8 rakstzīmes garai'
->>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
         };
         
         // Store the error messages in global scope
@@ -808,7 +565,7 @@
             return phoneRegex.test(phone);
         }
 
-        // Valsts validation
+        // Country validation
         function validateCountry(country) {
             return country.trim().length >= 2 && country.trim().length <= 50;
         }
@@ -898,7 +655,7 @@
                         }
                         
                         // Show success message before redirect
-                        alert(data.message || 'Reģistrācija veiksmīga!');
+                        alert(data.message || 'Registration successful!');
                         
                         // Redirect to login page
                         window.location.href = 'login.html';
@@ -937,40 +694,22 @@
 
         // Initialize theme from localStorage on page load
         document.addEventListener('DOMContentLoaded', () => {
-            const themeToggle = document.getElementById('themeToggle');
+            // Apply saved theme
             const savedTheme = localStorage.getItem('theme');
-
             if (savedTheme === 'dark') {
                 document.body.classList.add('dark');
-                if (themeToggle) themeToggle.checked = true;
             }
-
-            if (themeToggle) {
-                themeToggle.addEventListener('change', function() {
-                    document.body.classList.toggle('dark', this.checked);
-                    localStorage.setItem('theme', this.checked ? 'dark' : 'light');
-                });
-            }
-
-            let user = null;
-            try {
-                user = JSON.parse(localStorage.getItem('user'));
-            } catch (e) {}
-
-            const userProfileNav = document.getElementById('userProfileNav');
-            const authButtons = document.getElementById('authButtons');
-            const headerProfileAvatar = document.getElementById('headerProfileAvatar');
-            const headerLietotājvārds = document.getElementById('headerLietotājvārds');
-
-            if (user && userProfileNav && authButtons) {
-                userProfileNav.style.display = 'flex';
-                authButtons.style.display = 'none';
-                if (headerProfileAvatar && headerLietotājvārds) {
-                    headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
-                    headerLietotājvārds.textContent = user.username;
-                }
-            }
+            updateThemeIcon();
         });
+
+        // Theme icon update function
+        function updateThemeIcon() {
+            const theme = localStorage.getItem('theme') || 'light';
+            const icon = document.querySelector('.theme-toggle i');
+            if (icon) {
+                icon.className = theme === 'dark' ? 'fas fa-sun' : 'fas fa-moon';
+            }
+        }
 
         // Initialize date picker
         document.addEventListener('DOMContentLoaded', function() {
@@ -981,7 +720,7 @@
                 dateFormat: "Y-m-d",
                 maxDate: "today",
                 minDate: "1900-01-01",
-                locale: "lv",
+                locale: "en",
                 theme: "material_blue",
                 disableMobile: false,
                 allowInput: false,
@@ -1001,8 +740,9 @@
                     }
                 },
                 onOpen: function() {
+                    // Force English language for the calendar
                     document.querySelectorAll('.flatpickr-monthDropdown-months option').forEach(option => {
-                        option.textContent = option.textContent;
+                        option.textContent = option.value;
                     });
                 }
             });
@@ -1011,12 +751,11 @@
             birthDateInput.addEventListener('change', function() {
                 if (!this.value) {
                     const errorElement = document.getElementById('birthDateError');
-                    errorElement.textContent = 'Lūdzu, izvēlies savu dzimšanas datumu';
+                    errorElement.textContent = 'Please select your date of birth';
                     errorElement.style.display = 'block';
                 }
             });
         });
     </script>
-    <script src="scripts/ai-widget.js?v=2"></script>
 </body>
 </html>

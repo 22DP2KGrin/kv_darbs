@@ -1,29 +1,45 @@
 (function() {
-    const STORAGE_KEY = 'kv_darbs_ai_widget_history';
+    if (window.kvDarbsAiWidgetLoaded) {
+        return;
+    }
+
+    window.kvDarbsAiWidgetLoaded = true;
+
     const MAX_HISTORY = 12;
 
-    function detectBasePrefix() {
-        const path = window.location.pathname;
-
-        if (path.includes('/kv_darbs/exercises/') || path.includes('/kv_darbs/english/')) {
-            return '..';
+    function getScriptBasePath() {
+        let script = document.currentScript;
+        if (!script) {
+            const scripts = Array.from(document.getElementsByTagName('script'));
+            script = scripts.reverse().find(s => s.src && s.src.includes('ai-widget.js'));
         }
 
-        if (path.includes('/exercises/') || path.includes('/english/')) {
-            return '..';
+        if (script && script.src) {
+            try {
+                const url = new URL(script.src, window.location.origin);
+                return url.pathname.replace(/\/scripts\/ai-widget(\.min)?\.js$/, '');
+            } catch (error) {
+                console.error('Failed to parse ai-widget script URL:', error);
+            }
         }
 
         return '.';
     }
 
     function getApiEndpoint() {
-        return detectBasePrefix() + '/api/chat.php';
+        const basePath = getScriptBasePath();
+        return basePath + '/api/chat.php';
     }
 
     function getPageType() {
         const path = window.location.pathname.toLowerCase();
 
-        if (path.includes('/english/test')) {
+        if (
+            path.includes('/english/test') ||
+            path.includes('/french/test') ||
+            path.includes('/spanish/test') ||
+            path.includes('/latvian/test')
+        ) {
             return 'test';
         }
 
@@ -31,7 +47,12 @@
             return 'exercise';
         }
 
-        if (path.includes('exercises_english')) {
+        if (
+            path.includes('exercises_english') ||
+            path.includes('exercises_french') ||
+            path.includes('exercises_spanish') ||
+            path.includes('exercises_latvian')
+        ) {
             return 'exercise_hub';
         }
 
@@ -99,12 +120,191 @@
         return options;
     }
 
+    function normalizeText(text) {
+        return (text || '')
+            .toString()
+            .toLowerCase()
+            .replace(/\s+/g, ' ')
+            .replace(/[.,!?;:"'`«»“”„()]/g, '')
+            .trim();
+    }
+
+    function getScriptText() {
+        return Array.from(document.scripts)
+            .map(function(script) {
+                return script.textContent || '';
+            })
+            .join('\n');
+    }
+
+    function extractBracketBlock(text, startIndex, openChar, closeChar) {
+        let depth = 0;
+        let inString = false;
+        let quote = '';
+        let escaped = false;
+
+        for (let index = startIndex; index < text.length; index++) {
+            const char = text[index];
+
+            if (inString) {
+                if (escaped) {
+                    escaped = false;
+                } else if (char === '\\') {
+                    escaped = true;
+                } else if (char === quote) {
+                    inString = false;
+                    quote = '';
+                }
+                continue;
+            }
+
+            if (char === '"' || char === "'" || char === '`') {
+                inString = true;
+                quote = char;
+                continue;
+            }
+
+            if (char === openChar) {
+                depth++;
+            } else if (char === closeChar) {
+                depth--;
+                if (depth === 0) {
+                    return text.slice(startIndex, index + 1);
+                }
+            }
+        }
+
+        return '';
+    }
+
+    function parseQuestionsArray() {
+        const scriptText = getScriptText();
+        const declarationIndex = scriptText.search(/\b(?:const|let|var)\s+questions\s*=/);
+
+        if (declarationIndex === -1) {
+            return [];
+        }
+
+        const arrayStart = scriptText.indexOf('[', declarationIndex);
+        if (arrayStart === -1) {
+            return [];
+        }
+
+        const arrayText = extractBracketBlock(scriptText, arrayStart, '[', ']');
+        if (!arrayText) {
+            return [];
+        }
+
+        try {
+            const parsed = Function('"use strict"; return (' + arrayText + ');')();
+            return Array.isArray(parsed) ? parsed : [];
+        } catch (error) {
+            return [];
+        }
+    }
+
+    function getAnswerFromCorrectAnswersMap(questionNode) {
+        if (!questionNode || !questionNode.id) {
+            return null;
+        }
+
+        const scriptText = getScriptText();
+        const match = scriptText.match(new RegExp(questionNode.id + "\\s*:\\s*['\\\"]([^'\\\"]+)['\\\"]"));
+        if (!match) {
+            return null;
+        }
+
+        const correctValue = match[1];
+        const input = questionNode.querySelector('input[value="' + correctValue + '"]');
+        const label = input ? questionNode.querySelector('label[for="' + input.id + '"]') || input.nextElementSibling : null;
+        const answer = label ? label.textContent.trim() : correctValue;
+
+        return {
+            question: questionNode.textContent.trim().replace(/\s+/g, ' '),
+            answer: answer,
+            value: correctValue
+        };
+    }
+
+    function getCurrentAnswerFromQuestionsArray(questions) {
+        if (!questions.length) {
+            return null;
+        }
+
+        const visibleQuestion = normalizeText(getVisibleQuestionText());
+        if (!visibleQuestion) {
+            return null;
+        }
+
+        const match = questions.find(function(question) {
+            return visibleQuestion.includes(normalizeText(question.question)) ||
+                normalizeText(question.question).includes(visibleQuestion);
+        });
+
+        if (!match || !Array.isArray(match.options)) {
+            return null;
+        }
+
+        return {
+            question: match.question,
+            answer: match.options[match.correctAnswer],
+            value: match.correctAnswer
+        };
+    }
+
+    function getTestAnswers() {
+        const answers = [];
+        const questions = parseQuestionsArray();
+
+        questions.forEach(function(question) {
+            if (!question || !Array.isArray(question.options)) {
+                return;
+            }
+
+            const answer = question.options[question.correctAnswer];
+            if (!question.question || answer === undefined) {
+                return;
+            }
+
+            answers.push({
+                question: question.question,
+                answer: answer,
+                value: question.correctAnswer
+            });
+        });
+
+        if (answers.length > 0) {
+            return answers.slice(0, 30);
+        }
+
+        document.querySelectorAll('.question[id]').forEach(function(questionNode) {
+            const answer = getAnswerFromCorrectAnswersMap(questionNode);
+            if (answer) {
+                answers.push(answer);
+            }
+        });
+
+        return answers.slice(0, 30);
+    }
+
+    function getCurrentCorrectAnswer() {
+        const activeQuestionNode = document.querySelector('.question.active[id]');
+        const mappedAnswer = getAnswerFromCorrectAnswersMap(activeQuestionNode);
+        if (mappedAnswer) {
+            return mappedAnswer;
+        }
+
+        return getCurrentAnswerFromQuestionsArray(parseQuestionsArray());
+    }
+
     function buildPageContext() {
         return {
             pageType: getPageType(),
             pageTitle: document.title || '',
             sectionTitle: getText('.exercise-title') || getText('.page-title') || getText('.quiz-title'),
             currentQuestion: getVisibleQuestionText(),
+            currentCorrectAnswer: getCurrentCorrectAnswer(),
+            testAnswers: getTestAnswers(),
             visibleOptions: getVisibleOptions(),
             activeTab: getText('.tab-button.active'),
             url: window.location.pathname
@@ -141,21 +341,26 @@
                 {
                     label: 'Ko man izvēlēties?',
                     action: 'planning',
-                    prompt: 'Palīdzi izvēlēties piemērotu angļu vingrinājumu manam līmenim.'
+                    prompt: 'Palīdzi izvēlēties piemērotu vingrinājumu manam līmenim.'
                 },
                 {
                     label: 'Kā mācīties efektīvāk?',
                     action: 'study_plan',
-                    prompt: 'Iedod īsu plānu, kā efektīvi mācīties angļu valodu šajā platformā.'
+                    prompt: 'Iedod īsu plānu, kā efektīvi mācīties valodas šajā platformā.'
                 }
             ];
         }
 
         return [
             {
-                label: 'Palīdzi ar angļu valodu',
+                label: 'Jautājums par vietni',
+                action: 'site_help',
+                prompt: 'Pastāsti, kā izmantot šo vietni, profilu, testus un vingrinājumus.'
+            },
+            {
+                label: 'Palīdzi ar uzdevumiem',
                 action: 'general_help',
-                prompt: 'Palīdzi man saprast, kā tu vari man palīdzēt ar angļu valodu šajā vietnē.'
+                prompt: 'Pastāsti, kā tu vari palīdzēt ar valodu uzdevumiem šajā vietnē.'
             }
         ];
     }
@@ -371,26 +576,18 @@
         document.head.appendChild(style);
     }
 
-    function loadHistory() {
-        try {
-            const raw = localStorage.getItem(STORAGE_KEY);
-            const parsed = raw ? JSON.parse(raw) : [];
-            return Array.isArray(parsed) ? parsed : [];
-        } catch (error) {
-            return [];
-        }
-    }
-
-    function saveHistory(history) {
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(history.slice(-MAX_HISTORY)));
-    }
-
     function createWidget() {
         createStyles();
 
         const context = buildPageContext();
         const suggestions = getSuggestions(context);
-        const history = loadHistory();
+        const history = [];
+
+        try {
+            localStorage.removeItem('kv_darbs_ai_widget_history');
+        } catch (error) {
+            // Chat history is intentionally not shared between accounts.
+        }
 
         const launcher = document.createElement('button');
         launcher.className = 'ai-widget-launcher';
@@ -459,7 +656,7 @@
                 return;
             }
 
-            let intro = 'Sveika! Es varu palīdzēt ar angļu valodu.';
+            let intro = 'Sveika! Es esmu AI palīgs. Vari jautāt jebko, un es atbildēšu pēc iespējas skaidrāk.';
             if (context.pageType === 'test' || context.pageType === 'exercise') {
                 intro = context.currentQuestion
                     ? 'Es redzu, ka tu esi uzdevumā. Varu paskaidrot pašreizējo jautājumu vai dot mājienu, neatklājot pilno atbildi.'
@@ -468,7 +665,6 @@
 
             renderMessage('ai', intro);
             history.push({ role: 'ai', content: intro });
-            saveHistory(history);
         }
 
         async function sendMessage(text, action) {
@@ -479,7 +675,6 @@
 
             renderMessage('user', cleanText);
             history.push({ role: 'user', content: cleanText });
-            saveHistory(history);
             input.value = '';
 
             const loadingMessage = document.createElement('div');
@@ -519,13 +714,11 @@
 
                 renderMessage('ai', data.reply);
                 history.push({ role: 'ai', content: data.reply });
-                saveHistory(history);
             } catch (error) {
                 loadingMessage.remove();
                 const fallback = 'AI palīgs kļūda: ' + error.message;
                 renderMessage('ai', fallback);
                 history.push({ role: 'ai', content: fallback });
-                saveHistory(history);
                 console.error('AI widget error:', error);
             }
         }
