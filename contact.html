@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <title>Kontakti - Valodu apguves platforma</title>
+=======
+    <title>Kontakti - Valodu mācību platforma</title>
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="styles/footer.css">
     <style>
@@ -627,6 +631,7 @@
     </style>
 </head>
 <body>
+<<<<<<< HEAD
     <!-- Header -->
     <header class="header">
         <div class="container header-container">
@@ -658,6 +663,8 @@
             </nav>
         </div>
     </header>
+=======
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
     
     <!-- Main Content -->
     <main class="main-content">
@@ -766,6 +773,7 @@
         </div>
     </main>
 
+<<<<<<< HEAD
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -864,7 +872,12 @@
             </div>
         </div>
     </footer>
+=======
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
 
+    <!-- Load shared layout (header, footer, theme, auth) -->
+    <script src="js/shared-layout.js"></script>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             console.log('DOM loaded, initializing theme toggle...');
@@ -969,12 +982,20 @@
                     
                     // Simple validation
                     if (!name || !email || !subject || !message) {
+<<<<<<< HEAD
                         showZiņa('Please fill in all required fields.', 'error');
+=======
+                        showMessage('Lūdzu, aizpildiet visus obligātos laukus.', 'error');
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
                         return;
                     }
                     
                     if (!email.includes('@')) {
+<<<<<<< HEAD
                         showZiņa('Please enter a valid email address.', 'error');
+=======
+                        showMessage('Lūdzu, ievadiet derīgu e-pasta adresi.', 'error');
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
                         return;
                     }
                     
@@ -988,7 +1009,11 @@
                         submitBtn.disabled = false;
                         
                         // Show success message
+<<<<<<< HEAD
                         showZiņa('Thank you for your message! We\'ll get back to you soon.', 'success');
+=======
+                        showMessage('Paldies par jūsu ziņu! Mēs sazināsimies ar jums drīzumā.', 'success');
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
                         
                         // Reset form
                         contactForm.reset();

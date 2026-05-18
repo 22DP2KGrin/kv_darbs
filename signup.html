@@ -3,8 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<<<<<<< HEAD
     <meta http-equiv="Content-Valoda" content="lv">
     <title>Reģistrēties | Valodu apguves platforma</title>
+=======
+    <meta http-equiv="Content-Language" content="lv">
+    <title>Reģistrēšanās | Valodu mācību platforma</title>
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
     <link rel="stylesheet" href="styles/footer.css">
     <!-- Add Flatpickr CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
@@ -507,6 +512,7 @@
     </style>
 </head>
 <body>
+<<<<<<< HEAD
     <!-- Header -->
     <header class="header">
         <div class="container header-container">
@@ -537,12 +543,18 @@
             </nav>
         </div>
     </header>
+=======
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
     
     <main class="main-content">
         <div class="signup-container">
             <div class="signup-header">
                 <h1 class="signup-title">Izveidot kontu</h1>
+<<<<<<< HEAD
                 <p class="signup-subtitle">Pievienojies mūsu valodu apguves kopienai</p>
+=======
+                <p class="signup-subtitle">Pievienojieties mūsu valodu mācību kopienai</p>
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
             </div>
 
             <div id="generalError" class="form-error"></div>
@@ -594,7 +606,11 @@
                                name="birthDate" 
                                class="form-input" 
                                required 
+<<<<<<< HEAD
                                placeholder="Izvēlies savu dzimšanas datumu"
+=======
+                               placeholder="Izvēlieties dzimšanas datumu"
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
                                readonly>
                         <div id="birthDateError" class="form-error"></div>
                     </div>
@@ -602,7 +618,11 @@
                     <div class="form-group">
                         <label for="gender" class="form-label">Dzimums</label>
                         <select id="gender" name="gender" class="form-input" required>
+<<<<<<< HEAD
                             <option value="">Izvēlies dzimumu</option>
+=======
+                            <option value="">Izvēlieties dzimumu</option>
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
                             <option value="male">Vīrietis</option>
                             <option value="female">Sieviete</option>
                             
@@ -618,7 +638,11 @@
                 </div>
 
                 <div class="form-group">
+<<<<<<< HEAD
                     <label for="confirmPassword" class="form-label">Apstiprini paroli</label>
+=======
+                    <label for="confirmPassword" class="form-label">Apstipriniet paroli</label>
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
                     <input type="password" id="confirmPassword" name="confirmPassword" class="form-input" required autocomplete="new-password">
                     <div id="confirmPasswordError" class="form-error"></div>
                 </div>
@@ -627,7 +651,11 @@
             </form>
             
             <p style="text-align: center; margin-top: 15px;">
+<<<<<<< HEAD
                 Vai tev jau ir konts? <a href="login.html">Pieteikties</a>
+=======
+                Jau ir konts? <a href="login.html">Pieteikties</a>
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
             </p>
         </div>
     </main>
@@ -635,6 +663,7 @@
     <!-- Debug panel -->
     <div id="debug-panel"></div>
 
+<<<<<<< HEAD
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -733,7 +762,12 @@
             </div>
         </div>
     </footer>
+=======
 
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
+
+    <!-- Load shared layout (header, footer, theme, auth) -->
+    <script src="js/shared-layout.js"></script>
     <!-- Include JavaScript -->
     <script>
         // Set base URL for API calls
@@ -745,6 +779,7 @@
         // Error messages
         const errorMessages = {
             passwordMismatch: 'Paroles nesakrīt',
+<<<<<<< HEAD
             generalError: 'Radās kļūda. Mēģini vēlreiz.',
             invalidPhone: 'Lūdzu, ievadi derīgu tālruņa numuru ar valsts kodu',
             invalidCountry: 'Lūdzu, ievadi derīgu valsts nosaukumu',
@@ -752,6 +787,15 @@
             invalidEmail: 'Lūdzu, ievadi derīgu e-pasta adresi',
             invalidUsername: 'Lietotājvārdam jābūt no 3 līdz 50 rakstzīmēm',
             invalidPassword: 'Parolei jābūt vismaz 8 rakstzīmju garai'
+=======
+            generalError: 'Radās kļūda. Lūdzu, mēģiniet vēlreiz.',
+            invalidPhone: 'Lūdzu, ievadiet derīgu tālruņa numuru ar starptautisko kodu',
+            invalidCountry: 'Lūdzu, ievadiet derīgu valsts nosaukumu',
+            requiredField: 'Šis lauks ir jāaizpilda',
+            invalidEmail: 'Lūdzu, ievadiet derīgu e-pasta adresi',
+            invalidUsername: 'Lietotājvārdam jābūt no 3 līdz 50 rakstzīmju garam',
+            invalidPassword: 'Parolei jābūt vismaz 8 rakstzīmes garai'
+>>>>>>> 010b03eb37aec94f1e79ee9374b80e53439534c3
         };
         
         // Store the error messages in global scope
