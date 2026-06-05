@@ -11,7 +11,6 @@ const ADMIN_CONFIG = {
     // Roles and permissions
     permissions: {
         canApproveUsers: true,
-        canManageCourses: true,
         canManageContent: true,
         canViewAnalytics: true,
         canManageAdmins: false, // Only super-admin can manage other admins
@@ -32,9 +31,6 @@ const ADMIN_CONFIG = {
         
         // Content Management
         contentManagement: {
-            createCourses: true,
-            editCourses: true,
-            deleteCourses: true,
             moderateComments: true,
             manageCategories: true
         },
@@ -42,7 +38,6 @@ const ADMIN_CONFIG = {
         // Analytics and Reports
         analytics: {
             viewUserStats: true,
-            viewCourseStats: true,
             viewRevenueStats: true,
             generateReports: true,
             exportData: true

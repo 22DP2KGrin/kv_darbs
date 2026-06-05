@@ -5,7 +5,7 @@ ini_set('display_errors', 1);
 
 require_once 'config.php';
 
-// Функция для проверки и получения токена из заголовка
+// Funkcija tokena pārbaudei un iegūšanai no galvenes
 function getBearerToken() {
     $headers = getallheaders();
     if (isset($headers['Authorization'])) {
@@ -16,7 +16,7 @@ function getBearerToken() {
     return null;
 }
 
-// Получаем токен
+// Iegūstam tokenu
 $token = getBearerToken();
 if (!$token) {
     echo json_encode(['success' => false, 'message' => 'No token provided']);
@@ -26,7 +26,7 @@ if (!$token) {
 try {
     $pdo = getDBConnection();
 
-    // Получаем user_id из токена
+    // Iegūstam user_id no tokena
     $stmt = $pdo->prepare("SELECT user_id FROM sessions WHERE session_token = ? AND expires_at > NOW()");
     $stmt->execute([$token]);
     $session = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -38,7 +38,7 @@ try {
 
     $userId = $session['user_id'];
 
-    // Получаем данные пользователя
+    // Iegūstam lietotāja datus
     $stmt = $pdo->prepare("
         SELECT 
             user_id,
@@ -66,7 +66,7 @@ try {
         exit;
     }
 
-    // Форматируем даты
+    // Formatējam datumus
     $user['created_at'] = date('Y-m-d H:i:s', strtotime($user['created_at']));
     $user['last_login'] = $user['last_login'] ? date('Y-m-d H:i:s', strtotime($user['last_login'])) : null;
 

@@ -125,7 +125,7 @@ const FRENCH_EXERCISE_DATA = {
             { question: '5. Kurš variants ir vispieklājīgākais?', options: ['Je veux ça maintenant.', 'Envoyez-le aujourd’hui.', 'Je vous serais reconnaissant(e) de votre réponse.', 'Répondez vite.'], correctAnswer: 2 },
             { question: '6. “Veuillez trouver ci-joint…” e-pastā parasti nozīmē:', options: ['Es atbildu', 'Pielikumā pievienoju', 'Es atvainojos', 'Es pārtraukšu sarunu'], correctAnswer: 1 },
             { question: '7. Kurš vietniekvārds ir formālāks?', options: ['tu', 'vous', 'nous', 'ils'], correctAnswer: 1 },
-            { question: '8. “Dans l’attente de votre réponse” nozīmē:', options: ['Esmu beidzis rakstīt', 'Gaиду jūsu atbildi', 'Es jums piezvanīšu', 'Atbildiet vēlāk'], correctAnswer: 1 },
+            { question: '8. “Dans l’attente de votre réponse” nozīmē:', options: ['Esmu beidzis rakstīt', 'Gaidu jūsu atbildi', 'Es jums piezvanīšu', 'Atbildiet vēlāk'], correctAnswer: 1 },
             { question: '9. Kurš temats ir piemērots formālam e-pastam?', options: ['Hey', 'Question', 'Demande d’informations sur le cours', 'Bonjour!!!'], correctAnswer: 2 },
             { question: '10. “Veuillez agréer…” visbiežāk lieto:', options: ['E-pasta sākumā', 'Starp rindkopām', 'Noslēgumā', 'Faila nosaukumā'], correctAnswer: 2 },
             { question: '11. Kurš variants ir pārāk neformāls?', options: ['Je vous écris pour confirmer…', 'Merci pour votre temps.', 'Je t’envoie ça tout de suite.', 'Je reste à votre disposition.'], correctAnswer: 2 },

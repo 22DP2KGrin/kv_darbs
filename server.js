@@ -16,14 +16,14 @@ app.post('/api/register', (req, res) => {
         return res.status(400).json({ error: 'Email and password are required' });
     }
 
-    // Пример проверки email
+    // E-pasta pārbaudes piemērs
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     if (!emailRegex.test(email)) {
         return res.status(400).json({ error: 'Invalid email format' });
     }
 
-    // Логика сохранения пользователя в базе данных
-    // Например:
+    // Lietotāja saglabāšanas loģika datubāzē
+    // Piemēram:
     // db.users.insert({ email, password });
 
     res.status(201).json({ message: 'User registered successfully' });

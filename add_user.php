@@ -9,17 +9,25 @@ if (!checkAdminAuth()) {
     exit;
 }
 
-// Get POST data
+// Get POST data (accept JSON)
 $data = json_decode(file_get_contents('php://input'), true);
 
-// Validate required fields
-$required_fields = ['username', 'email', 'password', 'language', 'timezone'];
+// Validate required fields (language/timezone optional)
+$required_fields = ['username', 'email', 'password'];
 foreach ($required_fields as $field) {
     if (!isset($data[$field]) || empty($data[$field])) {
         http_response_code(400);
         echo json_encode(['error' => "Missing required field: $field"]);
         exit;
     }
+}
+
+// Provide defaults for optional fields
+if (empty($data['language'])) {
+    $data['language'] = 'en';
+}
+if (empty($data['timezone'])) {
+    $data['timezone'] = 'UTC';
 }
 
 try {

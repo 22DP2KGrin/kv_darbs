@@ -42,7 +42,7 @@ async function saveTestResult(testData) {
         if (!response.ok) {
             const errorText = await response.text();
             console.error('Server response:', errorText);
-            throw new Error(`Ошибка сервера: ${response.status} ${response.statusText}`);
+            throw new Error(`Servera kļūda: ${response.status} ${response.statusText}`);
         }
 
         let data;
@@ -50,7 +50,7 @@ async function saveTestResult(testData) {
             data = await response.json();
         } catch (e) {
             console.error('Failed to parse JSON response:', e);
-            throw new Error('Сервер вернул некорректный ответ');
+            throw new Error('Serveris atgrieza nekorektu atbildi');
         }
 
         if (!data.success) {
@@ -59,7 +59,7 @@ async function saveTestResult(testData) {
                 window.location.href = '../login.html';
                 return;
             }
-            throw new Error(data.error || 'Не удалось сохранить результат теста');
+            throw new Error(data.error || 'Neizdevās saglabāt testa rezultātu');
         }
 
         return data;

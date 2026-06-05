@@ -341,7 +341,7 @@ function updateUserProgress($pdo, $userId, $topicId) {
     ]);
 }
 
-// Получаем токен сессии из заголовка
+// Iegūstam sesijas tokenu no galvenes
 $sessionToken = $_SERVER['HTTP_X_SESSION_TOKEN'] ?? null;
 
 if (!$sessionToken) {

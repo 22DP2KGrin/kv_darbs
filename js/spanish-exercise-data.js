@@ -125,7 +125,7 @@ const SPANISH_EXERCISE_DATA = {
             { question: '5. Kurš variants ir vispieklājīgākais?', options: ['Quiero esto ahora.', 'Mándemelo hoy.', 'Le agradecería su respuesta.', 'Dime rápido.'], correctAnswer: 2 },
             { question: '6. “Adjunto” e-pastā parasti nozīmē:', options: ['Es atbildu', 'Pielikumā pievienoju', 'Es atvainojos', 'Es pārtraukšu sarunu'], correctAnswer: 1 },
             { question: '7. Kurš vietniekvārds ir formālāks par “tú”?', options: ['vosotros', 'usted', 'nosotros', 'ellos'], correctAnswer: 1 },
-            { question: '8. “Quedo a la espera de su respuesta” nozīmē:', options: ['Esmu beidzis rakstīt', 'Gaиду jūsu atbildi', 'Es jums piezvanīšu', 'Atbildiet vēlāk'], correctAnswer: 1 },
+            { question: '8. “Quedo a la espera de su respuesta” nozīmē:', options: ['Esmu beidzis rakstīt', 'Gaidu jūsu atbildi', 'Es jums piezvanīšu', 'Atbildiet vēlāk'], correctAnswer: 1 },
             { question: '9. Kurš temats ir piemērots formālam e-pastam?', options: ['Holaaa', 'Pregunta', 'Solicitud de información sobre el curso', 'Ey'], correctAnswer: 2 },
             { question: '10. “Atentamente” visbiežāk lieto:', options: ['E-pasta sākumā', 'Starp rindkopām', 'Noslēgumā', 'Faila nosaukumā'], correctAnswer: 2 },
             { question: '11. Kurš variants ir pārāk neformāls?', options: ['Le escribo para confirmar…', 'Muchas gracias por su tiempo.', 'Te mando esto ya.', 'Quedo a su disposición.'], correctAnswer: 2 },

@@ -3,7 +3,7 @@ header('Content-Type: application/json');
 require_once 'config/database.php';
 require_once 'auth/check_auth.php';
 
-// Проверяем авторизацию
+// Pārbaudām autorizāciju
 if (!isLoggedIn()) {
     http_response_code(401);
     echo json_encode(['success' => false, 'error' => 'Unauthorized']);
@@ -13,7 +13,7 @@ if (!isLoggedIn()) {
 $user_id = $_SESSION['user_id'];
 
 try {
-    // Получаем последние результаты тестов
+    // Iegūstam pēdējos testu rezultātus
     $stmt = $pdo->prepare("
         SELECT tr.*, 
                COUNT(te.error_id) as total_errors,
@@ -28,7 +28,7 @@ try {
     $stmt->execute([$user_id]);
     $recent_results = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Для каждого результата получаем детали ошибок
+    // Katram rezultātam iegūstam kļūdu detaļas
     foreach ($recent_results as &$result) {
         $stmt = $pdo->prepare("
             SELECT * FROM test_errors 
@@ -39,7 +39,7 @@ try {
         $result['errors'] = $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // Получаем статистику по уровням
+    // Iegūstam statistiku pa līmeņiem
     $stmt = $pdo->prepare("
         SELECT 
             COUNT(*) as total_tests,

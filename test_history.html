@@ -522,12 +522,12 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Проверяем все возможные ключи для токена сессии
+            // Pārbaudām visas iespējamās sesijas tokena atslēgas
             const sessionToken = localStorage.getItem('sessionToken') || 
                                localStorage.getItem('userSessionToken') || 
                                sessionStorage.getItem('sessionToken');
             
-            // Если токен не найден, показываем сообщение об ошибке вместо редиректа
+            // Ja tokens nav atrasts, rādām kļūdas ziņojumu, nevis pāradresējam
             if (!sessionToken) {
                 showError('Lūdzu, pieslēdzies, lai skatītu savu testu vēsturi');
                 document.getElementById('loading').style.display = 'none';
@@ -537,7 +537,7 @@
             const logoutBtn = document.getElementById('logoutBtn');
             if (logoutBtn) {
                 logoutBtn.addEventListener('click', function() {
-                    // Очищаем все возможные хранилища токена
+                    // Notīrām visas iespējamās tokena glabātuves
                     localStorage.removeItem('sessionToken');
                     localStorage.removeItem('userSessionToken');
                     sessionStorage.removeItem('sessionToken');
@@ -551,7 +551,7 @@
         async function loadTestHistory() {
             console.log('Loading test history...');
             
-            // Получаем токен сессии
+            // Iegūstam sesijas tokenu
             const sessionToken = localStorage.getItem('userSessionToken');
             console.log('Session token:', sessionToken ? 'Found' : 'Not found');
 
@@ -592,7 +592,7 @@
                     if (response.status === 401) {
                         console.error('Session expired or invalid');
                         showError('Tava sesija ir beigusies. Lūdzu, pieslēdzies vēlreiz.');
-                        // Очищаем токен и перенаправляем на страницу входа
+                        // Notīrām tokenu un pāradresējam uz pieteikšanās lapu
                         localStorage.removeItem('userSessionToken');
                         localStorage.removeItem('user');
                         setTimeout(() => {

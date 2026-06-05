@@ -35,6 +35,7 @@
         const path = window.location.pathname.toLowerCase();
 
         if (
+            path.includes('test_runner') ||
             path.includes('/english/test') ||
             path.includes('/french/test') ||
             path.includes('/spanish/test') ||
@@ -365,6 +366,32 @@
         ];
     }
 
+    function buildBrowserFallback(userText, context) {
+        const lower = (userText || '').toLowerCase();
+
+        if (
+            lower.includes('test') ||
+            lower.includes('vingrin') ||
+            lower.includes('uzdev')
+        ) {
+            if (context.pageType === 'test' || context.pageType === 'exercise') {
+                return 'Pilnā AI atbilde pašlaik nav pieejama, bet es joprojām varu palīdzēt ar šo lapu. Nosūti testa jautājumu vai izvēlies "Paskaidro šo jautājumu".';
+            }
+
+            return 'Pilnais AI režīms pašlaik nav pieejams. Administratora izveidotie angļu testi parādās `exercises_english.html` sadaļā `Pieejamie vingrinājumi`.';
+        }
+
+        if (
+            lower.includes('vietn') ||
+            lower.includes('profile') ||
+            lower.includes('login')
+        ) {
+            return 'Ārējais AI pašlaik nav pieejams, bet pamata navigācija ir šāda: pieteikšanās `login.html`, profils `profile.html`, testa vēsture `test_history.html`, angļu vingrinājumi `exercises_english.html`.';
+        }
+
+        return 'Ārējais AI pašlaik nav pieejams, tāpēc atbildu ierobežotā režīmā. Varu palīdzēt ar vietnes navigāciju, testiem, profilu, vēsturi un pašreizējiem uzdevumiem.';
+    }
+
     function createStyles() {
         const style = document.createElement('style');
         style.textContent = `
@@ -612,7 +639,6 @@
                     <textarea class="ai-widget-input" id="aiWidgetInput" placeholder="Piemērs: paskaidro šo jautājumu vienkārši."></textarea>
                     <button class="ai-widget-send" type="submit">Sūtīt</button>
                 </div>
-                <div class="ai-widget-note">Atbildes nāk no backend un var izmantot pašreizējās lapas kontekstu.</div>
             </form>
         `;
 
@@ -716,7 +742,7 @@
                 history.push({ role: 'ai', content: data.reply });
             } catch (error) {
                 loadingMessage.remove();
-                const fallback = 'AI palīgs kļūda: ' + error.message;
+                const fallback = buildBrowserFallback(cleanText, buildPageContext());
                 renderMessage('ai', fallback);
                 history.push({ role: 'ai', content: fallback });
                 console.error('AI widget error:', error);

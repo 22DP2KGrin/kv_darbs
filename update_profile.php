@@ -2,16 +2,16 @@
 header('Content-Type: application/json');
 require_once 'db_connect.php';
 
-// Проверяем метод запроса
+// Pārbaudām pieprasījuma metodi
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     echo json_encode(['success' => false, 'message' => 'Invalid request method']);
     exit;
 }
 
-// Получаем данные из POST запроса
+// Iegūstam datus no POST pieprasījuma
 $data = json_decode(file_get_contents('php://input'), true);
 
-// Проверяем авторизацию
+// Pārbaudām autorizāciju
 $headers = getallheaders();
 $token = isset($headers['Authorization']) ? str_replace('Bearer ', '', $headers['Authorization']) : null;
 
@@ -21,7 +21,7 @@ if (!$token) {
 }
 
 try {
-    // Проверяем токен и получаем ID пользователя
+    // Pārbaudām tokenu un iegūstam lietotāja ID
     $stmt = $pdo->prepare("SELECT user_id FROM sessions WHERE session_token = ? AND expires_at > NOW()");
     $stmt->execute([$token]);
     $session = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -33,7 +33,7 @@ try {
 
     $userId = $session['user_id'];
 
-    // Проверяем, не занят ли email другим пользователем
+    // Pārbaudām, vai e-pastu jau neizmanto cits lietotājs
     if (isset($data['email'])) {
         $stmt = $pdo->prepare("SELECT user_id FROM users WHERE email = ? AND user_id != ?");
         $stmt->execute([$data['email'], $userId]);
@@ -43,10 +43,10 @@ try {
         }
     }
 
-    // Начинаем транзакцию
+    // Sākam transakciju
     $pdo->beginTransaction();
 
-    // Обновляем основную информацию пользователя
+    // Atjauninām lietotāja pamatinformāciju
     $updateFields = [];
     $params = [];
 
@@ -70,9 +70,9 @@ try {
         $params[] = $data['timezone'];
     }
 
-    // Если есть новый пароль, обновляем его
+    // Ja ir jauna parole, atjauninām to
     if (isset($data['newPassword']) && !empty($data['newPassword'])) {
-        // Проверяем текущий пароль
+        // Pārbaudām pašreizējo paroli
         $stmt = $pdo->prepare("SELECT password_hash FROM users WHERE user_id = ?");
         $stmt->execute([$userId]);
         $user = $stmt->fetch(PDO::FETCH_ASSOC);
@@ -87,18 +87,18 @@ try {
     }
 
     if (!empty($updateFields)) {
-        $params[] = $userId; // Добавляем user_id для WHERE условия
+        $params[] = $userId; // Pievienojam user_id WHERE nosacījumam
         $sql = "UPDATE users SET " . implode(", ", $updateFields) . " WHERE user_id = ?";
         $stmt = $pdo->prepare($sql);
         $stmt->execute($params);
     }
 
-    // Получаем обновленные данные пользователя
+    // Iegūstam atjauninātos lietotāja datus
     $stmt = $pdo->prepare("SELECT user_id, username, email, created_at, language, timezone FROM users WHERE user_id = ?");
     $stmt->execute([$userId]);
     $user = $stmt->fetch(PDO::FETCH_ASSOC);
 
-    // Завершаем транзакцию
+    // Pabeidzam transakciju
     $pdo->commit();
 
     echo json_encode([

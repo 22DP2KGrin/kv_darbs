@@ -10,7 +10,7 @@ if (!checkAdminAuth()) {
 }
 
 try {
-    // Получаем данные запроса
+    // Iegūstam pieprasījuma datus
     $data = json_decode(file_get_contents('php://input'), true);
     
     if (!isset($data['action']) || !isset($data['user_id'])) {
@@ -22,38 +22,38 @@ try {
     $action = $data['action'];
     $userId = $data['user_id'];
 
-    // Выполняем запрошенное действие
+    // Izpildām pieprasīto darbību
     switch ($action) {
         case 'delete':
-            // Удаляем пользователя
+            // Dzēšam lietotāju
             $stmt = $pdo->prepare("DELETE FROM users WHERE user_id = ?");
             $stmt->execute([$userId]);
             $message = 'User deleted successfully';
             break;
 
         case 'block':
-            // Блокируем пользователя
+            // Bloķējam lietotāju
             $stmt = $pdo->prepare("UPDATE users SET is_active = 0 WHERE user_id = ?");
             $stmt->execute([$userId]);
             $message = 'User blocked successfully';
             break;
 
         case 'unblock':
-            // Разблокируем пользователя
+            // Atbloķējam lietotāju
             $stmt = $pdo->prepare("UPDATE users SET is_active = 1 WHERE user_id = ?");
             $stmt->execute([$userId]);
             $message = 'User unblocked successfully';
             break;
 
         case 'make_admin':
-            // Назначаем пользователя администратором
+            // Piešķiram lietotājam administratora tiesības
             $stmt = $pdo->prepare("UPDATE users SET is_admin = 1 WHERE user_id = ?");
             $stmt->execute([$userId]);
             $message = 'User promoted to admin successfully';
             break;
 
         case 'remove_admin':
-            // Убираем права администратора
+            // Noņemam administratora tiesības
             $stmt = $pdo->prepare("UPDATE users SET is_admin = 0 WHERE user_id = ?");
             $stmt->execute([$userId]);
             $message = 'Admin privileges removed successfully';

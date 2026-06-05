@@ -103,11 +103,11 @@ function repairFrenchExerciseTopics($pdo) {
 }
 
 try {
-    // Получаем токен сессии из заголовка или POST данных
+    // Iegūstam sesijas tokenu no galvenes vai POST datiem
     $headers = getallheaders();
     $sessionToken = null;
 
-    // Проверяем различные варианты получения токена
+    // Pārbaudām dažādus tokena iegūšanas veidus
     if (isset($headers['Authorization'])) {
         $sessionToken = str_replace('Bearer ', '', $headers['Authorization']);
     } elseif (isset($_POST['session_token'])) {
@@ -116,7 +116,7 @@ try {
         $sessionToken = $_GET['session_token'];
     }
 
-    // Если токен не найден, возвращаем ошибку без редиректа
+    // Ja tokens nav atrasts, atgriežam kļūdu bez pāradresācijas
     if (!$sessionToken) {
         http_response_code(401);
         echo json_encode([
@@ -127,13 +127,13 @@ try {
         exit;
     }
 
-    // Подключаемся к базе данных
+    // Pieslēdzamies datubāzei
     $pdo = getDBConnection();
     if (!$pdo) {
         throw new Exception("Failed to connect to the database");
     }
 
-    // Проверяем сессию и получаем информацию о пользователе
+    // Pārbaudām sesiju un iegūstam informāciju par lietotāju
     $sessionQuery = "
         SELECT u.user_id, u.username, u.is_active 
         FROM sessions s 
@@ -167,7 +167,7 @@ try {
     repairFrenchExerciseTopics($pdo);
     repairSpanishExerciseTopics($pdo);
 
-    // Получаем объединенную историю тестов и упражнений
+    // Iegūstam apvienoto testu un vingrinājumu vēsturi
     $testHistoryQuery = "
         SELECT 
             'test' AS result_type,
@@ -239,7 +239,7 @@ try {
     $testHistoryStmt = executeQuery($pdo, $testHistoryQuery, [$userData['user_id'], $userData['user_id']]);
     $testResults = $testHistoryStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Обрабатываем результаты тестов
+    // Apstrādājam testu rezultātus
     foreach ($testResults as &$result) {
         if ($result['question_details']) {
             $result['question_details'] = json_decode($result['question_details'], true);
@@ -252,7 +252,7 @@ try {
         }
     }
 
-    // Получаем общую статистику
+    // Iegūstam kopējo statistiku
     $statsQuery = "
         SELECT 
             (
@@ -319,7 +319,7 @@ try {
     ]);
     $stats = $statsStmt->fetch(PDO::FETCH_ASSOC);
 
-    // Получаем статистику по темам
+    // Iegūstam statistiku pa tēmām
     $topicStatsQuery = "
         SELECT 
             l.language_name,
@@ -376,7 +376,7 @@ try {
     $languageStatsStmt = executeQuery($pdo, $languageStatsQuery, [$userData['user_id'], $userData['user_id']]);
     $languageStats = $languageStatsStmt->fetchAll(PDO::FETCH_ASSOC);
 
-    // Обновляем время истечения сессии
+    // Atjauninām sesijas beigu laiku
     $updateSessionQuery = "
         UPDATE sessions 
         SET expires_at = DATE_ADD(NOW(), INTERVAL 24 HOUR) 
@@ -384,7 +384,7 @@ try {
     ";
     executeQuery($pdo, $updateSessionQuery, [$sessionToken]);
 
-    // Формируем ответ
+    // Veidojam atbildi
     echo json_encode([
         'success' => true,
         'user' => [

@@ -45,7 +45,6 @@ try {
         $password = password_hash('LinguaAdmin@2025!', PASSWORD_DEFAULT);
         $permissions = json_encode([
             'canApproveUsers' => true,
-            'canManageCourses' => true,
             'canManageContent' => true,
             'canViewAnalytics' => true,
             'canManageAdmins' => true,
@@ -89,7 +88,6 @@ try {
             $password = password_hash('LinguaAdmin@2025!', PASSWORD_DEFAULT);
             $permissions = json_encode([
                 'canApproveUsers' => true,
-                'canManageCourses' => true,
                 'canManageContent' => true,
                 'canViewAnalytics' => true,
                 'canManageAdmins' => true,

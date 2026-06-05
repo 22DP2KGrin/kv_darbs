@@ -2,7 +2,7 @@
 header('Content-Type: application/json');
 require_once __DIR__ . '/../config/database.php';
 
-// Получаем токен сессии из заголовка
+// Iegūstam sesijas tokenu no galvenes
 $sessionToken = $_SERVER['HTTP_X_SESSION_TOKEN'] ?? null;
 
 if (!$sessionToken) {
@@ -17,7 +17,7 @@ try {
         throw new Exception('Database connection failed');
     }
     
-    // Проверяем сессию в базе данных
+    // Pārbaudām sesiju datubāzē
     $stmt = $pdo->prepare("
         SELECT s.user_id, u.username, u.email, u.is_active
         FROM sessions s
@@ -35,7 +35,7 @@ try {
         exit;
     }
 
-    // Обновляем время жизни сессии
+    // Atjauninām sesijas derīguma termiņu
     $stmt = $pdo->prepare("
         UPDATE sessions 
         SET expires_at = DATE_ADD(NOW(), INTERVAL 24 HOUR)

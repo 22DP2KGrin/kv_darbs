@@ -7,13 +7,13 @@ function checkAdminAuth() {
     error_log("Checking admin auth...");
     error_log("Session data: " . print_r($_SESSION, true));
     
-    // Проверяем сессию
+    // Pārbaudām sesiju
     if (isset($_SESSION['admin_id']) && isset($_SESSION['is_admin']) && $_SESSION['is_admin']) {
         error_log("Session auth passed");
         return true;
     }
 
-    // Если нет сессии, проверяем токен
+    // Ja sesijas nav, pārbaudām tokenu
     $headers = getallheaders();
     error_log("Request headers: " . print_r($headers, true));
     
@@ -28,7 +28,7 @@ function checkAdminAuth() {
     $token = $matches[1];
     error_log("Token from header: " . $token);
 
-    // Проверяем токен в базе данных
+    // Pārbaudām tokenu datubāzē
     require_once __DIR__ . '/db_connect.php';
     try {
         $stmt = $pdo->prepare("
@@ -43,7 +43,7 @@ function checkAdminAuth() {
 
         if ($session) {
             error_log("Token auth passed for admin_id: " . $session['admin_id']);
-            // Устанавливаем сессию
+            // Iestatām sesiju
             $_SESSION['admin_id'] = $session['admin_id'];
             $_SESSION['is_admin'] = true;
             return true;
@@ -56,7 +56,7 @@ function checkAdminAuth() {
     return false;
 }
 
-// Если файл включен напрямую, проверяем авторизацию
+// Ja fails tiek izsaukts tieši, pārbaudām autorizāciju
 if (basename($_SERVER['PHP_SELF']) === basename(__FILE__)) {
     if (!checkAdminAuth()) {
         http_response_code(401);

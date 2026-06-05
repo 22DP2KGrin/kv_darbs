@@ -140,7 +140,7 @@
     background: #545b62;
 }
 
-/* Адаптивность */
+/* Adaptivitāte */
 @media (max-width: 768px) {
     .results-container {
         margin: 1rem;
@@ -160,7 +160,7 @@
     }
 }
 
-/* Анимации */
+/* Animācijas */
 @keyframes fadeIn {
     from {
         opacity: 0;

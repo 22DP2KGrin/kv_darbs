@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administratora lietotāji | Valodu apguves platforma</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: #333; min-height: 100vh; }
+        .admin-container { display: flex; min-height: 100vh; }
+        .sidebar { width: 280px; background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-right: 1px solid rgba(0,0,0,0.08); padding: 2rem 1rem; position: fixed; height: 100vh; overflow-y: auto; }
+        .logo h1 { color: #667eea; font-size: 1.8rem; margin-bottom: 0.5rem; }
+        .logo p { color: #666; font-size: 0.95rem; }
+        .nav-menu { list-style: none; margin: 0; padding: 0; }
+        .nav-item { margin-bottom: 0.5rem; }
+        .nav-link { display: flex; align-items: center; padding: 0.95rem 1rem; border-radius: 14px; color: #333; text-decoration: none; transition: all 0.2s ease; }
+        .nav-link:hover, .nav-link.active { background: rgba(102,126,234,0.15); color: #2f55d4; }
+        .main-content { flex: 1; margin-left: 280px; padding: 2rem; }
+        .page-header { background: rgba(255,255,255,0.95); backdrop-filter: blur(10px); border-radius: 20px; padding: 2rem; margin-bottom: 1.5rem; box-shadow: 0 12px 40px rgba(0,0,0,0.08); }
+        .page-header h1 { font-size: 2rem; margin-bottom: 0.5rem; }
+        .page-header p { color: #555; font-size: 1rem; }
+        .button-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1rem; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 0.75rem 1.1rem; border-radius: 999px; text-decoration: none; color: #fff; background: linear-gradient(135deg, #667eea, #764ba2); border: none; cursor: pointer; }
+        .btn-success { background: linear-gradient(135deg, #28a745, #20c997); }
+        .btn-secondary { background: rgba(0,0,0,0.08); color: #333; }
+        .table-container { background: rgba(255,255,255,0.95); border-radius: 20px; overflow: hidden; box-shadow: 0 14px 40px rgba(0,0,0,0.08); }
+        .table { width: 100%; border-collapse: collapse; }
+        .table th, .table td { padding: 1rem; border-bottom: 1px solid #e9ecef; text-align: left; }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.5); align-items: center; justify-content: center; padding: 1rem; }
+        .modal-content { background: #fff; width: 100%; max-width: 520px; border-radius: 16px; padding: 1.75rem; box-shadow: 0 20px 60px rgba(0,0,0,0.12); }
+        @media (max-width: 900px) { .admin-container { flex-direction: column; } .sidebar { position: relative; width: 100%; height: auto; } .main-content { margin-left: 0; } }
+    </style>
+</head>
+<body>
+    <div class="admin-container">
+        <aside class="sidebar">
+            <div class="logo">
+                <h1>🌐 LinguaAdmin</h1>
+                <p>Administratora panelis</p>
+            </div>
+            <ul class="nav-menu">
+                <li class="nav-item"><a href="admin_dashboard.html" class="nav-link">📊 Pārskats</a></li>
+                <li class="nav-item"><a href="admin_users.html" class="nav-link active">👥 Lietotāji</a></li>
+                <li class="nav-item"><a href="admin_tests.html" class="nav-link">📝 Testi</a></li>
+            </ul>
+        </aside>
+
+        <div class="admin-info" id="adminInfo">Administrators</div>
+
+        <main class="main-content">
+            <div class="page-header">
+                <h1>Lietotāju pārvaldība</h1>
+                <p>Pievieno un pārvaldi platformas lietotājus.</p>
+            </div>
+
+            <div class="button-row">
+                <a href="admin_dashboard.html" class="btn btn-secondary">🏠 Atpakaļ uz pārskatu</a>
+                <a href="admin_tests.html" class="btn btn-secondary">📝 Testi</a>
+                <button class="btn btn-success" id="openAddUserBtn">Pievienot jaunu lietotāju</button>
+            </div>
+
+            <div class="table-container">
+                <table class="table" id="usersTable">
+                    <thead>
+                        <tr><th>ID</th><th>Lietotājvārds</th><th>E-pasts</th><th>Izveidots</th><th>Statuss</th><th>Darbības</th></tr>
+                    </thead>
+                    <tbody id="usersTableBody"><tr><td colspan="6" style="text-align:center;color:#666">Ielādē...</td></tr></tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <div id="addUserModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.5);">
+        <div style="background:#fff; width:90%; max-width:480px; margin:3rem auto; padding:1.5rem; border-radius:8px;">
+            <h2>Pievienot lietotāju</h2>
+            <form id="addUserForm">
+                <div style="margin-bottom:.75rem;"><label>Lietotājvārds</label><input name="username" required style="width:100%"></div>
+                <div style="margin-bottom:.75rem;"><label>E-pasts</label><input name="email" type="email" required style="width:100%"></div>
+                <div style="margin-bottom:.75rem;"><label>Parole</label><input name="password" type="password" required style="width:100%"></div>
+                <div style="display:flex; gap:.5rem; justify-content:flex-end;"><button type="submit" class="btn btn-success">Pievienot</button><button type="button" class="btn btn-secondary" id="cancelAddUser">Atcelt</button></div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        async function loadUsers(){
+            try{
+                const res=await fetch('get_users.php');
+                const data=await res.json();
+                if(data.success){
+                    document.getElementById('usersTableBody').innerHTML = data.users.map(u=>`<tr><td>${u.user_id}</td><td>${u.username}</td><td>${u.email}</td><td>${u.created_at}</td><td>${u.is_active? 'Active':'Inactive'}</td><td><button data-id="${u.user_id}" class="delBtn">Dzēst</button></td></tr>`).join('');
+                    document.querySelectorAll('.delBtn').forEach(b=>b.addEventListener('click', e=>deleteUser(e.target.dataset.id)));
+                } else {
+                    document.getElementById('usersTableBody').innerHTML='<tr><td colspan="6">Neizdevās ielādēt lietotājus</td></tr>';
+                }
+            }catch(e){console.error(e);document.getElementById('usersTableBody').innerHTML='<tr><td colspan="6">Kļūda</td></tr>'}
+        }
+        async function deleteUser(id){ if(!confirm('Dzēst lietotāju?')) return; await fetch('delete_user.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({user_id:id})}); loadUsers(); }
+        document.getElementById('openAddUserBtn').addEventListener('click', e=>{e.preventDefault(); document.getElementById('addUserModal').style.display='block'});
+        document.getElementById('cancelAddUser').addEventListener('click', ()=>document.getElementById('addUserModal').style.display='none');
+        document.getElementById('addUserForm').addEventListener('submit', async (e)=>{ e.preventDefault(); const fd=new FormData(e.target); const obj=Object.fromEntries(fd.entries()); const res=await fetch('add_user.php',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(obj)}); const data=await res.json(); if(data.error){ alert(data.error); } else { document.getElementById('addUserModal').style.display='none'; loadUsers(); }});
+        window.addEventListener('DOMContentLoaded', loadUsers);
+    </script>
+</body>
+</html>

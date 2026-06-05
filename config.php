@@ -161,28 +161,35 @@ function createTables($pdo) {
                 INDEX idx_progress_topic (topic_id)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-            CREATE TABLE IF NOT EXISTS courses (
-                course_id INT AUTO_INCREMENT PRIMARY KEY,
-                course_name VARCHAR(255) NOT NULL,
+            CREATE TABLE IF NOT EXISTS tests (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                test_name VARCHAR(255) NOT NULL,
                 language_id INT NOT NULL,
-                level ENUM('beginner', 'intermediate', 'advanced') DEFAULT 'beginner',
-                description TEXT,
+                topic_id INT DEFAULT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                is_active BOOLEAN DEFAULT TRUE,
                 FOREIGN KEY (language_id) REFERENCES languages(language_id) ON DELETE CASCADE,
-                INDEX idx_course_language (language_id),
-                INDEX idx_course_level (level)
+                FOREIGN KEY (topic_id) REFERENCES topics(topic_id) ON DELETE SET NULL,
+                INDEX idx_test_language (language_id),
+                INDEX idx_test_topic (topic_id)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-            CREATE TABLE IF NOT EXISTS lessons (
-                lesson_id INT AUTO_INCREMENT PRIMARY KEY,
-                course_id INT NOT NULL,
-                lesson_title VARCHAR(255) NOT NULL,
-                lesson_description TEXT,
-                created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-                is_active BOOLEAN DEFAULT TRUE,
-                FOREIGN KEY (course_id) REFERENCES courses(course_id) ON DELETE CASCADE,
-                INDEX idx_lesson_course (course_id)
+            CREATE TABLE IF NOT EXISTS questions (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                test_id INT NOT NULL,
+                question_text TEXT NOT NULL,
+                question_order INT DEFAULT 0,
+                question_type VARCHAR(50) DEFAULT 'single',
+                FOREIGN KEY (test_id) REFERENCES tests(id) ON DELETE CASCADE,
+                INDEX idx_question_test (test_id)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+            CREATE TABLE IF NOT EXISTS answers (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                question_id INT NOT NULL,
+                answer_text TEXT NOT NULL,
+                is_correct BOOLEAN DEFAULT FALSE,
+                FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE,
+                INDEX idx_answer_question (question_id)
             ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
             CREATE TABLE IF NOT EXISTS admins (
@@ -438,7 +445,6 @@ function createTables($pdo) {
             $password = password_hash('LinguaAdmin@2025!', PASSWORD_DEFAULT);
             $permissions = json_encode([
                 'canApproveUsers' => true,
-                'canManageCourses' => true,
                 'canManageContent' => true,
                 'canViewAnalytics' => true,
                 'canManageAdmins' => true,

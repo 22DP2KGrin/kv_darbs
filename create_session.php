@@ -7,7 +7,7 @@ echo "<h1>Creating New Session</h1>";
 try {
     $pdo = getDBConnection();
     
-    // Получаем первого пользователя (di19)
+    // Iegūstam pirmo lietotāju (di19)
     $userStmt = $pdo->query("SELECT user_id, username FROM users WHERE username = 'di19' LIMIT 1");
     $user = $userStmt->fetch();
     
@@ -18,11 +18,11 @@ try {
     
     echo "<p>Found user: {$user['username']} (ID: {$user['user_id']})</p>";
     
-    // Генерируем новый токен сессии
+    // Ģenerējam jaunu sesijas tokenu
     $sessionToken = bin2hex(random_bytes(32));
     $expiresAt = date('Y-m-d H:i:s', strtotime('+24 hours'));
     
-    // Создаем новую сессию
+    // Izveidojam jaunu sesiju
     $insertStmt = $pdo->prepare("
         INSERT INTO sessions (user_id, session_token, expires_at, ip_address, user_agent) 
         VALUES (?, ?, ?, ?, ?)
@@ -40,7 +40,7 @@ try {
     echo "<p><strong>Session Token:</strong> $sessionToken</p>";
     echo "<p><strong>Expires:</strong> $expiresAt</p>";
     
-    // Сохраняем токен в файл для использования
+    // Saglabājam tokenu failā izmantošanai
     file_put_contents('session_token.txt', $sessionToken);
     echo "<p style='color: blue;'>Token saved to session_token.txt</p>";
     

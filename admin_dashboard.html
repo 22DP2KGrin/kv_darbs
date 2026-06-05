@@ -248,6 +248,105 @@
             font-size: 0.9rem;
         }
 
+        .analytics-grid {
+            display: grid;
+            grid-template-columns: minmax(0, 1.5fr) minmax(220px, 0.8fr);
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .chart-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 1.5rem;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        .chart-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 1.25rem;
+        }
+
+        .bar-chart {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .bar-row {
+            display: grid;
+            grid-template-columns: 150px 1fr 56px;
+            gap: 0.75rem;
+            align-items: center;
+        }
+
+        .bar-label {
+            color: #555;
+            font-weight: 600;
+            font-size: 0.92rem;
+        }
+
+        .bar-track {
+            height: 14px;
+            background: rgba(102, 126, 234, 0.12);
+            border-radius: 999px;
+            overflow: hidden;
+        }
+
+        .bar-fill {
+            width: 0%;
+            height: 100%;
+            border-radius: inherit;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.4s ease;
+        }
+
+        .bar-value {
+            color: #333;
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .donut-wrap {
+            display: grid;
+            place-items: center;
+            gap: 1rem;
+        }
+
+        .donut-chart {
+            --value: 0%;
+            width: 160px;
+            height: 160px;
+            border-radius: 50%;
+            background: conic-gradient(#667eea var(--value), rgba(102, 126, 234, 0.14) 0);
+            display: grid;
+            place-items: center;
+            position: relative;
+        }
+
+        .donut-chart::before {
+            content: '';
+            width: 108px;
+            height: 108px;
+            border-radius: 50%;
+            background: white;
+            position: absolute;
+        }
+
+        .donut-value {
+            position: relative;
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #667eea;
+        }
+
+        .donut-caption {
+            color: #666;
+            text-align: center;
+            font-size: 0.95rem;
+        }
+
         .table-container {
             background: rgba(255, 255, 255, 0.95);
             border-radius: 20px;
@@ -354,6 +453,19 @@
                 grid-template-columns: repeat(2, 1fr);
             }
 
+            .analytics-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .bar-row {
+                grid-template-columns: 1fr;
+                gap: 0.35rem;
+            }
+
+            .bar-value {
+                text-align: left;
+            }
+
             .admin-info {
                 position: static;
                 margin-bottom: 1rem;
@@ -373,21 +485,21 @@
             <nav>
                 <ul class="nav-menu">
                     <li class="nav-item">
-                        <a href="#dashboard" class="nav-link active">
+                        <a href="admin_dashboard.html" class="nav-link active">
                             <span class="nav-icon">📊</span>
                             Pārskats
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#users" class="nav-link">
+                        <a href="admin_users.html" class="nav-link">
                             <span class="nav-icon">👥</span>
                             Lietotāji
                         </a>
                     </li>
                     <li class="nav-item">
-                        <a href="#courses" class="nav-link">
-                            <span class="nav-icon">📚</span>
-                            Kursi
+                        <a href="admin_tests.html" class="nav-link">
+                            <span class="nav-icon">📝</span>
+                            Testi
                         </a>
                     </li>
                 </ul>
@@ -405,24 +517,41 @@
                 <div class="page-header">
                     <h1 class="page-title">Prieks tevi redzēt atkal!</h1>
                     <p class="page-subtitle">Pārvaldi savu valodu apguves platformu no vienas centrālās vietas.</p>
+                    <div class="button-row" style="margin-top:1.5rem;">
+                        <a href="admin_users.html" class="btn btn-success">Pievienot jaunu lietotāju</a>
+                        <a href="admin_users.html" class="btn btn-secondary">Atvērt lietotāju pārvaldību</a>
+                    </div>
                 </div>
 
-                <div class="stats-grid">
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalUsers">0</div>
-                        <div class="stat-label">Kopējais lietotāju skaits</div>
+                <div class="analytics-grid">
+                    <div class="chart-card">
+                        <div class="chart-title">Platformas aktivitāte</div>
+                        <div class="bar-chart">
+                            <div class="bar-row">
+                                <div class="bar-label">Lietotāji</div>
+                                <div class="bar-track"><div class="bar-fill" id="usersBar"></div></div>
+                                <div class="bar-value" id="usersBarValue">0</div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label">Aktīvie</div>
+                                <div class="bar-track"><div class="bar-fill" id="activeUsersBar"></div></div>
+                                <div class="bar-value" id="activeUsersBarValue">0</div>
+                            </div>
+                            <div class="bar-row">
+                                <div class="bar-label">Testi</div>
+                                <div class="bar-track"><div class="bar-fill" id="testsBar"></div></div>
+                                <div class="bar-value" id="testsBarValue">0</div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="activeCourses">0</div>
-                        <div class="stat-label">Aktīvie kursi</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="totalLessons">0</div>
-                        <div class="stat-label">Kopējais nodarbību skaits</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="newRegistrations">0</div>
-                        <div class="stat-label">Jaunas reģistrācijas</div>
+                    <div class="chart-card">
+                        <div class="chart-title">Vidējais rezultāts</div>
+                        <div class="donut-wrap">
+                            <div class="donut-chart" id="avgScoreDonut">
+                                <div class="donut-value" id="avgScoreDonutValue">0%</div>
+                            </div>
+                            <div class="donut-caption">Kopējais vidējais rezultāts pabeigtajiem testiem</div>
+                        </div>
                     </div>
                 </div>
 
@@ -433,35 +562,12 @@
                             <h3 class="card-title">Ātrās darbības</h3>
                         </div>
                         <p>Ātri veic biežākos administratīvos uzdevumus.</p>
-                        <div style="margin-top: 1rem;">
-                            <button class="btn btn-success" onclick="showAddUserModal()">Pievienot jaunu lietotāju</button>
-                            <button class="btn" onclick="showAddCourseModal()">Izveidot kursu</button>
-                            <button class="btn" onclick="showAddLessonModal()">Pievienot nodarbību</button>
-                            <button class="btn" onclick="showReportModal()">Ģenerēt atskaiti</button>
+                        <div class="button-row" style="margin-top: 1rem;">
+                            <a class="btn btn-success" href="admin_users.html">Pievienot jaunu lietotāju</a>
+                            <a class="btn btn-secondary" href="admin_tests.html">Testi</a>
                         </div>
                     </div>
 
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">📊</div>
-                            <h3 class="card-title">Jaunākās aktivitātes</h3>
-                        </div>
-                        <div class="table-container">
-                            <table class="table">
-                                <thead>
-                                    <tr>
-                                        <th>Lietotājs</th>
-                                        <th>Darbība</th>
-                                        <th>Datums</th>
-                                        <th>Statuss</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="recentActivities">
-                                    <!-- Data will be added via JavaScript -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
                 </div>
             </div>
 
@@ -490,110 +596,6 @@
                             <!-- Users will be loaded here -->
                         </tbody>
                     </table>
-                </div>
-            </div>
-
-            <!-- Courses Page -->
-            <div id="courses" class="page">
-                <div class="page-header">
-                    <h1 class="page-title">Kursu pārvaldība</h1>
-                    <p class="page-subtitle">Pārvaldi valodu apguves kursus un saturu.</p>
-                </div>
-
-                <div class="cards-grid">
-                    <!-- Kursu statistika -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">📊</div>
-                            <h3 class="card-title">Kursu statistika</h3>
-                        </div>
-                        <div class="stats-grid" style="margin-top: 1rem;">
-                            <div class="stat-card">
-                                <div class="stat-number" id="totalCourses">0</div>
-                                <div class="stat-label">Kopējais kursu skaits</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number" id="activeStudenti">0</div>
-                                <div class="stat-label">Aktīvie studenti</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number" id="completedLessons">0</div>
-                                <div class="stat-label">Pabeigtās nodarbības</div>
-                            </div>
-                            <div class="stat-card">
-                                <div class="stat-number" id="averageProgress">0%</div>
-                                <div class="stat-label">Vidējais progress</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Ātrās darbības -->
-                    <div class="card">
-                        <div class="card-header">
-                            <div class="card-icon">⚡</div>
-                            <h3 class="card-title">Ātrās darbības</h3>
-                        </div>
-                        <div style="margin-top: 1rem;">
-                            <button class="btn" onclick="showAddCourseModal()">
-                                <i class="fas fa-plus"></i> Izveidot jaunu kursu
-                            </button>
-                            <button class="btn" onclick="showAddLessonModal()">
-                                <i class="fas fa-book"></i> Pievienot jaunu nodarbību
-                            </button>
-                            <button class="btn" onclick="showImportModal()">
-                                <i class="fas fa-file-import"></i> Importēt saturu
-                            </button>
-                            <button class="btn" onclick="showExportModal()">
-                                <i class="fas fa-file-export"></i> Eksportēt saturu
-                            </button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- Course List -->
-                <div class="card" style="margin-top: 2rem;">
-                    <div class="card-header">
-                        <div class="card-icon">📚</div>
-                        <h3 class="card-title">Pieejamie kursi</h3>
-                        <div style="margin-left: auto; display: flex; gap: 1rem;">
-                            <input type="text" id="courseSearch" placeholder="Meklēt kursus..." style="
-                                padding: 0.5rem;
-                                border: 1px solid #e2e8f0;
-                                border-radius: 8px;
-                                width: 250px;
-                            ">
-                            <select id="courseFilter" style="
-                                padding: 0.5rem;
-                                border: 1px solid #e2e8f0;
-                                border-radius: 8px;
-                            ">
-                                <option value="all">Visas valodas</option>
-                                <option value="en">English</option>
-                                <option value="es">Spanish</option>
-                                <option value="fr">French</option>
-                                <option value="lv">Latvian</option>
-                            </select>
-                        </div>
-                    </div>
-                    <div class="table-container">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>ID</th>
-                                    <th>Kursa nosaukums</th>
-                                    <th>Valoda</th>
-                                    <th>Līmenis</th>
-                                    <th>Studenti</th>
-                                    <th>Progress</th>
-                                    <th>Statuss</th>
-                                    <th>Darbības</th>
-                                </tr>
-                            </thead>
-                            <tbody id="coursesTableBody">
-                                <!-- Courses will be loaded here -->
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
             </div>
 
@@ -641,77 +643,6 @@
                 </div>
             </div>
 
-            <!-- Add Course Modal -->
-            <div id="addCourseModal" class="modal" style="display: none;">
-                <div class="modal-content" style="background: white; width: 90%; max-width: 520px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
-                    <h2 style="margin-bottom: 1.5rem;">Izveidot kursu</h2>
-                    <form id="addCourseForm" style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Kursa nosaukums</label>
-                            <input type="text" name="course_name" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Valoda</label>
-                            <select name="language_id" id="courseLanguageSelect" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
-                            </select>
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Līmenis</label>
-                            <select name="level" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
-                                <option value="beginner">Beginner</option>
-                                <option value="intermediate">Intermediate</option>
-                                <option value="advanced">Advanced</option>
-                            </select>
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Apraksts</label>
-                            <textarea name="description" rows="4" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;"></textarea>
-                        </div>
-                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                            <button type="submit" class="btn btn-success">Saglabāt kursu</button>
-                            <button type="button" class="btn btn-secondary" onclick="closeAddCourseModal()">Atcelt</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Add Lesson Modal -->
-            <div id="addLessonModal" class="modal" style="display: none;">
-                <div class="modal-content" style="background: white; width: 90%; max-width: 520px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
-                    <h2 style="margin-bottom: 1.5rem;">Pievienot nodarbību</h2>
-                    <form id="addLessonForm" style="display: flex; flex-direction: column; gap: 1rem;">
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Kursa izvēle</label>
-                            <select name="course_id" id="lessonCourseSelect" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
-                            </select>
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Nodarbības nosaukums</label>
-                            <input type="text" name="lesson_title" required style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;">
-                        </div>
-                        <div>
-                            <label style="display: block; margin-bottom: 0.5rem;">Nodarbības apraksts</label>
-                            <textarea name="lesson_description" rows="4" style="width: 100%; padding: 0.5rem; border: 1px solid #ddd; border-radius: 8px;"></textarea>
-                        </div>
-                        <div style="display: flex; gap: 1rem; margin-top: 1rem;">
-                            <button type="submit" class="btn btn-success">Saglabāt nodarbību</button>
-                            <button type="button" class="btn btn-secondary" onclick="closeAddLessonModal()">Atcelt</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-            <!-- Report Modal -->
-            <div id="reportModal" class="modal" style="display: none;">
-                <div class="modal-content" style="background: white; width: 90%; max-width: 520px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
-                    <h2 style="margin-bottom: 1.5rem;">Ģenerētā atskaite</h2>
-                    <div id="reportContent" style="display: grid; gap: 1rem;"></div>
-                    <div style="margin-top: 1.5rem; display: flex; justify-content: flex-end; gap: 1rem;">
-                        <button type="button" class="btn btn-secondary" onclick="closeReportModal()">Aizvērt</button>
-                    </div>
-                </div>
-            </div>
-
             <!-- Apstiprinātation Modal -->
             <div id="confirmModal" class="modal" style="display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.5); z-index: 1000;">
                 <div class="modal-content" style="background: white; width: 90%; max-width: 400px; margin: 2rem auto; padding: 2rem; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.2);">
@@ -739,11 +670,6 @@
             loadAdministratorsData();
             // Load statistics
             loadDashboardStats();
-            // Load recent activities
-            loadRecentActivities();
-            // Load language list for courses
-            loadLanguages();
-            loadCourses();
             loadUsers();
         });
 
@@ -805,119 +731,50 @@
                 console.log('Stats response:', data);
                 if (data.success) {
                     const stats = data.stats;
-                    if (document.getElementById('totalUsers')) {
-                        document.getElementById('totalUsers').textContent = stats.total_users;
-                    }
-                    if (document.getElementById('activeCourses')) {
-                        document.getElementById('activeCourses').textContent = stats.total_courses;
-                    }
-                    if (document.getElementById('totalLessons')) {
-                        document.getElementById('totalLessons').textContent = stats.total_lessons;
-                    }
-                    if (document.getElementById('newRegistrations')) {
-                        document.getElementById('newRegistrations').textContent = stats.active_users;
-                    }
-                    if (document.getElementById('totalCourses')) {
-                        document.getElementById('totalCourses').textContent = stats.total_courses;
-                    }
-                    if (document.getElementById('activeStudenti')) {
-                        document.getElementById('activeStudenti').textContent = stats.active_users;
-                    }
-                    if (document.getElementById('completedLessons')) {
-                        document.getElementById('completedLessons').textContent = stats.total_lessons;
-                    }
-                    if (document.getElementById('averageProgress')) {
-                        document.getElementById('averageProgress').textContent = `${stats.avg_score}%`;
-                    }
+                    renderDashboardCharts(stats);
                 }
             } catch (error) {
                 console.error('Error loading stats:', error);
             }
         }
 
-        // Load recent activities
-        async function loadRecentActivities() {
-            console.log('Loading activities');
-            
-            try {
-                const response = await fetch('admin_activities.php', {
-                    headers: getAuthHeaders()
-                });
-                console.log('Activities response status:', response.status);
-                const data = await response.json();
-                console.log('Activities response:', data);
-                if (data.success) {
-                    const tbody = document.getElementById('recentActivities');
-                    tbody.innerHTML = data.activities.map(activity => `
-                        <tr>
-                            <td>${activity.user_name || 'Sistēma'}</td>
-                            <td>${activity.action}</td>
-                            <td>${new Date(activity.created_at).toLocaleString()}</td>
-                            <td><span class="badge badge-success">${activity.description}</span></td>
-                        </tr>
-                    `).join('');
+        function renderDashboardCharts(stats) {
+            const totalUsers = Number(stats.total_users || 0);
+            const activeUsers = Number(stats.active_users || 0);
+            const totalTests = Number(stats.total_tests || 0);
+            const avgScore = Math.max(0, Math.min(100, Number(stats.avg_score || 0)));
+            const maxValue = Math.max(totalUsers, activeUsers, totalTests, 1);
+
+            const bars = [
+                ['usersBar', 'usersBarValue', totalUsers],
+                ['activeUsersBar', 'activeUsersBarValue', activeUsers],
+                ['testsBar', 'testsBarValue', totalTests]
+            ];
+
+            bars.forEach(([barId, valueId, value]) => {
+                const bar = document.getElementById(barId);
+                const valueElement = document.getElementById(valueId);
+                if (bar) {
+                    bar.style.width = `${Math.round((value / maxValue) * 100)}%`;
                 }
-            } catch (error) {
-                console.error('Error loading activities:', error);
+                if (valueElement) {
+                    valueElement.textContent = value;
+                }
+            });
+
+            const donut = document.getElementById('avgScoreDonut');
+            const donutValue = document.getElementById('avgScoreDonutValue');
+            if (donut) {
+                donut.style.setProperty('--value', `${avgScore}%`);
+            }
+            if (donutValue) {
+                donutValue.textContent = `${avgScore}%`;
             }
         }
 
         // Modal window functions
         function showAddUserModal() {
             document.getElementById('addUserModal').style.display = 'block';
-        }
-
-        async function showAddCourseModal() {
-            await loadLanguages();
-            document.getElementById('addCourseModal').style.display = 'block';
-        }
-
-        async function showAddLessonModal(courseId = null) {
-            await loadCourses();
-            const lessonCourseSelect = document.getElementById('lessonCourseSelect');
-            if (lessonCourseSelect && courseId) {
-                lessonCourseSelect.value = courseId;
-            }
-            document.getElementById('addLessonModal').style.display = 'block';
-        }
-
-        function showReportModal() {
-            fetch('admin_stats.php', {
-                headers: getAuthHeaders()
-            })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        const reportContent = document.getElementById('reportContent');
-                        reportContent.innerHTML = `
-                            <div><strong>Kopējie lietotāji:</strong> ${data.stats.total_users}</div>
-                            <div><strong>Aktīvie lietotāji (30 dienās):</strong> ${data.stats.active_users}</div>
-                            <div><strong>Kursu skaits:</strong> ${data.stats.total_courses}</div>
-                            <div><strong>Nodarbību skaits:</strong> ${data.stats.total_lessons}</div>
-                            <div><strong>Pabeigtie testi:</strong> ${data.stats.total_tests}</div>
-                            <div><strong>Vidējais rezultāts:</strong> ${data.stats.avg_score}%</div>
-                        `;
-                        document.getElementById('reportModal').style.display = 'block';
-                    } else {
-                        showNotification('Nevarēja ielādēt atskaiti', 'error');
-                    }
-                })
-                .catch(error => {
-                    console.error('Error loading report:', error);
-                    showNotification('Error loading report', 'error');
-                });
-        }
-
-        function closeAddCourseModal() {
-            document.getElementById('addCourseModal').style.display = 'none';
-        }
-
-        function closeAddLessonModal() {
-            document.getElementById('addLessonModal').style.display = 'none';
-        }
-
-        function closeReportModal() {
-            document.getElementById('reportModal').style.display = 'none';
         }
 
         // Notification system
@@ -960,98 +817,6 @@
             }
         `;
         document.head.appendChild(style);
-
-        async function loadLanguages() {
-            try {
-                const response = await fetch('get_languages.php', {
-                    headers: getAuthHeaders()
-                });
-                const data = await response.json();
-                if (!data.success) {
-                    throw new Error(data.error || 'Cannot load languages');
-                }
-
-                const languageSelect = document.getElementById('courseLanguageSelect');
-                if (languageSelect) {
-                    languageSelect.innerHTML = data.languages.map(lang => `
-                        <option value="${lang.language_id}">${lang.language_name}</option>
-                    `).join('');
-                }
-
-                const courseFilter = document.getElementById('courseFilter');
-                if (courseFilter) {
-                    courseFilter.innerHTML = `
-                        <option value="all">Visas valodas</option>
-                        ${data.languages.map(lang => `
-                            <option value="${lang.language_code}">${lang.language_name}</option>
-                        `).join('')}
-                    `;
-                }
-            } catch (error) {
-                console.error('Error loading languages:', error);
-                showNotification('Error loading course languages', 'error');
-            }
-        }
-
-        async function loadCourses() {
-            try {
-                const response = await fetch('get_courses.php', {
-                    headers: getAuthHeaders()
-                });
-                const data = await response.json();
-                if (!data.success) {
-                    throw new Error(data.error || 'Cannot load courses');
-                }
-
-                renderCourses(data.courses);
-                populateCourseSelects(data.courses);
-                document.getElementById('totalCourses').textContent = data.courses.length;
-                const lessonTotal = data.courses.reduce((sum, item) => sum + Number(item.lesson_count), 0);
-                document.getElementById('completedLessons').textContent = lessonTotal;
-            } catch (error) {
-                console.error('Error loading courses:', error);
-                showNotification('Error loading courses', 'error');
-            }
-        }
-
-        function renderCourses(courses) {
-            const tbody = document.getElementById('coursesTableBody');
-            tbody.innerHTML = courses.map(course => `
-                <tr data-language-code="${course.language_code}">
-                    <td>${course.course_id}</td>
-                    <td>${course.course_name}</td>
-                    <td>${course.language_name}</td>
-                    <td>${course.level}</td>
-                    <td>${course.lesson_count}</td>
-                    <td>0%</td>
-                    <td>${course.is_active ? 'Active' : 'Inactive'}</td>
-                    <td>
-                        <button class="btn btn-secondary btn-sm" onclick="showAddLessonModal(${course.course_id})">Add lesson</button>
-                    </td>
-                </tr>
-            `).join('');
-        }
-
-        function populateCourseSelects(courses) {
-            const lessonCourseSelect = document.getElementById('lessonCourseSelect');
-            if (!lessonCourseSelect) return;
-            lessonCourseSelect.innerHTML = courses.map(course => `
-                <option value="${course.course_id}">${course.course_name} (${course.language_name})</option>
-            `).join('');
-        }
-
-        function filterCourseTable() {
-            const search = document.getElementById('courseSearch').value.toLowerCase();
-            const filter = document.getElementById('courseFilter').value;
-            const rows = document.querySelectorAll('#coursesTableBody tr');
-            rows.forEach(row => {
-                const name = row.children[1].textContent.toLowerCase();
-                const languageCode = row.dataset.languageCode || '';
-                const matchSearch = !search || name.includes(search);
-                const matchFilter = filter === 'all' || languageCode === filter;
-                row.style.display = (matchSearch && matchFilter) ? '' : 'none';
-            });
-        }
 
         // Lietotāju pārvaldība Functions
         function loadUsers() {
@@ -1177,76 +942,6 @@
                 showNotification('Error adding user', 'error');
             }
         });
-
-        // Add Course Form Submit
-        document.getElementById('addCourseForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const courseData = Object.fromEntries(formData.entries());
-
-            try {
-                const response = await fetch('add_course.php', {
-                    method: 'POST',
-                    headers: getAuthHeaders({
-                        'Content-Type': 'application/json'
-                    }),
-                    body: JSON.stringify(courseData)
-                });
-
-                const data = await response.json();
-                if (data.error) {
-                    showNotification(data.error, 'error');
-                } else {
-                    showNotification('Course created successfully', 'success');
-                    closeAddCourseModal();
-                    e.target.reset();
-                    loadCourses();
-                }
-            } catch (error) {
-                console.error('Error adding course:', error);
-                showNotification('Error adding course', 'error');
-            }
-        });
-
-        // Add Lesson Form Submit
-        document.getElementById('addLessonForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const formData = new FormData(e.target);
-            const lessonData = Object.fromEntries(formData.entries());
-
-            try {
-                const response = await fetch('add_lesson.php', {
-                    method: 'POST',
-                    headers: getAuthHeaders({
-                        'Content-Type': 'application/json'
-                    }),
-                    body: JSON.stringify(lessonData)
-                });
-
-                const data = await response.json();
-                if (data.error) {
-                    showNotification(data.error, 'error');
-                } else {
-                    showNotification('Lesson added successfully', 'success');
-                    closeAddLessonModal();
-                    e.target.reset();
-                    loadCourses();
-                }
-            } catch (error) {
-                console.error('Error adding lesson:', error);
-                showNotification('Error adding lesson', 'error');
-            }
-        });
-
-        const courseSearch = document.getElementById('courseSearch');
-        if (courseSearch) {
-            courseSearch.addEventListener('input', filterCourseTable);
-        }
-
-        const courseFilter = document.getElementById('courseFilter');
-        if (courseFilter) {
-            courseFilter.addEventListener('change', filterCourseTable);
-        }
 
         // Close modals when clicking outside
         window.onclick = function(event) {

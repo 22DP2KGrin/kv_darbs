@@ -1,16 +1,19 @@
--- Создание базы данных
+-- Datubāzes izveide
 CREATE DATABASE IF NOT EXISTS language_learning_platform 
 CHARACTER SET utf8mb4 
 COLLATE utf8mb4_unicode_ci;
 
 USE language_learning_platform;
 
--- Удаление существующих таблиц (если они есть)
+-- Esošo tabulu dzēšana (ja tādas ir)
 DROP TABLE IF EXISTS exercise_answers;
 DROP TABLE IF EXISTS exercise_results;
 DROP TABLE IF EXISTS user_progress;
 DROP TABLE IF EXISTS test_errors;
 DROP TABLE IF EXISTS test_results;
+DROP TABLE IF EXISTS answers;
+DROP TABLE IF EXISTS questions;
+DROP TABLE IF EXISTS tests;
 DROP TABLE IF EXISTS sessions;
 DROP TABLE IF EXISTS admin_activity_log;
 DROP TABLE IF EXISTS admin_sessions;
@@ -19,7 +22,7 @@ DROP TABLE IF EXISTS topics;
 DROP TABLE IF EXISTS languages;
 DROP TABLE IF EXISTS users;
 
--- Таблица пользователей
+-- Lietotāju tabula
 CREATE TABLE users (
     user_id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -44,7 +47,7 @@ CREATE TABLE users (
     INDEX idx_is_active (is_active)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Таблица языков
+-- Valodu tabula
 CREATE TABLE languages (
     language_id INT AUTO_INCREMENT PRIMARY KEY,
     language_name VARCHAR(50) NOT NULL UNIQUE,
@@ -53,7 +56,7 @@ CREATE TABLE languages (
     INDEX idx_language_code (language_code)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Таблица тем
+-- Tēmu tabula
 CREATE TABLE topics (
     topic_id INT AUTO_INCREMENT PRIMARY KEY,
     language_id INT NOT NULL,
@@ -65,7 +68,41 @@ CREATE TABLE topics (
     INDEX idx_language_difficulty (language_id, difficulty_level)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Таблица сессий
+-- Administratora izveidoto testu tabula
+CREATE TABLE tests (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    test_name VARCHAR(255) NOT NULL,
+    language_id INT NOT NULL,
+    topic_id INT DEFAULT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (language_id) REFERENCES languages(language_id) ON DELETE CASCADE,
+    FOREIGN KEY (topic_id) REFERENCES topics(topic_id) ON DELETE SET NULL,
+    INDEX idx_test_language (language_id),
+    INDEX idx_test_topic (topic_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Testu jautājumu tabula
+CREATE TABLE questions (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    test_id INT NOT NULL,
+    question_text TEXT NOT NULL,
+    question_order INT DEFAULT 0,
+    question_type VARCHAR(50) DEFAULT 'single',
+    FOREIGN KEY (test_id) REFERENCES tests(id) ON DELETE CASCADE,
+    INDEX idx_question_test (test_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Jautājumu atbilžu tabula
+CREATE TABLE answers (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    question_id INT NOT NULL,
+    answer_text TEXT NOT NULL,
+    is_correct BOOLEAN DEFAULT FALSE,
+    FOREIGN KEY (question_id) REFERENCES questions(id) ON DELETE CASCADE,
+    INDEX idx_answer_question (question_id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- Sesiju tabula
 CREATE TABLE sessions (
     session_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -80,7 +117,7 @@ CREATE TABLE sessions (
     INDEX idx_expires_at (expires_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Таблица администраторов
+-- Administratoru tabula
 CREATE TABLE admins (
     id INT AUTO_INCREMENT PRIMARY KEY,
     username VARCHAR(50) NOT NULL UNIQUE,
@@ -94,7 +131,7 @@ CREATE TABLE admins (
     updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Таблица сессий администраторов
+-- Administratoru sesiju tabula
 CREATE TABLE admin_sessions (
     session_id INT AUTO_INCREMENT PRIMARY KEY,
     admin_id INT NOT NULL,
@@ -108,7 +145,7 @@ CREATE TABLE admin_sessions (
     INDEX idx_admin_session_expires (expires_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Журнал действий администратора
+-- Administratora darbību žurnāls
 CREATE TABLE admin_activity_log (
     id INT AUTO_INCREMENT PRIMARY KEY,
     admin_id INT NOT NULL,
@@ -124,7 +161,7 @@ CREATE TABLE admin_activity_log (
     INDEX idx_admin_activity_created (created_at)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 
--- Таблица результатов тестов
+-- Testu rezultātu tabula
 CREATE TABLE test_results (
     result_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -140,7 +177,7 @@ CREATE TABLE test_results (
     INDEX idx_topic_id (topic_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Таблица для хранения деталей ошибок в тестах
+-- Testu kļūdu detaļu tabula
 CREATE TABLE test_errors (
     error_id INT AUTO_INCREMENT PRIMARY KEY,
     result_id INT NOT NULL,
@@ -152,7 +189,7 @@ CREATE TABLE test_errors (
     INDEX idx_result_id (result_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Таблица результатов упражнений
+-- Vingrinājumu rezultātu tabula
 CREATE TABLE exercise_results (
     exercise_result_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -171,7 +208,7 @@ CREATE TABLE exercise_results (
     INDEX idx_exercise_result_slug (exercise_slug)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Таблица ответов по упражнениям
+-- Vingrinājumu atbilžu tabula
 CREATE TABLE exercise_answers (
     exercise_answer_id INT AUTO_INCREMENT PRIMARY KEY,
     exercise_result_id INT NOT NULL,
@@ -185,7 +222,7 @@ CREATE TABLE exercise_answers (
     INDEX idx_exercise_answer_result (exercise_result_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Общий прогресс пользователя по темам
+-- Lietotāja kopējais progress pa tēmām
 CREATE TABLE user_progress (
     progress_id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
@@ -206,14 +243,14 @@ CREATE TABLE user_progress (
     INDEX idx_progress_topic (topic_id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
--- Вставка языков
+-- Valodu ievietošana
 INSERT INTO languages (language_id, language_name, language_code) VALUES
 (1, 'English', 'en'),
 (2, 'French', 'fr'),
 (3, 'Spanish', 'es'),
 (4, 'Latvian', 'lv');
 
--- Вставка тем из папки exercises
+-- Tēmu ievietošana no exercises mapes
 INSERT INTO topics (topic_id, language_id, topic_name, description, difficulty_level) VALUES
 (1, 1, 'Basic Vocabulary', 'Basic vocabulary exercise.', 'beginner'),
 (2, 1, 'Present Simple', 'Present simple tense exercise.', 'beginner'),
@@ -258,7 +295,7 @@ INSERT INTO topics (topic_id, language_id, topic_name, description, difficulty_l
 (39, 2, 'Email formel', 'Formal email and register in French.', 'advanced'),
 (40, 2, 'Actualités et débat', 'Advanced reading and argumentation in French.', 'advanced');
 
--- Администратор по умолчанию
+-- Noklusējuma administrators
 INSERT INTO admins (username, email, password, role, permissions, is_active) VALUES (
     'PlatformAdmin',
     'admin@languageplatform.com',

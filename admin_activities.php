@@ -11,7 +11,7 @@ if (!checkAdminAuth()) {
 require_once 'config/database.php';
 
 try {
-    // Получаем последние действия
+    // Iegūstam pēdējās darbības
     $stmt = $pdo->prepare("
         SELECT
             a.id,

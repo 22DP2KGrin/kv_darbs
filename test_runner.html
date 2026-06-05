@@ -1,0 +1,359 @@
+<!DOCTYPE html>
+<html lang="lv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tests - Valodu apguves platforma</title>
+    <style>
+        :root {
+            --background: #ffffff;
+            --foreground: #333333;
+            --primary: #4f46e5;
+            --primary-hover: #4338ca;
+            --secondary: #f5f7fa;
+            --border: #ddd;
+            --muted: #6c757d;
+            --success: #2ecc71;
+            --error: #e74c3c;
+            --radius: 0.75rem;
+            --shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            background: var(--secondary);
+            color: var(--foreground);
+            min-height: 100vh;
+        }
+
+        .header {
+            background: var(--background);
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+            padding: 1.25rem 0;
+        }
+
+        .container {
+            width: min(100% - 2rem, 980px);
+            margin: 0 auto;
+        }
+
+        .header-row {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 1rem;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        .logo {
+            font-size: 1.35rem;
+            font-weight: 700;
+        }
+
+        .nav-link {
+            color: var(--primary);
+            font-weight: 600;
+        }
+
+        main {
+            padding: 2rem 0;
+        }
+
+        .test-panel {
+            background: var(--background);
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            padding: 2rem;
+        }
+
+        .test-title {
+            font-size: 2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .test-meta {
+            color: var(--muted);
+            margin-bottom: 1.5rem;
+        }
+
+        .question-card {
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 1.25rem;
+            margin-top: 1rem;
+        }
+
+        .question-title {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        .answer-option {
+            display: flex;
+            gap: 0.75rem;
+            align-items: flex-start;
+            padding: 0.7rem;
+            border-radius: 0.5rem;
+            cursor: pointer;
+        }
+
+        .answer-option:hover {
+            background: rgba(79, 70, 229, 0.06);
+        }
+
+        .actions {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            border-radius: var(--radius);
+            padding: 0.75rem 1.25rem;
+            font-weight: 700;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: var(--primary);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: var(--primary-hover);
+        }
+
+        .btn-secondary {
+            background: var(--secondary);
+            color: var(--foreground);
+            border: 1px solid var(--border);
+        }
+
+        .message {
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-top: 1rem;
+            display: none;
+        }
+
+        .message.success {
+            display: block;
+            background: rgba(46, 204, 113, 0.12);
+            color: #176b3a;
+            border: 1px solid rgba(46, 204, 113, 0.45);
+        }
+
+        .message.error {
+            display: block;
+            background: rgba(231, 76, 60, 0.12);
+            color: #9d2417;
+            border: 1px solid rgba(231, 76, 60, 0.45);
+        }
+
+        .empty-state {
+            color: var(--muted);
+            padding: 1rem;
+            border: 1px dashed var(--border);
+            border-radius: var(--radius);
+        }
+
+        @media (max-width: 640px) {
+            .test-panel {
+                padding: 1.25rem;
+            }
+
+            .test-title {
+                font-size: 1.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="container header-row">
+            <a class="logo" href="index.html">Valodu apguves platforma</a>
+            <a class="nav-link" href="profile.html">Mans profils</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <section class="test-panel">
+                <h1 class="test-title" id="testTitle">Tests</h1>
+                <div class="test-meta" id="testMeta">Ielādējas...</div>
+                <form id="testForm"></form>
+                <div class="actions">
+                    <button class="btn btn-primary" id="submitBtn" type="button">Pabeigt testu</button>
+                    <a class="btn btn-secondary" href="profile.html">Atpakaļ uz profilu</a>
+                </div>
+                <div class="message" id="resultMessage"></div>
+            </section>
+        </div>
+    </main>
+
+    <script>
+        const sessionToken = localStorage.getItem('userSessionToken');
+        const params = new URLSearchParams(window.location.search);
+        const testId = params.get('test_id');
+        const startTime = Date.now();
+        let loadedTest = null;
+        let loadedQuestions = [];
+
+        function escapeHtml(value) {
+            return String(value ?? '')
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#39;');
+        }
+
+        function showMessage(type, text) {
+            const message = document.getElementById('resultMessage');
+            message.className = `message ${type}`;
+            message.textContent = text;
+        }
+
+        function requireLogin() {
+            if (!sessionToken) {
+                localStorage.removeItem('user');
+                window.location.href = 'login.html';
+                return false;
+            }
+            return true;
+        }
+
+        async function loadTest() {
+            if (!requireLogin()) return;
+            if (!testId) {
+                showMessage('error', 'Tests nav norādīts.');
+                return;
+            }
+
+            const response = await fetch(`get_test.php?test_id=${encodeURIComponent(testId)}`);
+            const data = await response.json();
+
+            if (!response.ok || !data.success) {
+                showMessage('error', data.error || 'Neizdevās ielādēt testu.');
+                return;
+            }
+
+            loadedTest = data.test;
+            loadedQuestions = data.questions || [];
+
+            document.getElementById('testTitle').textContent = loadedTest.test_name;
+            document.getElementById('testMeta').textContent = `${loadedTest.language_name || 'Valoda nav norādīta'} - ${loadedTest.topic_name || 'Tēma nav piesaistīta'}`;
+
+            renderQuestions();
+        }
+
+        function renderQuestions() {
+            const form = document.getElementById('testForm');
+            if (!loadedQuestions.length) {
+                form.innerHTML = '<div class="empty-state">Šim testam vēl nav jautājumu.</div>';
+                document.getElementById('submitBtn').disabled = true;
+                return;
+            }
+
+            form.innerHTML = loadedQuestions.map((question, index) => `
+                <fieldset class="question-card">
+                    <legend class="question-title">${index + 1}. ${escapeHtml(question.question_text)}</legend>
+                    ${(question.answers || []).map(answer => `
+                        <label class="answer-option">
+                            <input type="radio" name="question_${question.id}" value="${answer.id}">
+                            <span>${escapeHtml(answer.answer_text)}</span>
+                        </label>
+                    `).join('')}
+                </fieldset>
+            `).join('');
+        }
+
+        async function submitTest() {
+            if (!loadedTest || !loadedQuestions.length) return;
+            if (!loadedTest.topic_id) {
+                showMessage('error', 'Šim testam nav piesaistītas tēmas, tāpēc rezultātu nevar saglabāt.');
+                return;
+            }
+
+            const unanswered = loadedQuestions.find(question => {
+                return !document.querySelector(`input[name="question_${question.id}"]:checked`);
+            });
+
+            if (unanswered) {
+                showMessage('error', 'Lūdzu, atbildi uz visiem jautājumiem.');
+                return;
+            }
+
+            let score = 0;
+            const errors = [];
+
+            loadedQuestions.forEach(question => {
+                const selected = document.querySelector(`input[name="question_${question.id}"]:checked`);
+                const selectedAnswer = (question.answers || []).find(answer => String(answer.id) === selected.value);
+                const correctAnswer = (question.answers || []).find(answer => Number(answer.is_correct) === 1);
+                const isCorrect = selectedAnswer && correctAnswer && String(selectedAnswer.id) === String(correctAnswer.id);
+
+                if (isCorrect) {
+                    score++;
+                } else {
+                    errors.push({
+                        question_id: Number(question.id),
+                        question_text: question.question_text,
+                        user_answer: selectedAnswer ? selectedAnswer.answer_text : '',
+                        correct_answer: correctAnswer ? correctAnswer.answer_text : ''
+                    });
+                }
+            });
+
+            const payload = {
+                result_type: 'test',
+                topic_id: Number(loadedTest.topic_id),
+                score,
+                max_score: loadedQuestions.length,
+                time_spent: Math.floor((Date.now() - startTime) / 1000),
+                errors
+            };
+
+            const response = await fetch('api/save_test_result.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-Session-Token': sessionToken
+                },
+                body: JSON.stringify(payload)
+            });
+
+            const data = await response.json();
+            if (!response.ok || !data.success) {
+                showMessage('error', data.error || 'Neizdevās saglabāt rezultātu.');
+                return;
+            }
+
+            showMessage('success', `Rezultāts saglabāts: ${score}/${loadedQuestions.length}.`);
+            document.getElementById('submitBtn').disabled = true;
+        }
+
+        document.getElementById('submitBtn').addEventListener('click', submitTest);
+        loadTest().catch(error => {
+            console.error('Test load error:', error);
+            showMessage('error', 'Neizdevās ielādēt testu.');
+        });
+    </script>
+</body>
+</html>

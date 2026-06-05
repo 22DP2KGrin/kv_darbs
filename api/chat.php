@@ -131,6 +131,21 @@ function extractTextFromResponse($response) {
     return trim(implode("\n", $chunks));
 }
 
+function sendLocalReply($action, $messages, $pageContext, $reason = '') {
+    if ($reason !== '') {
+        aiLog('Serving local AI reply. Reason: ' . $reason);
+    } else {
+        aiLog('Serving local AI reply');
+    }
+
+    echo json_encode([
+        'success' => true,
+        'reply' => buildLocalReply($action, $messages, $pageContext),
+        'model' => 'local-site-assistant'
+    ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+    exit();
+}
+
 function normalizeLocalText($text) {
     $text = mb_strtolower((string) $text, 'UTF-8');
     $text = preg_replace('/[^\p{L}\p{N}\s]/u', ' ', $text);
@@ -172,7 +187,6 @@ function buildLocalReply($action, $messages, $pageContext) {
         $lastMessage = mb_strtolower(trim((string) ($last['content'] ?? '')), 'UTF-8');
     }
 
-    $isRussian = preg_match('/[А-Яа-яЁё]/u', $lastMessage) === 1;
     $pageType = mb_strtolower((string) ($pageContext['pageType'] ?? ''), 'UTF-8');
     $sectionTitle = (string) ($pageContext['sectionTitle'] ?? $pageContext['pageTitle'] ?? '');
     $question = trim((string) ($pageContext['currentQuestion'] ?? ''));
@@ -181,8 +195,6 @@ function buildLocalReply($action, $messages, $pageContext) {
     $testAnswers = is_array($pageContext['testAnswers'] ?? null) ? $pageContext['testAnswers'] : [];
 
     $asksForAnswer =
-        str_contains($lastMessage, 'правильн') ||
-        str_contains($lastMessage, 'ответ') ||
         str_contains($lastMessage, 'atbild') ||
         str_contains($lastMessage, 'pareiz') ||
         str_contains($lastMessage, 'correct') ||
@@ -218,9 +230,7 @@ function buildLocalReply($action, $messages, $pageContext) {
         }
 
         if ($bestMatch && ($asksForAnswer || $bestScore >= 3)) {
-            return $isRussian
-                ? "Правильный ответ: " . $bestMatch['answer'] . "\nВопрос: " . $bestMatch['question']
-                : "Pareizā atbilde: " . $bestMatch['answer'] . "\nJautājums: " . $bestMatch['question'];
+            return "Pareizā atbilde: " . $bestMatch['answer'] . "\nJautājums: " . $bestMatch['question'];
         }
     }
 
@@ -228,64 +238,77 @@ function buildLocalReply($action, $messages, $pageContext) {
         $answerText = trim((string) $currentCorrectAnswer['answer']);
         $answerQuestion = trim((string) ($currentCorrectAnswer['question'] ?? $question));
 
-        return $isRussian
-            ? "Правильный ответ: " . $answerText . ($answerQuestion !== '' ? "\nВопрос: " . $answerQuestion : '')
-            : "Pareizā atbilde: " . $answerText . ($answerQuestion !== '' ? "\nJautājums: " . $answerQuestion : '');
+        return "Pareizā atbilde: " . $answerText . ($answerQuestion !== '' ? "\nJautājums: " . $answerQuestion : '');
     }
 
     if (
-        str_contains($lastMessage, 'истор') ||
+        str_contains($lastMessage, 'kur') ||
+        str_contains($lastMessage, 'where')
+    ) {
+        if (
+            str_contains($lastMessage, 'english') ||
+            str_contains($lastMessage, 'angļu')
+        ) {
+            return "Angļu vingrinājumi un administratora izveidotie angļu testi ir lapā `exercises_english.html`, sadaļā `Pieejamie vingrinājumi`.";
+        }
+
+        if (
+            str_contains($lastMessage, 'vēstur') ||
+            str_contains($lastMessage, 'history')
+        ) {
+            return "Testu vēsture ir lapā `test_history.html`. Tur parādās rezultāti pēc testa pabeigšanas.";
+        }
+    }
+
+    if (
+        str_contains($lastMessage, 'admin') ||
+        str_contains($lastMessage, 'izveidot')
+    ) {
+        return "Administratora izveidotie testi tiek piesaistīti valodai un tēmai. Angļu tests parādās `exercises_english.html` sadaļā `Pieejamie vingrinājumi`. Lai to varētu pildīt, testam jābūt jautājumiem un pareizajām atbildēm.";
+    }
+
+    if (
+        str_contains($lastMessage, 'kļūd') ||
+        str_contains($lastMessage, 'error')
+    ) {
+        return "Ja vietnē parādās kļūda, pārbaudi: lapa atvērta caur lokālu serveri, lietotājs ir pieslēdzies, PHP API atgriež JSON, un `logs/php_errors.log` nav jaunas kļūdas. AI kļūdām bieži iemesls ir OpenAI API atslēga, kvota vai tīkls.";
+    }
+
+    if (
         str_contains($lastMessage, 'vēstur') ||
         str_contains($lastMessage, 'history')
     ) {
-        return $isRussian
-            ? "История тестов находится на странице `test_history.html`. Она показывает результаты, сохранённые после прохождения тестов.\nЕсли история пустая, проверь: ты вошла в аккаунт, тест был завершён кнопкой отправки, и `api/save_test_result.php` успешно сохранил результат."
-            : "Testa vēsture ir lapā `test_history.html`. Tā rāda rezultātus, kas saglabāti pēc testa pabeigšanas.\nJa vēsture ir tukša, pārbaudi: lietotājs ir pieslēdzies, tests ir pabeigts un `api/save_test_result.php` saglabāja rezultātu.";
+        return "Testa vēsture ir lapā `test_history.html`. Tā rāda rezultātus, kas saglabāti pēc testa pabeigšanas.\nJa vēsture ir tukša, pārbaudi: lietotājs ir pieslēdzies, tests ir pabeigts un `api/save_test_result.php` saglabāja rezultātu.";
     }
 
     if (
-        str_contains($lastMessage, 'вход') ||
-        str_contains($lastMessage, 'логин') ||
         str_contains($lastMessage, 'login') ||
         str_contains($lastMessage, 'pieteik') ||
-        str_contains($lastMessage, 'аккаунт') ||
         str_contains($lastMessage, 'account')
     ) {
-        return $isRussian
-            ? "Для входа используется `login.html`, а запрос отправляется в `api/login_process.php`. После успешного входа сайт сохраняет `userSessionToken`, и хедер показывает иконку аккаунта вместо кнопок входа/регистрации."
-            : "Pieteikšanās notiek lapā `login.html`, un pieprasījums iet uz `api/login_process.php`. Pēc veiksmīgas pieteikšanās tiek saglabāts `userSessionToken`, un header rāda profila ikonu.";
+        return "Pieteikšanās notiek lapā `login.html`, un pieprasījums iet uz `api/login_process.php`. Pēc veiksmīgas pieteikšanās tiek saglabāts `userSessionToken`, un header rāda profila ikonu.";
     }
 
     if (
-        str_contains($lastMessage, 'профил') ||
         str_contains($lastMessage, 'profile') ||
         str_contains($lastMessage, 'profils')
     ) {
-        return $isRussian
-            ? "Профиль находится на `profile.html`. Там должны отображаться данные текущего пользователя. Если профиль не открывается, сначала проверь, есть ли вход в аккаунт и сохранён ли `userSessionToken`."
-            : "Profils ir lapā `profile.html`. Tur jāparādās pašreizējā lietotāja datiem. Ja profils neatveras, pārbaudi, vai lietotājs ir pieslēdzies un vai ir `userSessionToken`.";
+        return "Profils ir lapā `profile.html`. Tur jāparādās pašreizējā lietotāja datiem. Ja profils neatveras, pārbaudi, vai lietotājs ir pieslēdzies un vai ir `userSessionToken`.";
     }
 
     if (
-        str_contains($lastMessage, 'сайт') ||
         str_contains($lastMessage, 'vietn') ||
         str_contains($lastMessage, 'platform')
     ) {
-        return $isRussian
-            ? "На сайте есть главная страница, страницы упражнений по языкам, тесты, профиль и история тестов. Если ты вошла в аккаунт, в хедере показывается иконка аккаунта; если нет, показываются кнопки входа и регистрации."
-            : "Vietnē ir sākumlapa, valodu vingrinājumi, testi, profils un testa vēsture. Ja lietotājs ir pieslēdzies, header rāda profila ikonu; ja nav, rāda pieteikšanās un reģistrācijas pogas.";
+        return "Vietnē ir sākumlapa, valodu vingrinājumi, testi, profils un testa vēsture. Ja lietotājs ir pieslēdzies, header rāda profila ikonu; ja nav, rāda pieteikšanās un reģistrācijas pogas.";
     }
 
     if (
         str_contains($lastMessage, 'test') ||
-        str_contains($lastMessage, 'тест') ||
         str_contains($lastMessage, 'uzdev') ||
-        str_contains($lastMessage, 'задан') ||
         str_contains($lastMessage, 'vingrin')
     ) {
-        return $isRussian
-            ? "Тесты и задания открываются только после входа в аккаунт. На страницах тестов можно отвечать на вопросы, а после завершения результат должен сохраняться в историю тестов."
-            : "Testi un vingrinājumi atveras pēc pieteikšanās kontā. Testa lapās var atbildēt uz jautājumiem, un pēc pabeigšanas rezultātam jāparādās testa vēsturē.";
+        return "Testi un vingrinājumi atveras pēc pieteikšanās kontā. Testa lapās var atbildēt uz jautājumiem, un pēc pabeigšanas rezultātam jāparādās testa vēsturē.";
     }
 
     if ($action === 'hint' || str_contains($lastMessage, 'mājien') || str_contains($lastMessage, 'hint')) {
@@ -347,21 +370,19 @@ function buildLocalReply($action, $messages, $pageContext) {
     }
 
     if ($pageType === 'test') {
-        return $isRussian
-            ? "Ты сейчас на странице теста. Я могу объяснить текущий вопрос, дать подсказку или подсказать правило, которое нужно применить."
-            : "Tu pašlaik esi testa lapā. Es varu paskaidrot jautājumu, dot mājienu vai atgādināt noteikumu, kas te noder.";
+        return "Tu pašlaik esi testa lapā. Es varu paskaidrot jautājumu, dot mājienu vai atgādināt noteikumu, kas te noder.";
     }
 
     if ($pageType === 'exercise') {
-        return $isRussian
-            ? "Ты сейчас на странице задания. Я могу объяснить тему, дать подсказку или помочь понять, как выбрать ответ."
-            : "Tu pašlaik esi vingrinājuma lapā. Es varu paskaidrot tēmu, dot mājienu vai palīdzēt saprast, kā izvēlēties atbildi.";
+        return "Tu pašlaik esi vingrinājuma lapā. Es varu paskaidrot tēmu, dot mājienu vai palīdzēt saprast, kā izvēlēties atbildi.";
     }
 
-    return $isRussian
-        ? "Сейчас полный AI-режим недоступен, поэтому я могу отвечать только на основные вопросы о сайте, профиле, входе, тестах и заданиях. Для свободных ответов на любые вопросы нужен рабочий OpenAI API ключ с активной квотой."
-        : "Pašlaik pilnais AI režīms nav pieejams, tāpēc es varu atbildēt tikai uz pamata jautājumiem par vietni, profilu, pieteikšanos, testiem un vingrinājumiem. Brīvām atbildēm vajag derīgu OpenAI API atslēgu ar aktīvu kvotu.";
+    return "Pašlaik pilnais AI režīms nav pieejams, tāpēc es varu atbildēt tikai uz pamata jautājumiem par vietni, profilu, pieteikšanos, testiem un vingrinājumiem. Brīvām atbildēm vajag derīgu OpenAI API atslēgu ar aktīvu kvotu.";
 }
+
+$messages = [];
+$pageContext = [];
+$action = 'general';
 
 try {
     $payload = readJsonInput();
@@ -381,21 +402,17 @@ try {
     $forceLocalMode = getenv('OPENAI_LOCAL_ONLY') === '1' || (defined('OPENAI_LOCAL_ONLY') && OPENAI_LOCAL_ONLY);
 
     if (!$apiKey || $forceLocalMode) {
-        aiLog('Serving local AI reply');
-        echo json_encode([
-            'success' => true,
-            'reply' => buildLocalReply($action, $messages, $pageContext),
-            'model' => 'local-assistant'
-        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-        exit();
+        sendLocalReply($action, $messages, $pageContext, !$apiKey ? 'missing API key' : 'local mode enabled');
     }
 
     if (!function_exists('curl_init')) {
         aiLog('Missing cURL extension');
-        throw new Exception('PHP cURL paplašinājums nav pieejams uz servera.');
+        sendLocalReply($action, $messages, $pageContext, 'missing PHP cURL extension');
     }
 
-    $instructions = "Tu esi draudzīgs AI palīgs valodu apguves platformā.\n"
+    $instructions = "Tu esi draudzīgs AI palīgs valodu apguves platformā Katrīnas projektā.\n"
+        . "Platformas struktūra: `index.html` ir sākumlapa; valodu vingrinājumi ir `exercises_english.html`, `exercises_french.html`, `exercises_spanish.html`, `exercises_latvian.html`; valodu līmeņa testi ir `english/test.html`, `french/test.html`, `spanish/test.html`, `latvian/test.html`; administratora izveidotie testi tiek rādīti attiecīgās valodas vingrinājumu lapas sadaļā `Pieejamie vingrinājumi`; profils ir `profile.html`; vēsture ir `test_history.html`; pieteikšanās ir `login.html`; reģistrācija ir `signup.html`.\n"
+        . "Tu vari palīdzēt lietotājam saprast vietni, atrast lapas, paskaidrot testu jautājumus, dot mācību plānu, skaidrot kļūdas un palīdzēt sagatavoties testiem.\n"
         . "Atbildi uz jebkuru lietotāja jautājumu: par mācībām, valodām, programmēšanu, ikdienas tēmām vai pašreizējo lapu.\n"
         . "Runā vienkārši, skaidri, atbalstoši un īsi, bet dod pietiekami pilnu atbildi, ja jautājums to prasa.\n"
         . "Atbildi tajā pašā valodā, kurā lietotājs jautā. Ja lietotājs jautā krieviski, atbildi krieviski. Ja latviski, atbildi latviski.\n"
@@ -436,7 +453,7 @@ try {
 
     if ($rawResponse === false) {
         aiLog('cURL transport error: ' . $curlError);
-        throw new Exception('Neizdevās sazināties ar OpenAI: ' . $curlError);
+        sendLocalReply($action, $messages, $pageContext, 'OpenAI transport error: ' . $curlError);
     }
 
     $decoded = json_decode($rawResponse, true);
@@ -444,28 +461,19 @@ try {
     if ($statusCode >= 400) {
         $errorMessage = $decoded['error']['message'] ?? ('OpenAI request failed with status ' . $statusCode);
         aiLog('OpenAI HTTP error ' . $statusCode . ': ' . $errorMessage);
-        if (str_contains(mb_strtolower($errorMessage, 'UTF-8'), 'quota')) {
-            aiLog('Serving local AI reply because of quota error');
-            echo json_encode([
-                'success' => true,
-                'reply' => buildLocalReply($action, $messages, $pageContext),
-                'model' => 'local-assistant'
-            ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-            exit();
-        }
-        throw new Exception($errorMessage);
+        sendLocalReply($action, $messages, $pageContext, 'OpenAI HTTP error ' . $statusCode);
     }
 
     if (!is_array($decoded)) {
         aiLog('Invalid JSON from OpenAI: ' . substr($rawResponse, 0, 400));
-        throw new Exception('Nederīga atbilde no OpenAI');
+        sendLocalReply($action, $messages, $pageContext, 'invalid OpenAI JSON');
     }
 
     $reply = extractTextFromResponse($decoded);
 
     if ($reply === '') {
         aiLog('Empty text reply from OpenAI');
-        throw new Exception('OpenAI neatgrieza teksta atbildi');
+        sendLocalReply($action, $messages, $pageContext, 'empty OpenAI text reply');
     }
 
     aiLog('Chat reply generated successfully with model ' . $model);
@@ -477,6 +485,16 @@ try {
     ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
 } catch (Exception $e) {
     aiLog('Chat error: ' . $e->getMessage());
+
+    if ($messages) {
+        echo json_encode([
+            'success' => true,
+            'reply' => buildLocalReply($action, $messages, is_array($pageContext) ? $pageContext : []),
+            'model' => 'local-site-assistant'
+        ], JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
+        exit();
+    }
+
     http_response_code(500);
     echo json_encode([
         'success' => false,

@@ -331,59 +331,10 @@
             margin-bottom: 1rem;
         }
 
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .stat-card {
-            background: linear-gradient(135deg, rgba(79, 70, 229, 0.08), rgba(79, 70, 229, 0.02));
-            border: 1px solid rgba(79, 70, 229, 0.15);
-            border-radius: var(--radius);
-            padding: 1.25rem;
-        }
-
-        .stat-label {
-            color: var(--muted-foreground);
-            font-size: 0.95rem;
-            margin-bottom: 0.5rem;
-        }
-
         .stat-value {
             font-size: 1.8rem;
             font-weight: 700;
             color: var(--primary);
-        }
-
-        .table-wrapper {
-            overflow-x: auto;
-            border: 1px solid var(--border);
-            border-radius: var(--radius);
-        }
-
-        .data-table {
-            width: 100%;
-            border-collapse: collapse;
-            background-color: var(--background);
-        }
-
-        .data-table th,
-        .data-table td {
-            padding: 0.9rem 1rem;
-            border-bottom: 1px solid var(--border);
-            text-align: left;
-        }
-
-        .data-table th {
-            background-color: rgba(79, 70, 229, 0.06);
-            color: var(--muted-foreground);
-            font-weight: 600;
-        }
-
-        .data-table tr:last-child td {
-            border-bottom: none;
         }
 
         .result-badge {
@@ -396,6 +347,171 @@
             font-weight: 600;
             background-color: rgba(79, 70, 229, 0.1);
             color: var(--primary);
+            flex-shrink: 0;
+            white-space: nowrap;
+        }
+
+        .chart-list {
+            display: grid;
+            gap: 1rem;
+        }
+
+        .chart-card {
+            display: grid;
+            gap: 0.8rem;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background-color: var(--background);
+        }
+
+        .chart-card-header {
+            display: flex;
+            justify-content: space-between;
+            gap: 1rem;
+            align-items: center;
+            font-weight: 700;
+            min-width: 0;
+            flex-wrap: wrap;
+            row-gap: 0.35rem;
+        }
+
+        .chart-card-header > span:first-child {
+            min-width: 0;
+            overflow-wrap: anywhere;
+        }
+
+        .chart-meta {
+            color: var(--muted-foreground);
+            font-size: 0.92rem;
+        }
+
+        .progress-track {
+            height: 14px;
+            overflow: hidden;
+            border-radius: 999px;
+            background-color: rgba(79, 70, 229, 0.12);
+        }
+
+        .progress-fill {
+            height: 100%;
+            min-width: 6px;
+            border-radius: inherit;
+            background: linear-gradient(90deg, var(--primary), var(--success));
+        }
+
+        .result-chart-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(min(100%, 360px), 1fr));
+            gap: 1rem;
+        }
+
+        .summary-chart-grid {
+            display: grid;
+            grid-template-columns: minmax(180px, 260px) 1fr;
+            gap: 1rem;
+            align-items: stretch;
+        }
+
+        .summary-donut-card,
+        .summary-bars-card {
+            padding: 1.25rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background-color: var(--background);
+        }
+
+        .summary-donut-card {
+            display: grid;
+            place-items: center;
+            gap: 0.75rem;
+            text-align: center;
+        }
+
+        .summary-donut-card .donut-chart {
+            width: 118px;
+            height: 118px;
+        }
+
+        .summary-donut-card .donut-chart::before {
+            width: 82px;
+            height: 82px;
+            font-size: 1.15rem;
+        }
+
+        .summary-bars-card {
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        .result-chart-card {
+            display: grid;
+            grid-template-columns: 86px minmax(0, 1fr);
+            gap: 1rem;
+            align-items: start;
+            padding: 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background-color: var(--background);
+            min-width: 0;
+        }
+
+        .result-chart-content {
+            display: grid;
+            gap: 0.25rem;
+            min-width: 0;
+        }
+
+        .donut-chart {
+            width: 78px;
+            height: 78px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background: conic-gradient(var(--primary) var(--score), rgba(79, 70, 229, 0.12) 0);
+            flex-shrink: 0;
+            margin-top: 0.25rem;
+        }
+
+        .donut-chart::before {
+            content: attr(data-score);
+            width: 54px;
+            height: 54px;
+            border-radius: 50%;
+            display: grid;
+            place-items: center;
+            background-color: var(--background);
+            color: var(--primary);
+            font-size: 0.9rem;
+            font-weight: 800;
+        }
+
+        .topic-chart-list {
+            display: grid;
+            gap: 0.9rem;
+        }
+
+        .topic-chart-row {
+            display: grid;
+            grid-template-columns: minmax(160px, 1.1fr) minmax(180px, 2fr) auto;
+            gap: 1rem;
+            align-items: center;
+            padding: 0.85rem 1rem;
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            background-color: var(--background);
+        }
+
+        .topic-name {
+            font-weight: 700;
+            overflow-wrap: anywhere;
+            word-break: normal;
+        }
+
+        .topic-language {
+            color: var(--muted-foreground);
+            font-size: 0.88rem;
+            margin-top: 0.2rem;
         }
 
         .empty-state {
@@ -544,6 +660,22 @@
                 font-size: 3rem;
             }
 
+            .topic-chart-row {
+                grid-template-columns: 1fr;
+            }
+
+            .summary-chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-chart-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .result-chart-card {
+                grid-template-columns: 72px minmax(0, 1fr);
+            }
+
         }
 
         /* Profile Header */
@@ -625,7 +757,7 @@
             }
         }
 
-        /* Удаляем стили формы пароля */
+        /* Noņemam paroles formas stilus */
         .notification {
             position: fixed;
             top: 20px;
@@ -748,39 +880,22 @@
                         
                         <div class="dashboard-block">
                             <h3 class="dashboard-subtitle">Kopējais progress</h3>
-                            <div class="stats-grid">
-                                <div class="stat-card">
-                                    <div class="stat-label">Kopā testi</div>
-                                    <div class="stat-value" id="statTotalTests">0</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-label">Kopā vingrinājumi</div>
-                                    <div class="stat-value" id="statTotalExercises">0</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-label">Vidējais rezultāts</div>
-                                    <div class="stat-value" id="statAvgScore">0%</div>
-                                </div>
-                                <div class="stat-card">
-                                    <div class="stat-label">Apgūtās tēmas</div>
-                                    <div class="stat-value" id="statTopicsCovered">0</div>
-                                </div>
-                            </div>
+                            <div id="summaryChartsContainer"></div>
                         </div>
 
                         <div class="dashboard-block">
                             <h3 class="dashboard-subtitle">Rezultāti pa valodām</h3>
-                            <div id="languageStatsContainer" class="table-wrapper"></div>
+                            <div id="languageStatsContainer"></div>
                         </div>
 
                         <div class="dashboard-block">
                             <h3 class="dashboard-subtitle">Jaunākie rezultāti</h3>
-                            <div id="recentResultsContainer" class="table-wrapper"></div>
+                            <div id="recentResultsContainer"></div>
                         </div>
 
                         <div class="dashboard-block">
                             <h3 class="dashboard-subtitle">Progress pa tēmām</h3>
-                            <div id="topicStatsContainer" class="table-wrapper"></div>
+                            <div id="topicStatsContainer"></div>
                         </div>
                     </div>
 
@@ -837,6 +952,71 @@
             return `${minutes} min`;
         }
 
+        function getPercent(score, maxScore) {
+            const scoreNumber = Number(score || 0);
+            const maxNumber = Number(maxScore || 0);
+
+            if (maxNumber <= 0) {
+                return 0;
+            }
+
+            return Math.max(0, Math.min(100, (scoreNumber / maxNumber) * 100));
+        }
+
+        function clampPercent(value) {
+            return Math.max(0, Math.min(100, Number(value || 0)));
+        }
+
+        function renderSummaryCharts(statistics) {
+            const container = document.getElementById('summaryChartsContainer');
+            const totalTests = Number(statistics.total_tests || 0);
+            const totalExercises = Number(statistics.total_exercises || 0);
+            const topicsCovered = Number(statistics.topics_covered || 0);
+            const avgScore = clampPercent(statistics.avg_score);
+            const maxCount = Math.max(1, totalTests, totalExercises, topicsCovered);
+
+            container.innerHTML = `
+                <div class="summary-chart-grid">
+                    <div class="summary-donut-card">
+                        <div class="donut-chart" style="--score: ${avgScore}%;" data-score="${avgScore.toFixed(0)}%"></div>
+                        <div>
+                            <div class="topic-name">Vidējais rezultāts</div>
+                            <div class="chart-meta">Kopējā veiktspēja testos un vingrinājumos</div>
+                        </div>
+                    </div>
+                    <div class="summary-bars-card">
+                        <div>
+                            <div class="chart-card-header">
+                                <span>Testi</span>
+                                <span>${totalTests}</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: ${(totalTests / maxCount) * 100}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="chart-card-header">
+                                <span>Vingrinājumi</span>
+                                <span>${totalExercises}</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: ${(totalExercises / maxCount) * 100}%"></div>
+                            </div>
+                        </div>
+                        <div>
+                            <div class="chart-card-header">
+                                <span>Apgūtās tēmas</span>
+                                <span>${topicsCovered}</span>
+                            </div>
+                            <div class="progress-track">
+                                <div class="progress-fill" style="width: ${(topicsCovered / maxCount) * 100}%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            `;
+        }
+
         function renderLanguageStats(items) {
             const container = document.getElementById('languageStatsContainer');
             if (!items || !items.length) {
@@ -845,28 +1025,25 @@
             }
 
             container.innerHTML = `
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Valoda</th>
-                            <th>Mēģinājumi</th>
-                            <th>Vidējais rezultāts</th>
-                            <th>Pareizās atbildes</th>
-                            <th>Kopā jautājumi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${items.map(item => `
-                            <tr>
-                                <td>${escapeHtml(item.language_name)}</td>
-                                <td>${Number(item.attempts || 0)}</td>
-                                <td>${Number(item.avg_score || 0).toFixed(2)}%</td>
-                                <td>${Number(item.correct_answers || 0)}</td>
-                                <td>${Number(item.total_questions || 0)}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
+                <div class="chart-list">
+                    ${items.map(item => {
+                        const percent = clampPercent(item.avg_score);
+                        return `
+                            <div class="chart-card">
+                                <div class="chart-card-header">
+                                    <span>${escapeHtml(item.language_name)}</span>
+                                    <span>${percent.toFixed(1)}%</span>
+                                </div>
+                                <div class="progress-track" aria-label="Vidējais rezultāts">
+                                    <div class="progress-fill" style="width: ${percent}%"></div>
+                                </div>
+                                <div class="chart-meta">
+                                    ${Number(item.attempts || 0)} mēģinājumi • ${Number(item.total_questions || 0)} jautājumi
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
             `;
         }
 
@@ -878,32 +1055,31 @@
             }
 
             container.innerHTML = `
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Valoda</th>
-                            <th>Tēma</th>
-                            <th>Tips</th>
-                            <th>Līmenis</th>
-                            <th>Rezultāts</th>
-                            <th>Laiks</th>
-                            <th>Datums</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${items.slice(0, 12).map(item => `
-                            <tr>
-                                <td>${escapeHtml(item.language_name)}</td>
-                                <td>${escapeHtml(item.result_type === 'exercise' && item.exercise_slug ? `${item.topic_name} (${item.exercise_slug})` : item.topic_name)}</td>
-                                <td><span class="result-badge">${item.result_type === 'test' ? 'Tests' : 'Vingrinājums'}</span></td>
-                                <td>${escapeHtml(item.difficulty_level)}</td>
-                                <td>${Number(item.score || 0)}/${Number(item.max_score || 0)} (${item.max_score ? ((Number(item.score) / Number(item.max_score)) * 100).toFixed(1) : '0.0'}%)</td>
-                                <td>${formatSeconds(item.time_spent)}</td>
-                                <td>${formatDateTime(item.completion_date)}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
+                <div class="result-chart-grid">
+                    ${items.slice(0, 12).map(item => {
+                        const percent = getPercent(item.score, item.max_score);
+                        const topicName = item.result_type === 'exercise' && item.exercise_slug
+                            ? `${item.topic_name} (${item.exercise_slug})`
+                            : item.topic_name;
+
+                        return `
+                            <div class="result-chart-card">
+                                <div class="donut-chart" style="--score: ${percent}%;" data-score="${percent.toFixed(0)}%"></div>
+                                <div class="result-chart-content">
+                                    <div class="chart-card-header">
+                                        <span>${escapeHtml(item.language_name)}</span>
+                                        <span class="result-badge">${item.result_type === 'test' ? 'Tests' : 'Vingrinājums'}</span>
+                                    </div>
+                                    <div class="topic-name">${escapeHtml(topicName)}</div>
+                                    <div class="chart-meta">
+                                        ${escapeHtml(item.difficulty_level)} • ${Number(item.score || 0)}/${Number(item.max_score || 0)} • ${formatSeconds(item.time_spent)}
+                                    </div>
+                                    <div class="chart-meta">${formatDateTime(item.completion_date)}</div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
             `;
         }
 
@@ -915,30 +1091,23 @@
             }
 
             container.innerHTML = `
-                <table class="data-table">
-                    <thead>
-                        <tr>
-                            <th>Valoda</th>
-                            <th>Tēma</th>
-                            <th>Mēģinājumi</th>
-                            <th>Vidējais rezultāts</th>
-                            <th>Pareizās atbildes</th>
-                            <th>Kopā jautājumi</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        ${items.map(item => `
-                            <tr>
-                                <td>${escapeHtml(item.language_name)}</td>
-                                <td>${escapeHtml(item.topic_name)}</td>
-                                <td>${Number(item.attempts || 0)}</td>
-                                <td>${Number(item.avg_score || 0).toFixed(2)}%</td>
-                                <td>${Number(item.correct_answers || 0)}</td>
-                                <td>${Number(item.total_questions || 0)}</td>
-                            </tr>
-                        `).join('')}
-                    </tbody>
-                </table>
+                <div class="topic-chart-list">
+                    ${items.map(item => {
+                        const percent = clampPercent(item.avg_score);
+                        return `
+                            <div class="topic-chart-row">
+                                <div>
+                                    <div class="topic-name">${escapeHtml(item.topic_name)}</div>
+                                    <div class="topic-language">${escapeHtml(item.language_name)} • ${Number(item.attempts || 0)} mēģinājumi</div>
+                                </div>
+                                <div class="progress-track" aria-label="Tēmas progress">
+                                    <div class="progress-fill" style="width: ${percent}%"></div>
+                                </div>
+                                <div class="stat-value" style="font-size: 1.1rem;">${percent.toFixed(1)}%</div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
             `;
         }
 
@@ -999,11 +1168,7 @@
                 document.getElementById('profileLastLogin').textContent = formatDateTime(user.last_login);
                 document.getElementById('profileAvatar').textContent = avatarLetter;
 
-                document.getElementById('statTotalTests').textContent = Number(historyData.statistics.total_tests || 0);
-                document.getElementById('statTotalExercises').textContent = Number(historyData.statistics.total_exercises || 0);
-                document.getElementById('statAvgScore').textContent = `${Number(historyData.statistics.avg_score || 0).toFixed(1)}%`;
-                document.getElementById('statTopicsCovered').textContent = Number(historyData.statistics.topics_covered || 0);
-
+                renderSummaryCharts(historyData.statistics || {});
                 renderLanguageStats(historyData.language_statistics || []);
                 renderRecentResults(historyData.test_results || []);
                 renderTopicStats(historyData.topic_statistics || []);

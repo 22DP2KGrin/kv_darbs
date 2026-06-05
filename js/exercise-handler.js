@@ -5,7 +5,7 @@ class ExerciseHandler {
         this.currentExercise = null;
     }
 
-    // Инициализация упражнения
+    // Vingrinājuma inicializācija
     initExercise(exerciseId, exerciseType, level, exerciseData) {
         this.startTime = Date.now();
         this.exerciseData = exerciseData;
@@ -16,13 +16,13 @@ class ExerciseHandler {
         };
     }
 
-    // Сохранение результата упражнения
+    // Vingrinājuma rezultāta saglabāšana
     async saveResult(score, maxScore, details = null) {
         if (!this.currentExercise || !this.startTime) {
             throw new Error('Exercise not initialized');
         }
 
-        const timeSpent = Math.floor((Date.now() - this.startTime) / 1000); // в секундах
+        const timeSpent = Math.floor((Date.now() - this.startTime) / 1000); // sekundēs
 
         const resultData = {
             result_type: 'exercise',
@@ -64,7 +64,7 @@ class ExerciseHandler {
         }
     }
 
-    // Получение прогресса пользователя
+    // Lietotāja progresa iegūšana
     async getProgress(exerciseType, level) {
         try {
             const response = await fetch(`get_exercise_progress.php?type=${exerciseType}&level=${level}`);
@@ -82,7 +82,7 @@ class ExerciseHandler {
         }
     }
 
-    // Отображение результата упражнения
+    // Vingrinājuma rezultāta attēlošana
     displayResult(result, container) {
         const score = (result.score / result.max_score) * 100;
         const scoreClass = score >= 70 ? 'high' : score >= 50 ? 'medium' : 'low';
@@ -106,5 +106,5 @@ class ExerciseHandler {
     }
 }
 
-// Экспортируем класс для использования в других файлах
+// Eksportējam klasi izmantošanai citos failos
 window.ExerciseHandler = ExerciseHandler; 

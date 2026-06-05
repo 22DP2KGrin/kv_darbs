@@ -659,7 +659,7 @@ a.secondary-button {
             <div class="progress-bar" id="progressBar" style="width: 0%"></div>
         </div>
 
-        <!-- Теоретическая часть -->
+        <!-- Teorijas daļa -->
         <div id="theory-container" class="question-container">
             <h2 class="question">📘 Usage:</h2>
             <ul>
@@ -761,7 +761,7 @@ a.secondary-button {
             </div>
         </div>
 
-        <!-- Контейнер для вопросов -->
+        <!-- Jautājumu konteiners -->
         <div id="exercise-container" style="display: none;">
             <!-- Questions will be loaded dynamically -->
         </div>
@@ -825,11 +825,11 @@ a.secondary-button {
             const prevBtn = document.getElementById('prevBtn');
             const checkBtn = document.getElementById('checkBtn');
 
-            // Переход от теории к первому вопросу
+            // Pāreja no teorijas uz pirmo jautājumu
             startBtn.addEventListener('click', function() {
                 theoryContainer.style.display = 'none';
                 exerciseContainer.style.display = 'block';
-                nextBtn.style.display = 'block'; // Показываем кнопку Next только при переходе к упражнению
+                nextBtn.style.display = 'block'; // Rādām pogu Next tikai pārejot uz vingrinājumu
             });
 
             // Exercise data - Present Simple specific questions
