@@ -21,6 +21,11 @@ CMD printf "Listen %s\n" "${PORT}" > /etc/apache2/ports.conf \
         "    ServerName localhost" \
         "    DocumentRoot /var/www/html" \
         "    DirectoryIndex index.html index.php" \
+        "    RewriteEngine On" \
+        "    RewriteCond %{REQUEST_FILENAME} !-f" \
+        "    RewriteCond %{REQUEST_FILENAME} !-d" \
+        "    RewriteCond %{DOCUMENT_ROOT}/%{REQUEST_URI}.html -f" \
+        "    RewriteRule ^(.+)$ \$1.html [L]" \
         "    <Directory /var/www/html>" \
         "        Options -Indexes +FollowSymLinks" \
         "        AllowOverride All" \
