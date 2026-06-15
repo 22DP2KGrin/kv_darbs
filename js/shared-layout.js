@@ -473,6 +473,47 @@ function getStoredUser() {
     }
 }
 
+function getAvatarBackground(avatar) {
+    const presets = {
+        'preset-1': 'linear-gradient(135deg, #4f46e5, #06b6d4)',
+        'preset-2': 'linear-gradient(135deg, #16a34a, #84cc16)',
+        'preset-3': 'linear-gradient(135deg, #db2777, #f97316)',
+        'preset-4': 'linear-gradient(135deg, #7c3aed, #facc15)',
+        'preset-5': 'linear-gradient(135deg, #0f766e, #38bdf8)',
+        'preset-6': 'linear-gradient(135deg, #334155, #a855f7)'
+    };
+
+    return presets[avatar] || null;
+}
+
+function renderHeaderAvatar(element, user) {
+    if (!element || !user || !user.username) {
+        return;
+    }
+
+    const avatar = user.avatar || '';
+    element.textContent = user.username.charAt(0).toUpperCase();
+    element.style.backgroundImage = '';
+    element.style.backgroundSize = '';
+    element.style.backgroundPosition = '';
+    element.style.color = '';
+
+    const presetBackground = getAvatarBackground(avatar);
+    if (presetBackground) {
+        element.style.background = presetBackground;
+        return;
+    }
+
+    if (avatar && !avatar.startsWith('preset-')) {
+        const avatarUrl = avatar.startsWith('http') || avatar.startsWith('/') ? avatar : basePath + avatar;
+        element.style.background = '';
+        element.style.backgroundImage = `url("${avatarUrl}")`;
+        element.style.backgroundSize = 'cover';
+        element.style.backgroundPosition = 'center';
+        element.style.color = 'transparent';
+    }
+}
+
 function updateHeaderAuthState(user) {
     const userProfileNav = document.getElementById('userProfileNav');
     const authButtons = document.getElementById('authButtons');
@@ -487,9 +528,7 @@ function updateHeaderAuthState(user) {
         userProfileNav.style.display = 'flex';
         authButtons.style.display = 'none';
 
-        if (headerProfileAvatar) {
-            headerProfileAvatar.textContent = user.username.charAt(0).toUpperCase();
-        }
+        renderHeaderAvatar(headerProfileAvatar, user);
 
         if (headerUsername) {
             headerUsername.textContent = user.username;

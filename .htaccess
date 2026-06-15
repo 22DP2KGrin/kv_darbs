@@ -10,7 +10,21 @@ Options -Indexes
 # Set default index files
 DirectoryIndex index.html index.php
 
+RewriteEngine On
+
+# Allow extensionless URLs such as /signup or /shared-header.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+
 # Allow cross-origin requests
 Header set Access-Control-Allow-Origin "*"
 Header set Access-Control-Allow-Methods "GET, POST, OPTIONS"
-Header set Access-Control-Allow-Headers "Content-Type, X-Session-Token" 
+Header set Access-Control-Allow-Headers "Content-Type, Authorization, X-Session-Token"
+
+<FilesMatch "\.(html|js|css)$">
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "0"
+</FilesMatch>

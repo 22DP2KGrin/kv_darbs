@@ -175,8 +175,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: #64748b;
+        }
+
+        .about-image img,
+        .member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
 
         /* Team Section */
@@ -211,8 +217,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2rem;
-            color: #64748b;
         }
 
         .member-info {
@@ -607,13 +611,13 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-content">
-                    <h2 class="section-title">Our Mission</h2>
-                    <p>Valodu apguves platformā mēs strādājam, lai mazinātu valodu barjeras un veidotu pasauli, kurā cilvēki var brīvi sazināties dažādās kultūrās. Mūsu mērķis ir padarīt valodu mācīšanos pieejamu, aizraujošu un efektīvu ikvienam.</p>
-                    <p>Mēs ticam, ka valoda ir kas vairāk par vārdiem. Tā palīdz saprast dažādus skatpunktus, veidot nozīmīgas attiecības un atklāt jaunas iespējas. Tāpēc mēs radījām mācību vidi, kurā pārbaudītas mācību metodes apvienotas ar mūsdienīgām tehnoloģijām.</p>
-                    <p>Neatkarīgi no tā, vai mācies ceļošanai, darbam, studijām vai personīgai izaugsmei, mūsu platforma sniedz rīkus un atbalstu, kas vajadzīgs pārliecinātai saziņai izvēlētajā valodā.</p>
+                    <h2 class="section-title">Mūsu misija</h2>
+                    <p>Valodu apguves platforma ir radīta, lai palīdzētu cilvēkiem mācīties valodas saprotamā, praktiskā un motivējošā veidā. Mūsu mērķis ir padarīt valodu apguvi pieejamu ikvienam neatkarīgi no vecuma, pieredzes vai sākuma līmeņa.</p>
+                    <p>Mēs uzskatām, ka valoda nav tikai gramatika un vārdu saraksti. Tā ir iespēja sarunāties, ceļot, studēt, strādāt, iepazīt citas kultūras un justies pārliecinātāk ikdienas situācijās.</p>
+                    <p>Platformā lietotāji var izvēlēties mācību valodu, pildīt vingrinājumus, pārbaudīt savas zināšanas testos un sekot līdzi savam progresam personīgajā profilā.</p>
                 </div>
                 <div class="about-image">
-                    Misijas attēls
+                    <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1000&q=80" alt="Studenti kopā mācās valodas">
                 </div>
             </div>
         </div>
@@ -624,13 +628,13 @@
         <div class="container">
             <div class="about-grid">
                 <div class="about-image">
-                    Stāsta attēls
+                    <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1000&q=80" alt="Mācību platforma datorā">
                 </div>
                 <div class="about-content">
-                    <h2 class="section-title">Our Story</h2>
-                    <p>Platformu 2018. gadā izveidoja valodnieki, pedagogi un tehnoloģiju entuziasti. Viņi pamanīja vienkāršu problēmu: tradicionālās valodu mācību metodes lielai daļai cilvēku nesniedza vajadzīgo rezultātu.</p>
-                    <p>Mūsu dibinātāji paši pieredzēja vilšanos, kad pēc vairākiem mācību gadiem joprojām bija grūti brīvi sarunāties reālās situācijās. Tāpēc viņi nolēma radīt labāku risinājumu, kas jau no pirmās dienas gatavo īstai saziņai.</p>
-                    <p>No neliela projekta ar divām valodām mēs izaugām par plašu kopienu ar miljoniem lietotāju un vairāk nekā 20 apgūstamām valodām. Augot mēs saglabājam sākotnējo mērķi: padarīt efektīvu valodu apguvi pieejamu ikvienam.</p>
+                    <h2 class="section-title">Mūsu stāsts</h2>
+                    <p>Šī platforma tapa kā mācību projekts ar praktisku mērķi: izveidot vietni, kur lietotāji var reģistrēties, apgūt valodas, pildīt uzdevumus un redzēt savus rezultātus vienuviet.</p>
+                    <p>Sākumā galvenā uzmanība tika pievērsta vienkāršai navigācijai un pamata vingrinājumiem. Vēlāk platformai tika pievienoti lietotāju profili, testu vēsture, administratora sadaļa un vairākas mācību valodas.</p>
+                    <p>Pašlaik platforma atbalsta angļu, franču, spāņu un latviešu valodas materiālus. Tā turpina attīstīties, lai mācīšanās būtu ērtāka, pārskatāmāka un tuvāka reālām komunikācijas situācijām.</p>
                 </div>
             </div>
         </div>
@@ -639,38 +643,46 @@
     <!-- Team Section -->
     <section class="team-section">
         <div class="container">
-            <h2 class="section-title">Meet Mūsu komanda</h2>
+            <h2 class="section-title">Mūsu komanda</h2>
             <div class="team-grid">
                 <div class="team-member">
-                    <div class="member-image">Foto</div>
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=800&q=80" alt="Projekta vadītāja">
+                    </div>
                     <div class="member-info">
-                        <h3 class="member-name">Alex Johnson</h3>
-                        <p class="member-title">Founder & CEO</p>
-                        <p class="member-bio">Linguist with expertise in 5 languages. Former professor at Boston University with a passion for making language learning accessible to all.</p>
+                        <h3 class="member-name">Katrīna Griņa-Lisova</h3>
+                        <p class="member-title">Projekta autore</p>
+                        <p class="member-bio">Atbild par platformas ideju, struktūru, saturu un lietotāja pieredzi. Projekta mērķis ir apvienot valodu mācīšanos ar ērtu digitālu vidi.</p>
                     </div>
                 </div>
                 <div class="team-member">
-                    <div class="member-image">Foto</div>
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?auto=format&fit=crop&w=800&q=80" alt="Mācību satura speciāliste">
+                    </div>
                     <div class="member-info">
-                        <h3 class="member-name">Maria Rodriguez</h3>
-                        <p class="member-title">Head of Curriculum</p>
-                        <p class="member-bio">With 15+ years in language education, Maria develops our immersive learning methodology that emphasizes practical communication skills.</p>
+                        <h3 class="member-name">Mācību saturs</h3>
+                        <p class="member-title">Valodu uzdevumi un testi</p>
+                        <p class="member-bio">Platformas uzdevumi ir veidoti tā, lai lietotājs varētu pakāpeniski apgūt vārdu krājumu, gramatiku, lasīšanu un praktisku valodas lietojumu.</p>
                     </div>
                 </div>
                 <div class="team-member">
-                    <div class="member-image">Foto</div>
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1551434678-e076c223a692?auto=format&fit=crop&w=800&q=80" alt="Izstrādes process">
+                    </div>
                     <div class="member-info">
-                        <h3 class="member-name">Hiroshi Tanaka</h3>
-                        <p class="member-title">Chief Technology Officer</p>
-                        <p class="member-bio">Tech innovator with a background in AI and adaptive learning. Leads our engineering team in creating personalized learning experiences.</p>
+                        <h3 class="member-name">Tehniskais risinājums</h3>
+                        <p class="member-title">Mājaslapa un datubāze</p>
+                        <p class="member-bio">Projekts izmanto HTML, CSS, JavaScript, PHP un MySQL datubāzi, lai nodrošinātu reģistrāciju, pieteikšanos, profilu un rezultātu saglabāšanu.</p>
                     </div>
                 </div>
                 <div class="team-member">
-                    <div class="member-image">Foto</div>
+                    <div class="member-image">
+                        <img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?auto=format&fit=crop&w=800&q=80" alt="Lietotāju atbalsts un sadarbība">
+                    </div>
                     <div class="member-info">
-                        <h3 class="member-name">Sophie Laurent</h3>
-                        <p class="member-title">User Experience Director</p>
-                        <p class="member-bio">Former language teacher turned UX specialist. Ensures our platform is intuitive, engaging, and optimized for effective learning.</p>
+                        <h3 class="member-name">Lietotāja pieredze</h3>
+                        <p class="member-title">Ērta un saprotama vide</p>
+                        <p class="member-bio">Īpaša uzmanība pievērsta tam, lai lietotājs varētu viegli atrast valodas, vingrinājumus, testus un savu progresu bez liekas sarežģītības.</p>
                     </div>
                 </div>
             </div>
@@ -680,48 +692,48 @@
     <!-- Timeline Section -->
     <section class="timeline-section">
         <div class="container">
-            <h2 class="section-title">Our Journey</h2>
+            <h2 class="section-title">Platformas attīstība</h2>
             <div class="timeline">
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3 class="timeline-year">2018</h3>
-                        <p>Founded in Boston, MA with a team of 5 passionate language educators.</p>
+                        <h3 class="timeline-year">1. posms</h3>
+                        <p>Tika izveidota platformas sākumlapa, navigācija un pamata dizains ar gaišo un tumšo režīmu.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3 class="timeline-year">2019</h3>
-                        <p>Launched our first mobile app offering Spanish and French courses.</p>
+                        <h3 class="timeline-year">2. posms</h3>
+                        <p>Platformai tika pievienotas valodu sadaļas un vingrinājumi angļu, franču, spāņu un latviešu valodai.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3 class="timeline-year">2020</h3>
-                        <p>Expanded to 10 languages and introduced our innovative community feature.</p>
+                        <h3 class="timeline-year">3. posms</h3>
+                        <p>Tika izveidota reģistrēšanās, pieteikšanās un lietotāja profila funkcionalitāte.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3 class="timeline-year">2021</h3>
-                        <p>Reached 1 million active users and partnered with 50+ universities worldwide.</p>
+                        <h3 class="timeline-year">4. posms</h3>
+                        <p>Tika pievienota MySQL datubāze, kurā saglabājas lietotāji, sesijas, testi un rezultāti.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3 class="timeline-year">2022</h3>
-                        <p>Launched our AI-powered conversation practice feature and expanded to 15 languages.</p>
+                        <h3 class="timeline-year">5. posms</h3>
+                        <p>Tika izstrādāta administratora sadaļa lietotāju, testu un mācību satura pārvaldībai.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3 class="timeline-year">2023</h3>
-                        <p>Introduced virtual reality immersion experiences for advanced learners.</p>
+                        <h3 class="timeline-year">6. posms</h3>
+                        <p>Platforma tika sagatavota izvietošanai tiešsaistē, lai to varētu lietot no jebkuras ierīces ar interneta pieslēgumu.</p>
                     </div>
                 </div>
                 <div class="timeline-item">
                     <div class="timeline-content">
-                        <h3 class="timeline-year">2024</h3>
-                        <p>Reached 5 million users globally and expanded our team to 100+ language experts.</p>
+                        <h3 class="timeline-year">Nākotnē</h3>
+                        <p>Plānots papildināt platformu ar jauniem uzdevumiem, precīzāku progresa analīzi un vēl ērtāku mācību pieredzi.</p>
                     </div>
                 </div>
             </div>

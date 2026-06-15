@@ -98,7 +98,7 @@ try {
     logError("Using field: " . $field . " for username: " . $input['username']);
 
     // Get user from database
-    $stmt = $pdo->prepare("SELECT user_id, username, email, password_hash, bio FROM users WHERE $field = ?");
+    $stmt = $pdo->prepare("SELECT user_id, username, email, password_hash, bio, avatar FROM users WHERE $field = ?");
     $stmt->execute([$input['username']]);
     $user = $stmt->fetch();
 

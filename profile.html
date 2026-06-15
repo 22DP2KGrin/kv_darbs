@@ -204,6 +204,105 @@
             font-weight: bold;
             margin: 0 auto 1rem;
             box-shadow: 0 4px 12px rgba(79, 70, 229, 0.2);
+            overflow: hidden;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .profile-image.has-image,
+        .profile-avatar-small.has-image {
+            color: transparent;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .avatar-panel {
+            display: grid;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .avatar-title {
+            font-weight: 700;
+            color: var(--foreground);
+            margin: 0;
+        }
+
+        .avatar-presets {
+            display: grid;
+            grid-template-columns: repeat(3, 48px);
+            justify-content: center;
+            gap: 0.75rem;
+        }
+
+        .avatar-choice {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            border: 2px solid transparent;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(15, 23, 42, 0.16);
+            transition: transform 0.2s ease, border-color 0.2s ease;
+        }
+
+        .avatar-choice:hover,
+        .avatar-choice.selected {
+            border-color: var(--primary);
+            transform: translateY(-1px);
+        }
+
+        .avatar-upload {
+            display: grid;
+            gap: 0.75rem;
+        }
+
+        .avatar-upload input[type="file"] {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            opacity: 0;
+            overflow: hidden;
+            pointer-events: none;
+        }
+
+        .avatar-file-row {
+            display: grid;
+            gap: 0.5rem;
+        }
+
+        .avatar-file-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            padding: 0.7rem 1rem;
+            border-radius: var(--radius);
+            border: 1px solid var(--border);
+            background-color: var(--secondary);
+            color: var(--foreground);
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .avatar-file-name {
+            min-height: 1.2rem;
+            font-size: 0.85rem;
+            color: var(--muted-foreground);
+            word-break: break-word;
+        }
+
+        .avatar-status {
+            min-height: 1.2rem;
+            font-size: 0.9rem;
+            color: var(--muted-foreground);
+        }
+
+        .avatar-status.error {
+            color: var(--danger-color);
+        }
+
+        .avatar-status.success {
+            color: var(--success-color);
         }
 
         .profile-details {
@@ -840,9 +939,29 @@
                     <div id="profile" class="section active">
                         <h2 class="section-title">Mans profils</h2>
                         <div class="profile-container">
-                            <div class="profile-image-container">
-                                <div class="profile-image" id="profileAvatar"></div>
-                            </div>
+	                            <div class="profile-image-container">
+	                                <div class="profile-image" id="profileAvatar"></div>
+	                                <div class="avatar-panel">
+	                                    <p class="avatar-title">Profila attēls</p>
+	                                    <div class="avatar-presets" id="avatarPresets" aria-label="Gatavie avatari">
+	                                        <button type="button" class="avatar-choice" data-avatar="preset-1" style="background: linear-gradient(135deg, #4f46e5, #06b6d4);" aria-label="Avatārs 1"></button>
+	                                        <button type="button" class="avatar-choice" data-avatar="preset-2" style="background: linear-gradient(135deg, #16a34a, #84cc16);" aria-label="Avatārs 2"></button>
+	                                        <button type="button" class="avatar-choice" data-avatar="preset-3" style="background: linear-gradient(135deg, #db2777, #f97316);" aria-label="Avatārs 3"></button>
+	                                        <button type="button" class="avatar-choice" data-avatar="preset-4" style="background: linear-gradient(135deg, #7c3aed, #facc15);" aria-label="Avatārs 4"></button>
+	                                        <button type="button" class="avatar-choice" data-avatar="preset-5" style="background: linear-gradient(135deg, #0f766e, #38bdf8);" aria-label="Avatārs 5"></button>
+	                                        <button type="button" class="avatar-choice" data-avatar="preset-6" style="background: linear-gradient(135deg, #334155, #a855f7);" aria-label="Avatārs 6"></button>
+	                                    </div>
+	                                    <form class="avatar-upload" id="avatarUploadForm" enctype="multipart/form-data">
+	                                        <div class="avatar-file-row">
+	                                            <button type="button" class="avatar-file-button" id="avatarFileButton">Izvēlēties foto</button>
+	                                            <input type="file" id="avatarFile" name="avatar_file" accept="image/jpeg,image/png,image/webp">
+	                                            <span class="avatar-file-name" id="avatarFileName">Fails nav izvēlēts</span>
+	                                        </div>
+	                                        <button type="submit" class="btn btn-primary">Saglabāt foto</button>
+	                                    </form>
+	                                    <div class="avatar-status" id="avatarStatus"></div>
+	                                </div>
+	                            </div>
                             <div class="profile-details">
                                 <span class="profile-label">Lietotājvārds:</span>
                                 <span class="profile-value" id="profileLietotājvārds">Ielādējas...</span>
@@ -907,10 +1026,11 @@
     <!-- Load shared layout (header, footer, theme, auth) -->
     <script src="js/shared-layout.js"></script>
     
-    <!-- Page-specific scripts -->
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {
-        const sessionToken = localStorage.getItem('userSessionToken');
+	    <!-- Page-specific scripts -->
+	    <script>
+	        document.addEventListener('DOMContentLoaded', function() {
+	        console.log('PROFILE_FIX_VERSION: 2026-06-11-2');
+	        const sessionToken = localStorage.getItem('userSessionToken');
         const getUserProfileNav = () => document.getElementById('userProfileNav');
         const getAuthButtons = () => document.getElementById('authButtons');
         const getHeaderProfileAvatar = () => document.getElementById('headerProfileAvatar');
@@ -922,9 +1042,10 @@
             window.location.href = 'login.html';
         }
 
-        if (!sessionToken) {
-            redirectToLogin();
-        }
+	        if (!sessionToken) {
+	            redirectToLogin();
+	            return;
+	        }
 
         function escapeHtml(value) {
             return String(value ?? '')
@@ -963,9 +1084,80 @@
             return Math.max(0, Math.min(100, (scoreNumber / maxNumber) * 100));
         }
 
-        function clampPercent(value) {
-            return Math.max(0, Math.min(100, Number(value || 0)));
-        }
+	        function clampPercent(value) {
+	            return Math.max(0, Math.min(100, Number(value || 0)));
+	        }
+
+	        const presetAvatarStyles = {
+	            'preset-1': 'linear-gradient(135deg, #4f46e5, #06b6d4)',
+	            'preset-2': 'linear-gradient(135deg, #16a34a, #84cc16)',
+	            'preset-3': 'linear-gradient(135deg, #db2777, #f97316)',
+	            'preset-4': 'linear-gradient(135deg, #7c3aed, #facc15)',
+	            'preset-5': 'linear-gradient(135deg, #0f766e, #38bdf8)',
+	            'preset-6': 'linear-gradient(135deg, #334155, #a855f7)'
+	        };
+
+	        function setAvatarStatus(message, type = '') {
+	            const status = document.getElementById('avatarStatus');
+	            if (!status) return;
+
+	            status.textContent = message;
+	            status.className = `avatar-status ${type}`.trim();
+	        }
+
+	        function renderAvatar(avatar, username) {
+	            const avatarLetter = (username || '?').charAt(0).toUpperCase();
+	            const profileAvatar = document.getElementById('profileAvatar');
+	            const headerProfileAvatar = getHeaderProfileAvatar();
+
+	            document.querySelectorAll('.avatar-choice').forEach(button => {
+	                button.classList.toggle('selected', button.dataset.avatar === avatar);
+	            });
+
+	            [profileAvatar, headerProfileAvatar].forEach(element => {
+	                if (!element) return;
+
+	                element.classList.remove('has-image');
+	                element.style.backgroundImage = '';
+	                element.textContent = avatarLetter;
+
+	                if (avatar && presetAvatarStyles[avatar]) {
+	                    element.style.background = presetAvatarStyles[avatar];
+	                } else if (avatar && !avatar.startsWith('preset-')) {
+	                    const avatarUrl = avatar.startsWith('http') || avatar.startsWith('/') ? avatar : avatar;
+	                    element.classList.add('has-image');
+	                    element.style.background = '';
+	                    element.style.backgroundImage = `url("${avatarUrl}")`;
+	                } else {
+	                    element.style.background = '';
+	                }
+	            });
+	        }
+
+	        async function saveAvatar(formData) {
+	            formData.append('session_token', sessionToken);
+	            setAvatarStatus('Saglabā...', '');
+
+	            const response = await fetch('update_avatar.php', {
+	                method: 'POST',
+	                headers: {
+	                    'Authorization': `Bearer ${sessionToken}`,
+	                    'X-Session-Token': sessionToken
+	                },
+	                body: formData
+	            });
+
+	            const data = await response.json();
+	            if (!response.ok || !data.success) {
+	                throw new Error(data.message || 'Neizdevās saglabāt avatāru');
+	            }
+
+	            const storedUser = JSON.parse(localStorage.getItem('user') || '{}');
+	            storedUser.avatar = data.avatar;
+	            localStorage.setItem('user', JSON.stringify(storedUser));
+	            renderAvatar(data.avatar, storedUser.username || document.getElementById('userName').textContent);
+	            setAvatarStatus('Avatārs saglabāts.', 'success');
+	        }
 
         function renderSummaryCharts(statistics) {
             const container = document.getElementById('summaryChartsContainer');
@@ -1111,35 +1303,23 @@
             `;
         }
 
-        async function loadProfilePageData() {
-            try {
-                const [profileResponse, historyResponse] = await Promise.all([
-                    fetch('get_profile.php', {
-                        headers: {
-                            'Authorization': `Bearer ${sessionToken}`
-                        }
-                    }),
-                    fetch('api/get_test_history.php', {
-                        headers: {
-                            'Authorization': `Bearer ${sessionToken}`
-                        }
-                    })
-                ]);
+	        async function loadProfilePageData() {
+	            try {
+	                const profileResponse = await fetch(`get_profile.php?session_token=${encodeURIComponent(sessionToken)}`, {
+	                    headers: {
+	                        'Authorization': `Bearer ${sessionToken}`,
+	                        'X-Session-Token': sessionToken
+	                    }
+	                });
+	
+	                const profileData = await profileResponse.json();
+	
+	                if (!profileResponse.ok || !profileData.success) {
+	                    throw new Error(profileData.message || 'Neizdevās ielādēt profila datus');
+	                }
 
-                const profileData = await profileResponse.json();
-                const historyData = await historyResponse.json();
-
-                if (!profileResponse.ok || !profileData.success) {
-                    throw new Error(profileData.message || 'Neizdevās ielādēt profila datus');
-                }
-
-                if (!historyResponse.ok || !historyData.success) {
-                    throw new Error(historyData.message || 'Neizdevās ielādēt progresa datus');
-                }
-
-                const user = profileData.user;
+	                const user = profileData.user;
                 const fullName = [user.first_name, user.last_name].filter(Boolean).join(' ').trim() || 'Nav norādīts';
-                const avatarLetter = (user.username || '?').charAt(0).toUpperCase();
 
                 const userProfileNav = getUserProfileNav();
                 const authButtons = getAuthButtons();
@@ -1149,13 +1329,9 @@
                 if (authButtons) {
                     authButtons.style.display = 'none';
                 }
-                const headerProfileAvatar = getHeaderProfileAvatar();
-                if (headerProfileAvatar) {
-                    headerProfileAvatar.textContent = avatarLetter;
-                }
-                const headerUsernameElement = getHeaderUsernameElement();
-                if (headerUsernameElement) {
-                    headerUsernameElement.textContent = user.username;
+	                const headerUsernameElement = getHeaderUsernameElement();
+	                if (headerUsernameElement) {
+	                    headerUsernameElement.textContent = user.username;
                 }
 
                 document.getElementById('userName').textContent = user.username;
@@ -1163,17 +1339,37 @@
                 document.getElementById('profileE-pasts').textContent = user.email || 'Nav norādīts';
                 document.getElementById('profileFullName').textContent = fullName;
                 document.getElementById('profileCountry').textContent = user.country || 'Nav norādīts';
-                document.getElementById('profileLanguage').textContent = user.language || 'Nav norādīts';
-                document.getElementById('profileCreatedAt').textContent = formatDateTime(user.created_at);
-                document.getElementById('profileLastLogin').textContent = formatDateTime(user.last_login);
-                document.getElementById('profileAvatar').textContent = avatarLetter;
+	                document.getElementById('profileLanguage').textContent = user.language || 'Nav norādīts';
+	                document.getElementById('profileCreatedAt').textContent = formatDateTime(user.created_at);
+	                document.getElementById('profileLastLogin').textContent = formatDateTime(user.last_login);
+	                renderAvatar(user.avatar, user.username);
 
-                renderSummaryCharts(historyData.statistics || {});
-                renderLanguageStats(historyData.language_statistics || []);
-                renderRecentResults(historyData.test_results || []);
-                renderTopicStats(historyData.topic_statistics || []);
-            } catch (error) {
-                console.error('Profile load error:', error);
+	                try {
+	                    const historyResponse = await fetch(`api/get_test_history.php?session_token=${encodeURIComponent(sessionToken)}`, {
+	                        headers: {
+	                            'Authorization': `Bearer ${sessionToken}`,
+	                            'X-Session-Token': sessionToken
+	                        }
+	                    });
+	                    const historyData = await historyResponse.json();
+
+	                    if (!historyResponse.ok || !historyData.success) {
+	                        throw new Error(historyData.message || 'Neizdevās ielādēt progresa datus');
+	                    }
+
+	                    renderSummaryCharts(historyData.statistics || {});
+	                    renderLanguageStats(historyData.language_statistics || []);
+	                    renderRecentResults(historyData.test_results || []);
+	                    renderTopicStats(historyData.topic_statistics || []);
+	                } catch (historyError) {
+	                    console.error('Profile history load error:', historyError);
+	                    renderSummaryCharts({});
+	                    renderLanguageStats([]);
+	                    renderRecentResults([]);
+	                    renderTopicStats([]);
+	                }
+	            } catch (error) {
+	                console.error('Profile load error:', error);
                 alert('Neizdevās ielādēt profila datus. Lūdzu, pieslēdzies vēlreiz.');
                 redirectToLogin();
             }
@@ -1190,13 +1386,62 @@
         });
 
         // Izrakstīties functionality
-        function logout() {
-            localStorage.removeItem('user');
-            localStorage.removeItem('userSessionToken');
-            window.location.href = 'login.html';
-        }
+	        function logout() {
+	            localStorage.removeItem('user');
+	            localStorage.removeItem('userSessionToken');
+	            window.location.href = 'login.html';
+	        }
 
-        loadProfilePageData();
+	        document.querySelectorAll('.avatar-choice').forEach(button => {
+	            button.addEventListener('click', async () => {
+	                try {
+	                    const formData = new FormData();
+	                    formData.append('preset_avatar', button.dataset.avatar);
+	                    await saveAvatar(formData);
+	                } catch (error) {
+	                    console.error('Avatar preset error:', error);
+	                    setAvatarStatus(error.message || 'Neizdevās saglabāt avatāru.', 'error');
+	                }
+	            });
+	        });
+
+	        const avatarUploadForm = document.getElementById('avatarUploadForm');
+	        const avatarFileInput = document.getElementById('avatarFile');
+	        const avatarFileButton = document.getElementById('avatarFileButton');
+	        const avatarFileName = document.getElementById('avatarFileName');
+	        avatarFileButton.addEventListener('click', () => {
+	            avatarFileInput.click();
+	        });
+
+	        avatarFileInput.addEventListener('change', () => {
+	            avatarFileName.textContent = avatarFileInput.files.length
+	                ? avatarFileInput.files[0].name
+	                : 'Fails nav izvēlēts';
+	            setAvatarStatus('', '');
+	        });
+
+	        avatarUploadForm.addEventListener('submit', async event => {
+	            event.preventDefault();
+
+	            const fileInput = avatarFileInput;
+	            if (!fileInput.files.length) {
+	                setAvatarStatus('Izvēlies attēla failu.', 'error');
+	                return;
+	            }
+
+	            try {
+	                const formData = new FormData();
+	                formData.append('avatar_file', fileInput.files[0]);
+	                await saveAvatar(formData);
+	                fileInput.value = '';
+	                avatarFileName.textContent = 'Fails nav izvēlēts';
+	            } catch (error) {
+	                console.error('Avatar upload error:', error);
+	                setAvatarStatus(error.message || 'Neizdevās augšupielādēt foto.', 'error');
+	            }
+	        });
+
+	        loadProfilePageData();
         });
     </script>
     <script src="scripts/ai-widget.js?v=2"></script>

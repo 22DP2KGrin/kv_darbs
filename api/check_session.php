@@ -19,7 +19,7 @@ try {
     
     // Pārbaudām sesiju datubāzē
     $stmt = $pdo->prepare("
-        SELECT s.user_id, u.username, u.email, u.is_active
+        SELECT s.user_id, u.username, u.email, u.avatar, u.is_active
         FROM sessions s
         JOIN users u ON s.user_id = u.user_id
         WHERE s.session_token = ? 
@@ -46,10 +46,11 @@ try {
     echo json_encode([
         'success' => true,
         'user' => [
-            'user_id' => $session['user_id'],
-            'username' => $session['username'],
-            'email' => $session['email']
-        ]
+	            'user_id' => $session['user_id'],
+	            'username' => $session['username'],
+	            'email' => $session['email'],
+	            'avatar' => $session['avatar'] ?? null
+	        ]
     ]);
 
 } catch (Exception $e) {

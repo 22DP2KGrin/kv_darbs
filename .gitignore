@@ -8,6 +8,7 @@ logs/
 kv_darbs/
 kv_darbs_new/
 config/database.php
+config/local.php
 db_connect.php
 session_token.txt
 .DS_Store

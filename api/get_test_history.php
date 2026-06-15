@@ -110,6 +110,8 @@ try {
     // Pārbaudām dažādus tokena iegūšanas veidus
     if (isset($headers['Authorization'])) {
         $sessionToken = str_replace('Bearer ', '', $headers['Authorization']);
+    } elseif (isset($headers['X-Session-Token'])) {
+        $sessionToken = $headers['X-Session-Token'];
     } elseif (isset($_POST['session_token'])) {
         $sessionToken = $_POST['session_token'];
     } elseif (isset($_GET['session_token'])) {

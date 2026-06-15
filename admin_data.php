@@ -3,6 +3,8 @@ error_reporting(E_ALL);
 ini_set('display_errors', 1);
 header('Content-Type: application/json');
 
+require_once 'config/database.php';
+
 error_log("=== Admin Data Request ===");
 error_log("Request method: " . $_SERVER['REQUEST_METHOD']);
 error_log("Request headers: " . print_r(getallheaders(), true));
@@ -17,8 +19,6 @@ if (!checkAdminAuth()) {
 }
 
 error_log("Auth check passed, proceeding with data retrieval");
-
-require_once 'config/database.php';
 
 try {
     error_log("Session admin_id: " . $_SESSION['admin_id']);

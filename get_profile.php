@@ -13,6 +13,19 @@ function getBearerToken() {
             return $matches[1];
         }
     }
+
+    if (isset($headers['X-Session-Token'])) {
+        return $headers['X-Session-Token'];
+    }
+
+    if (isset($_GET['session_token'])) {
+        return $_GET['session_token'];
+    }
+
+    if (isset($_POST['session_token'])) {
+        return $_POST['session_token'];
+    }
+
     return null;
 }
 
@@ -53,6 +66,7 @@ try {
             bio,
             language,
             timezone,
+            avatar,
             created_at,
             last_login
         FROM users 

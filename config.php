@@ -1,17 +1,62 @@
 <?php
-// Local database configuration for MAMP/MySQL.
-define('DB_HOST', 'localhost');
-define('DB_PORT', '3306');
-define('DB_NAME', 'language_learning_platform');
-define('DB_USER', 'root');
-define('DB_PASS', 'root');
-define('DB_SOCKET', '/tmp/mysql.sock');
+$localConfigPath = __DIR__ . '/config/local.php';
+$localConfig = file_exists($localConfigPath) ? require $localConfigPath : [];
+if (!is_array($localConfig)) {
+    $localConfig = [];
+}
+
+function appConfigValue($key, $default, $localConfig) {
+    if (array_key_exists($key, $localConfig)) {
+        return $localConfig[$key];
+    }
+
+    $value = getenv($key);
+    return $value === false ? $default : $value;
+}
+
+if (!function_exists('getallheaders')) {
+    function getallheaders() {
+        $headers = [];
+
+        foreach ($_SERVER as $name => $value) {
+            if (strpos($name, 'HTTP_') === 0) {
+                $headerName = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))));
+                $headers[$headerName] = $value;
+            }
+        }
+
+        if (isset($_SERVER['CONTENT_TYPE'])) {
+            $headers['Content-Type'] = $_SERVER['CONTENT_TYPE'];
+        }
+
+        if (isset($_SERVER['CONTENT_LENGTH'])) {
+            $headers['Content-Length'] = $_SERVER['CONTENT_LENGTH'];
+        }
+
+        if (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION']) && !isset($headers['Authorization'])) {
+            $headers['Authorization'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+        }
+
+        return $headers;
+    }
+}
+
+$appEnv = appConfigValue('APP_ENV', 'local', $localConfig);
+$defaultSocket = $appEnv === 'production' ? '' : '/tmp/mysql.sock';
+
+// Database configuration. For hosting, set values in config/local.php or environment variables.
+define('DB_HOST', appConfigValue('DB_HOST', 'localhost', $localConfig));
+define('DB_PORT', appConfigValue('DB_PORT', '3306', $localConfig));
+define('DB_NAME', appConfigValue('DB_NAME', 'language_learning_platform', $localConfig));
+define('DB_USER', appConfigValue('DB_USER', 'root', $localConfig));
+define('DB_PASS', appConfigValue('DB_PASS', 'root', $localConfig));
+define('DB_SOCKET', appConfigValue('DB_SOCKET', $defaultSocket, $localConfig));
 // Session configuration
 define('SESSION_LIFETIME', 86400); // 24 hours in seconds
 
 // Error reporting
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', $appEnv === 'production' ? 0 : 1);
 ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/logs/php_errors.log');
 
@@ -41,6 +86,7 @@ function createTables($pdo) {
                 bio TEXT,
                 language VARCHAR(10) DEFAULT 'en',
                 timezone VARCHAR(50) DEFAULT 'UTC',
+                avatar VARCHAR(255) DEFAULT NULL,
                 is_admin BOOLEAN DEFAULT FALSE,
                 is_active BOOLEAN DEFAULT TRUE,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -203,7 +249,7 @@ function createTables($pdo) {
                 last_login DATETIME DEFAULT NULL,
                 created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
                 updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
             CREATE TABLE IF NOT EXISTS admin_sessions (
                 session_id INT AUTO_INCREMENT PRIMARY KEY,
@@ -216,7 +262,7 @@ function createTables($pdo) {
                 FOREIGN KEY (admin_id) REFERENCES admins(id) ON DELETE CASCADE,
                 INDEX idx_admin_session_token (session_token),
                 INDEX idx_admin_session_expires (expires_at)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
             CREATE TABLE IF NOT EXISTS admin_activity_log (
                 id INT AUTO_INCREMENT PRIMARY KEY,
@@ -231,12 +277,17 @@ function createTables($pdo) {
                 INDEX idx_admin_activity_admin (admin_id),
                 INDEX idx_admin_activity_user (user_id),
                 INDEX idx_admin_activity_created (created_at)
-            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
         ");
 
         $legacySessionColumn = $pdo->query("SHOW COLUMNS FROM sessions LIKE 'token'")->fetch();
         if ($legacySessionColumn) {
             $pdo->exec("ALTER TABLE sessions CHANGE token session_token VARCHAR(255) NOT NULL");
+        }
+
+        $avatarColumn = $pdo->query("SHOW COLUMNS FROM users LIKE 'avatar'")->fetch();
+        if (!$avatarColumn) {
+            $pdo->exec("ALTER TABLE users ADD COLUMN avatar VARCHAR(255) DEFAULT NULL AFTER timezone");
         }
 
         $stmt = $pdo->prepare("

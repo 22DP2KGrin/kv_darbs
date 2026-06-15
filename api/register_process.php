@@ -273,7 +273,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     'username' => $username,
                     'email' => $email,
                     'first_name' => $firstName,
-                    'last_name' => $lastName
+                    'last_name' => $lastName,
+                    'avatar' => null
                 ],
                 'session' => [
                     'session_token' => $token,

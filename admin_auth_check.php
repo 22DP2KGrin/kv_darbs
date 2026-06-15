@@ -3,6 +3,33 @@ session_start();
 error_reporting(E_ALL);
 ini_set('display_errors', 1);
 
+if (!function_exists('getallheaders')) {
+    function getallheaders() {
+        $headers = [];
+
+        foreach ($_SERVER as $name => $value) {
+            if (strpos($name, 'HTTP_') === 0) {
+                $headerName = str_replace(' ', '-', ucwords(strtolower(str_replace('_', ' ', substr($name, 5)))));
+                $headers[$headerName] = $value;
+            }
+        }
+
+        if (isset($_SERVER['CONTENT_TYPE'])) {
+            $headers['Content-Type'] = $_SERVER['CONTENT_TYPE'];
+        }
+
+        if (isset($_SERVER['CONTENT_LENGTH'])) {
+            $headers['Content-Length'] = $_SERVER['CONTENT_LENGTH'];
+        }
+
+        if (isset($_SERVER['REDIRECT_HTTP_AUTHORIZATION']) && !isset($headers['Authorization'])) {
+            $headers['Authorization'] = $_SERVER['REDIRECT_HTTP_AUTHORIZATION'];
+        }
+
+        return $headers;
+    }
+}
+
 function checkAdminAuth() {
     error_log("Checking admin auth...");
     error_log("Session data: " . print_r($_SESSION, true));
