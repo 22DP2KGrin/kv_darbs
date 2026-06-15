@@ -7,6 +7,32 @@ $expectedToken = getenv('IMPORT_TOKEN');
 $providedToken = $_GET['token'] ?? $_POST['token'] ?? '';
 $confirmed = ($_GET['confirm'] ?? $_POST['confirm'] ?? '') === '1';
 
+function maskedDatabaseUrlInfo() {
+    $databaseUrl = getenv('DATABASE_URL');
+    if ($databaseUrl === false || $databaseUrl === '') {
+        return [
+            'status' => 'EMPTY',
+            'host' => 'EMPTY',
+            'database' => 'EMPTY',
+        ];
+    }
+
+    $parts = parse_url($databaseUrl);
+    if ($parts === false) {
+        return [
+            'status' => 'SET but invalid',
+            'host' => 'INVALID',
+            'database' => 'INVALID',
+        ];
+    }
+
+    return [
+        'status' => 'SET',
+        'host' => $parts['host'] ?? 'EMPTY',
+        'database' => isset($parts['path']) ? ltrim($parts['path'], '/') : 'EMPTY',
+    ];
+}
+
 if ($expectedToken === false || $expectedToken === '') {
     http_response_code(403);
     echo "Import is disabled.\n";
@@ -21,7 +47,13 @@ if (!hash_equals($expectedToken, $providedToken)) {
 }
 
 if (!$confirmed) {
+    $databaseUrlInfo = maskedDatabaseUrlInfo();
+
     echo "Ready to import database into DB_NAME=" . DB_NAME . ".\n";
+    echo "Effective DB_HOST=" . DB_HOST . "\n";
+    echo "DATABASE_URL=" . $databaseUrlInfo['status'] . "\n";
+    echo "DATABASE_URL host=" . $databaseUrlInfo['host'] . "\n";
+    echo "DATABASE_URL database=" . $databaseUrlInfo['database'] . "\n";
     echo "This will DROP and recreate project tables.\n";
     echo "Open this URL again with &confirm=1 to continue.\n";
     exit;
