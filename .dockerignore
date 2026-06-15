@@ -1,0 +1,10 @@
+.git
+.DS_Store
+node_modules
+logs
+*.log
+*.docx
+session_token.txt
+openai_config.php
+config/local.php
+*.zip
