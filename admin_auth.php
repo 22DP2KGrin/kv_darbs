@@ -10,7 +10,7 @@ session_set_cookie_params([
 ]);
 
 error_reporting(E_ALL);
-ini_set('display_errors', 1);
+ini_set('display_errors', 0);
 session_start();
 
 // Clear any existing session data
@@ -26,9 +26,11 @@ session_regenerate_id(true);
 
 header('Content-Type: application/json');
 
+$rawInput = file_get_contents('php://input');
+
 // Log incoming request
 error_log("Admin login attempt - Request method: " . $_SERVER['REQUEST_METHOD']);
-error_log("Raw input: " . file_get_contents('php://input'));
+error_log("Raw input: " . $rawInput);
 
 // Database connection
 require_once 'db_connect.php';
@@ -69,10 +71,10 @@ function logAdminActivity($adminId, $action, $description) {
 
 // Handle login request
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $data = json_decode(file_get_contents('php://input'), true);
+    $data = json_decode($rawInput, true);
     error_log("=== Admin Login Attempt ===");
     error_log("Request method: " . $_SERVER['REQUEST_METHOD']);
-    error_log("Raw input: " . file_get_contents('php://input'));
+    error_log("Raw input: " . $rawInput);
     error_log("Decoded input data: " . print_r($data, true));
     error_log("Session status: " . print_r($_SESSION, true));
     
