@@ -15,6 +15,19 @@ ENV PORT=80
 
 EXPOSE 80
 
-CMD sed -i "s/Listen 80/Listen ${PORT}/" /etc/apache2/ports.conf \
-    && sed -i "s/<VirtualHost \*:80>/<VirtualHost *:${PORT}>/" /etc/apache2/sites-available/000-default.conf \
+CMD printf "Listen %s\n" "${PORT}" > /etc/apache2/ports.conf \
+    && printf "%s\n" \
+        "<VirtualHost *:${PORT}>" \
+        "    ServerName localhost" \
+        "    DocumentRoot /var/www/html" \
+        "    DirectoryIndex index.html index.php" \
+        "    <Directory /var/www/html>" \
+        "        Options -Indexes +FollowSymLinks" \
+        "        AllowOverride All" \
+        "        Require all granted" \
+        "    </Directory>" \
+        "    ErrorLog \${APACHE_LOG_DIR}/error.log" \
+        "    CustomLog \${APACHE_LOG_DIR}/access.log combined" \
+        "</VirtualHost>" \
+        > /etc/apache2/sites-available/000-default.conf \
     && apache2-foreground
