@@ -14,6 +14,41 @@ function appConfigValue($key, $default, $localConfig) {
     return $value === false ? $default : $value;
 }
 
+function appFirstConfigValue($keys, $default, $localConfig) {
+    foreach ($keys as $key) {
+        $value = appConfigValue($key, null, $localConfig);
+        if ($value !== null && $value !== '') {
+            return $value;
+        }
+    }
+
+    return $default;
+}
+
+function appDatabaseUrlConfig() {
+    $databaseUrl = getenv('DATABASE_URL');
+    if ($databaseUrl === false || $databaseUrl === '') {
+        $databaseUrl = getenv('MYSQL_URL');
+    }
+
+    if ($databaseUrl === false || $databaseUrl === '') {
+        return [];
+    }
+
+    $parts = parse_url($databaseUrl);
+    if ($parts === false || !isset($parts['host'])) {
+        return [];
+    }
+
+    return [
+        'DB_HOST' => $parts['host'] ?? '',
+        'DB_PORT' => isset($parts['port']) ? (string) $parts['port'] : '3306',
+        'DB_NAME' => isset($parts['path']) ? ltrim($parts['path'], '/') : '',
+        'DB_USER' => isset($parts['user']) ? urldecode($parts['user']) : '',
+        'DB_PASS' => isset($parts['pass']) ? urldecode($parts['pass']) : ''
+    ];
+}
+
 if (!function_exists('getallheaders')) {
     function getallheaders() {
         $headers = [];
@@ -43,14 +78,16 @@ if (!function_exists('getallheaders')) {
 
 $appEnv = appConfigValue('APP_ENV', 'local', $localConfig);
 $defaultSocket = $appEnv === 'production' ? '' : '/tmp/mysql.sock';
+$databaseUrlConfig = appDatabaseUrlConfig();
+$databaseConfig = array_merge($databaseUrlConfig, $localConfig);
 
 // Database configuration. For hosting, set values in config/local.php or environment variables.
-define('DB_HOST', appConfigValue('DB_HOST', 'localhost', $localConfig));
-define('DB_PORT', appConfigValue('DB_PORT', '3306', $localConfig));
-define('DB_NAME', appConfigValue('DB_NAME', 'language_learning_platform', $localConfig));
-define('DB_USER', appConfigValue('DB_USER', 'root', $localConfig));
-define('DB_PASS', appConfigValue('DB_PASS', 'root', $localConfig));
-define('DB_SOCKET', appConfigValue('DB_SOCKET', $defaultSocket, $localConfig));
+define('DB_HOST', appFirstConfigValue(['DB_HOST', 'MYSQLHOST', 'MYSQL_HOST'], 'localhost', $databaseConfig));
+define('DB_PORT', appFirstConfigValue(['DB_PORT', 'MYSQLPORT', 'MYSQL_PORT'], '3306', $databaseConfig));
+define('DB_NAME', appFirstConfigValue(['DB_NAME', 'MYSQLDATABASE', 'MYSQL_DATABASE'], 'language_learning_platform', $databaseConfig));
+define('DB_USER', appFirstConfigValue(['DB_USER', 'MYSQLUSER', 'MYSQL_USER'], 'root', $databaseConfig));
+define('DB_PASS', appFirstConfigValue(['DB_PASS', 'MYSQLPASSWORD', 'MYSQL_PASSWORD'], 'root', $databaseConfig));
+define('DB_SOCKET', appConfigValue('DB_SOCKET', $defaultSocket, $databaseConfig));
 // Session configuration
 define('SESSION_LIFETIME', 86400); // 24 hours in seconds
 
