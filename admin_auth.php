@@ -1,4 +1,43 @@
 <?php
+ob_start();
+header('Content-Type: application/json');
+
+function sendAdminJson($payload, $statusCode = 200) {
+    if (ob_get_length()) {
+        ob_clean();
+    }
+
+    http_response_code($statusCode);
+    header('Content-Type: application/json');
+    echo json_encode($payload);
+    exit;
+}
+
+register_shutdown_function(function () {
+    $error = error_get_last();
+    if ($error === null) {
+        return;
+    }
+
+    $fatalTypes = [E_ERROR, E_PARSE, E_CORE_ERROR, E_COMPILE_ERROR];
+    if (!in_array($error['type'], $fatalTypes, true)) {
+        return;
+    }
+
+    error_log('Fatal admin login error: ' . $error['message']);
+    if (ob_get_length()) {
+        ob_clean();
+    }
+
+    http_response_code(500);
+    header('Content-Type: application/json');
+    echo json_encode([
+        'success' => false,
+        'message' => 'Server error during admin login.',
+        'error_details' => $error['message']
+    ]);
+});
+
 // Set session cookie parameters before starting session
 session_set_cookie_params([
     'lifetime' => 86400, // 24 hours
@@ -11,7 +50,12 @@ session_set_cookie_params([
 
 error_reporting(E_ALL);
 ini_set('display_errors', 0);
-session_start();
+if (!session_start()) {
+    sendAdminJson([
+        'success' => false,
+        'message' => 'Could not start admin session.'
+    ], 500);
+}
 
 // Clear any existing session data
 $_SESSION = array();
@@ -24,8 +68,6 @@ if (isset($_COOKIE[session_name()])) {
 // Regenerate session ID
 session_regenerate_id(true);
 
-header('Content-Type: application/json');
-
 $rawInput = file_get_contents('php://input');
 
 // Log incoming request
@@ -33,7 +75,16 @@ error_log("Admin login attempt - Request method: " . $_SERVER['REQUEST_METHOD'])
 error_log("Raw input: " . $rawInput);
 
 // Database connection
-require_once 'db_connect.php';
+try {
+    require_once 'db_connect.php';
+} catch (Throwable $e) {
+    error_log("Admin database connection bootstrap error: " . $e->getMessage());
+    sendAdminJson([
+        'success' => false,
+        'message' => 'Database connection failed.',
+        'error_details' => $e->getMessage()
+    ], 500);
+}
 
 // Function to verify password
 function verifyPassword($password, $hash) {
@@ -80,11 +131,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     if (!isset($data['email']) || !isset($data['password'])) {
         error_log("Missing email or password in request");
-        echo json_encode([
+        sendAdminJson([
             'success' => false,
             'message' => 'Email and password are required'
         ]);
-        exit;
     }
 
     try {
@@ -114,20 +164,18 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!$admin) {
             error_log("Admin not found for email: " . $data['email']);
-            echo json_encode([
+            sendAdminJson([
                 'success' => false,
                 'message' => 'User not found. Please check your email and try again.'
             ]);
-            exit;
         }
 
         if (!$admin['is_active']) {
             error_log("Inactive admin account: " . $data['email']);
-            echo json_encode([
+            sendAdminJson([
                 'success' => false,
                 'message' => 'This account has been deactivated. Please contact support.'
             ]);
-            exit;
         }
 
         // Verify password
@@ -137,11 +185,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             // Try to log failed login attempt, but don't stop if it fails
             logAdminActivity($admin['id'], 'LOGIN_FAILED', 'Failed login attempt');
             
-            echo json_encode([
+            sendAdminJson([
                 'success' => false,
                 'message' => 'Invalid password. Please try again.'
             ]);
-            exit;
         }
         error_log("Password verification successful for admin: " . $admin['id']);
 
@@ -203,34 +250,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ]
             ];
             error_log("Sending success response: " . print_r($response, true));
-            echo json_encode($response);
-            exit;
+            sendAdminJson($response);
 
-        } catch (PDOException $e) {
+        } catch (Throwable $e) {
             error_log("Session creation error: " . $e->getMessage());
-            echo json_encode([
+            sendAdminJson([
                 'success' => false,
                 'message' => 'Failed to create session. Please try again.',
                 'error_details' => $e->getMessage()
-            ]);
-            exit;
+            ], 500);
         }
 
-    } catch (PDOException $e) {
-        error_log("Database error during login: " . $e->getMessage());
+    } catch (Throwable $e) {
+        error_log("Admin login error: " . $e->getMessage());
         error_log("Error code: " . $e->getCode());
         error_log("Error trace: " . $e->getTraceAsString());
-        echo json_encode([
+        sendAdminJson([
             'success' => false,
-            'message' => 'Database error occurred. Please try again later.',
+            'message' => 'Admin login failed. Please try again later.',
             'error_details' => $e->getMessage()
-        ]);
+        ], 500);
     }
 } else {
     error_log("Invalid request method: " . $_SERVER['REQUEST_METHOD']);
-    echo json_encode([
+    sendAdminJson([
         'success' => false,
         'message' => 'Invalid request method'
     ]);
 }
-?> 
+?>
