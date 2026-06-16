@@ -76,7 +76,7 @@ error_log("Raw input: " . $rawInput);
 
 // Database connection
 try {
-    require_once 'db_connect.php';
+    require_once __DIR__ . '/db_connect.php';
 } catch (Throwable $e) {
     error_log("Admin database connection bootstrap error: " . $e->getMessage());
     sendAdminJson([
